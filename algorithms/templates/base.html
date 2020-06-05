@@ -1,0 +1,81 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+
+    <!-- Highlight -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/styles/agate.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.3/highlight.min.js"></script>
+
+    <!-- Vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>Vue.options.delimiters = ['${', '}'];</script>
+
+    <!-- RXjs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/rxjs/6.5.5/rxjs.umd.min.js"></script>
+
+    <!-- Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- Vue.Slider -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/theme/default.css">
+    <script src="https://cdn.jsdelivr.net/npm/vue-slider-component@latest/dist/vue-slider-component.umd.min.js"></script>
+
+    <!-- Global styles -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+
+    <!-- Lodash -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.15/_arrayShuffle.min.js"></script> -->
+
+    <!-- Global js -->
+    <script src="{% static 'global.js' %}"></script>
+
+    {% block css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+        <a class="navbar-brand" href="/">ALGOSTRUCTURE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'algorithms' %}">Algorithms</a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'data_structures' %}">Data structures</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About</a>
+                </li>
+            </ul>
+        </div>
+        {% block navbar_right_zone %}{% endblock %}
+    </nav>
+
+    <div style="height: 56px"></div>
+
+    {% block content %}{% endblock %}
+    {% block js %}{% endblock %}
+
+    <!-- Icons bootstrapping -->
+    <script>feather.replace({width: '18px', height: '18px'})</script>
+
+    <!-- Highlighting.js bootstrapping -->
+    <script>hljs.initHighlightingOnLoad();</script>
+</body>
+</html>

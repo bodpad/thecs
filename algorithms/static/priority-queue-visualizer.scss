@@ -1,0 +1,96 @@
+.container-fluid {
+  height: calc(100vh - 56px);
+  overflow: hidden;
+}
+
+.hljs {
+  padding: 0 .5em;
+}
+
+.visualizer {
+  background: #f9f9f9;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  &__header {
+    // height: 28px;
+  }
+
+  &__body {
+    flex-grow: 1;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__container {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__footer {
+    // height: 28px;
+  }
+}
+
+.pseudocode {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #333;
+
+  &__header {
+    display: flex;
+    align-items: center;
+  }
+
+  &__body {
+    overflow: auto;
+    flex-grow: 1;
+  }
+
+  &__footer {
+
+  }
+}
+
+.text-layer {
+  overflow-y: auto;
+  height: 100%;
+}
+
+.zoom-group {
+  position: absolute;
+  top: 45%;
+  right: 10px;
+}
+
+.queue {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  overflow: auto;
+  &__item {
+    min-width: 20px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+    font-size: 12px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    margin-right: 4px;
+  }
+}
+
+.node {
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  line-height: 20px;
+  font-size: 12px;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  position: absolute;
+}
