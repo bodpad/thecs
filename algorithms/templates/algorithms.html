@@ -1,7 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="container">
-    alg
+  <div class="container mt-4">
+    {% for algorithm in algorithms %}
+      <div>
+        <a href="{% url 'algorithm' algorithm.clean_url %}">{{algorithm.name_en}}</a>
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}

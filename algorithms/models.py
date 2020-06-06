@@ -1,6 +1,17 @@
 import markdown
+import glob
+import os
 from django.db import models
 from taggit.managers import TaggableManager
+from django.conf import settings
+
+
+class AlgorithmImplementation:
+    def __init__(self, filename, name, language, extension):
+        self.filename = filename
+        self.name = name
+        self.language = language
+        self.extension = extension
 
 
 class Algorithm(models.Model):
@@ -25,3 +36,10 @@ class Algorithm(models.Model):
 
     def text_en_as_html(self):
         return markdown.markdown(self.text_en)
+
+    def implementations(self):
+        pathname = os.path.join(settings.BASE_DIR, 'implementation', f'{self.clean_url}.*')
+        impls = glob.glob(pathname)
+        impls = [impl.split('/')[-1] for impl in impls]
+        impls = [AlgorithmImplementation(impl, *impl.split('.')) for impl in impls]
+        return impls

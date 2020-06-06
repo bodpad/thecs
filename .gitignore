@@ -1,2 +1,13 @@
-.idea
-node_modules
+venv/
+.idea/
+__pycache__/
+/static/
+node_modules/
+/project/templates/cache
+/media/*
+
+*.py[cod]
+*$py.class
+.DS_Store
+/project/project/_production_settings.py
+npm-debug.log

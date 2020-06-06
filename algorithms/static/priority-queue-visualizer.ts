@@ -1,5 +1,7 @@
 declare var Vue: any;
 declare var rxjs: any;
+declare var axios: any;
+declare var hljs: any;
 
 function int(x) {
     return Math.floor(x);
@@ -80,7 +82,6 @@ var visualizer = new Vue({
     },
     created: function () {
         this.reloadState();
-        // this.play();
     },
     methods: {
         play: async function() {
@@ -171,10 +172,36 @@ var visualizer = new Vue({
         parent: function (node: GNode) {
             const index = this.nodes.indexOf(node);
             return this.nodes[int(index / 2)];
-        }
+        },
     },
     components: {
         'vueSlider': window[ 'vue-slider-component' ],
     }
 })
 
+var implementation = new Vue({
+    el: '#implementation',
+    data: {
+        algorithmImplementation: '',
+    },
+    created: function () {
+    },
+    methods: {
+        getImplementation: function(lang: string) {
+            this.algorithmImplementation = '';
+            console.log(this.algorithmImplementation);
+            axios
+              .get(`${location.pathname}${lang}/`)
+              .then(response => {
+                  this.algorithmImplementation = response.data;
+                  const block = document.querySelector('pre code');
+                  setTimeout(() => {
+                      hljs.initHighlighting.called = false;
+                  });
+                  setTimeout(() => {
+                      hljs.highlightBlock(block)
+                  }, 1000);
+              });
+        }
+    }
+})

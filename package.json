@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "axios": "^0.19.2",
     "bootstrap-icons": "^1.0.0-alpha4",
     "bootstrap-slider": "^10.6.2",
     "sass": "^1.26.7",
