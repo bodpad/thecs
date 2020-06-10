@@ -23,7 +23,7 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('algorithms/', views.algorithms, name='algorithms'),
     path('data-structures/', views.data_structures, name='data_structures'),
-    path('algorithms/<str:clean_url>/<str:lang>/', views.algorithm_implementation, name='algorithm_implementation'),
+    path('implementation/<str:filename>/', views.algorithm_implementation, name='algorithm_implementation'),
     path('algorithms/<str:clean_url>/', views.algorithm, name='algorithm'),
     path('admin/', admin.site.urls),
 ]

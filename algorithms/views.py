@@ -34,9 +34,12 @@ def data_structures(request):
     return render(request, 'data_structures.html')
 
 
-def algorithm_implementation(request, clean_url, lang):
+def algorithm_implementation(request, filename):
     try:
-        fsock = open(os.path.join(settings.BASE_DIR, 'implementation', lang), 'rb')
-        return HttpResponse(fsock)
+        fsock = open(os.path.join(settings.BASE_DIR, 'implementation', filename), 'rb')
+        response = HttpResponse(fsock)
+        filename = f"{filename.split('.')[0]}.{filename.split('.')[2]}"
+        response['content-disposition'] = f'attachment; filename="{filename}"'
+        return response
     except:
         return HttpResponseNotFound(request)

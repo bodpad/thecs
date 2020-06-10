@@ -1,5 +1,4 @@
-var X = /** @class */ (function () {
-    function X() {
+class X {
+    constructor() {
     }
-    return X;
-}());
+}

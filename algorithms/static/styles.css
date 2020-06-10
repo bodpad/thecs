@@ -1,13 +1,17 @@
-button {
-  line-height: 1 !important;
-}
-
 .text-18 {
   font-size: 18px !important;
 }
 
 .text-24 {
   font-size: 24px !important;
+}
+
+.lh-1 {
+  line-height: 1 !important;
+}
+
+.btn-group button {
+  line-height: 1;
 }
 
 /* Let's get this party started */
@@ -56,6 +60,11 @@ pre > code {
 }
 .triptych > * {
   width: 33.333%;
+  flex-grow: 1;
+  overflow: hidden;
+}
+text {
+  user-select: none;
 }
 
 /*# sourceMappingURL=styles.css.map */

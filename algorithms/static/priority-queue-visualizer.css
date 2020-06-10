@@ -16,10 +16,6 @@
 }
 .visualizer__body {
   flex-grow: 1;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .visualizer__body__container {
   width: 100%;

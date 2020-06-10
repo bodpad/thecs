@@ -1,6 +1,6 @@
 
 button {
-  line-height: 1!important;
+  // line-height: 1!important;
 }
 
 .text-18 {
@@ -9,6 +9,15 @@ button {
 
 .text-24 {
   font-size: 24px !important;
+}
+
+.lh-1 {
+  line-height: 1!important;
+}
+
+// Fix icon in the group
+.btn-group button {
+  line-height: 1;
 }
 
 /* Let's get this party started */
@@ -58,8 +67,14 @@ pre > code {
   height: calc(100vh - 56px);
   & > * {
     width: 33.333%;
+    flex-grow: 1;
+    overflow: hidden;
   }
   & > *:not(:first-child) {
 
   }
+}
+
+text {
+  user-select: none;
 }

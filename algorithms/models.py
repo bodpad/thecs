@@ -6,14 +6,6 @@ from taggit.managers import TaggableManager
 from django.conf import settings
 
 
-class AlgorithmImplementation:
-    def __init__(self, filename, name, language, extension):
-        self.filename = filename
-        self.name = name
-        self.language = language
-        self.extension = extension
-
-
 class Algorithm(models.Model):
     DIFFICULTY_CHOICE = [
         (1, 'Easy'),
@@ -41,5 +33,5 @@ class Algorithm(models.Model):
         pathname = os.path.join(settings.BASE_DIR, 'implementation', f'{self.clean_url}.*')
         impls = glob.glob(pathname)
         impls = [impl.split('/')[-1] for impl in impls]
-        impls = [AlgorithmImplementation(impl, *impl.split('.')) for impl in impls]
+        impls = [{'filename': impl, 'language': impl.split('.')[1]} for impl in impls]
         return impls

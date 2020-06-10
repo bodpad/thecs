@@ -5,7 +5,8 @@ class PriorityQueue
     private ArrayList<Key> pq;
     private int N;
 
-    PriorityQueue() {
+    PriorityQueue()
+    {
         pq = new ArrayList<Key>();
         N = 0;
     }
