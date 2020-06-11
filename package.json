@@ -11,6 +11,7 @@
   "dependencies": {
     "@svgdotjs/svg.js": "^3.0.16",
     "@vue/cli": "^4.4.1",
+    "@vue/cli-service-global": "^4.4.1",
     "axios": "^0.19.2",
     "bootstrap-icons": "^1.0.0-alpha4",
     "bootstrap-slider": "^10.6.2",

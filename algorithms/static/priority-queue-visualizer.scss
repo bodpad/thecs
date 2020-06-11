@@ -67,16 +67,21 @@
   display: flex;
   align-items: center;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
   &__item {
-    min-width: 20px;
-    height: 20px;
+    $size: 30px;
+    min-width: $size;
+    height: $size;
+    background: #fff;
     text-align: center;
-    line-height: 20px;
+    line-height: $size - 4px;
     font-size: 12px;
-    border: 1px solid #ccc;
+    border: 2px solid #ccc;
     border-radius: 50%;
-    margin-right: 4px;
+    margin-left: -8px;
+    &:first-child {
+      margin-left: 0;
+    }
   }
 }
 

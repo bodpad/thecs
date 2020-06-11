@@ -15,8 +15,8 @@ class Algorithm(models.Model):
     name_en = models.CharField(max_length=255)
     name_ru = models.CharField(max_length=255)
     clean_url = models.CharField(max_length=255)
-    text_en = models.TextField()
-    text_ru = models.TextField()
+    text_en = models.TextField(null=True, blank=True)
+    text_ru = models.TextField(null=True, blank=True)
     java = models.TextField(null=True, blank=True)
     python = models.TextField(null=True, blank=True)
     cpp = models.TextField(null=True, blank=True)
@@ -26,8 +26,15 @@ class Algorithm(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
-    def text_en_as_html(self):
-        return markdown.markdown(self.text_en)
+    def save(self, *args, **kwargs):
+        self.text_en = self.text_en.strip()
+        self.text_ru = self.text_ru.strip()
+        super(Algorithm, self).save(*args, **kwargs)
+
+    def formated_text(self, lang_code):
+        attr = f"text_{lang_code}"
+        value = getattr(self, attr) if hasattr(self, attr) else None
+        return markdown.markdown(value) if value else None
 
     def implementations(self):
         pathname = os.path.join(settings.BASE_DIR, 'implementation', f'{self.clean_url}.*')

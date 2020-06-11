@@ -17,7 +17,7 @@ def index(request):
 
 def algorithm(request, clean_url):
     alg = Algorithm.objects.get(clean_url=clean_url)
-    print(request.LANGUAGE_CODE)
+    # print(request.LANGUAGE_CODE)
     return render(request, 'algorithm.html', {"algorithm": alg})
 
 

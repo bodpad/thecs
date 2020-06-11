@@ -49,10 +49,15 @@ class GNode {
     historyPush() {
     }
     move(x, y) {
-        this.history.push([x, y]);
-        this.el.animate().cx(x).cy(y);
-        if (this.parent)
-            this.updateLinePosition();
+        return new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+            this.history.push([x, y]);
+            this.el.animate().cx(x).cy(y);
+            if (this.line && this.parent) {
+                this.line.animate().plot(this.x, this.y, this.parent.x, this.parent.y);
+            }
+            yield sleep(400);
+            resolve();
+        }));
     }
     get x() {
         const last = this.history.length - 1;
@@ -67,38 +72,36 @@ class GNode {
         this.line = this.lc.line(this.x, this.y, node.x, node.y);
         this.line.animate().stroke({ color: '#222', width: 1 });
     }
-    updateLinePosition() {
-        this.line.animate().plot(this.x, this.y, this.parent.x, this.parent.y);
-    }
 }
 var visualizer = new Vue({
     el: '#visualizer',
     data: {
         value: 0,
-        keys: [],
+        keys: null,
         draw: null,
         zoom: 1,
         line_container: null,
-        pq: [null],
+        pq: null,
         options: {}
     },
     created: function () {
-        this.reloadState();
-        setTimeout(() => {
-            this.draw = SVG().addTo('.visualizer__body').size('100%', '100%');
-            this.line_container = this.draw.group();
-            document.querySelector('g').addEventListener("animationstart", function () {
-                console.log(3);
-            }, false);
-        });
-    },
-    watch: {
-        pq: function (val, oldVal) {
-            // console.log(val, oldVal);
-            // console.log(this._watchers[0])
-        }
+        this.init();
     },
     methods: {
+        init: function () {
+            this.pq = [null];
+            this.keys = [60, 46, 51, 45, 65, 89, 39, 31, 7, 80, 54, 83, 94, 16, 74, 58, 53, 73, 29, 97];
+            // while (this.keys.length !== 20) {
+            //     this.addKye();
+            // }
+            if (this.draw)
+                this.draw.remove();
+            console.log(this.keys);
+            setTimeout(() => {
+                this.draw = SVG().addTo('.visualizer__body').size('100%', '100%');
+                this.line_container = this.draw.group();
+            });
+        },
         nextStep: function () {
             if (!this.keys.length)
                 return;
@@ -106,20 +109,26 @@ var visualizer = new Vue({
         },
         add: function (key) {
             return __awaiter(this, void 0, void 0, function* () {
-                const X = 255;
-                const Y = 200;
+                const X = this.draw.node.scrollWidth / 2;
+                const Y = this.draw.node.scrollHeight / 2;
                 const node = new GNode(key, this.draw, this.line_container);
                 this.pq.push(node);
-                // Recalculation of the position of all pq
-                // after adding a node to the heap.
+                /**
+                 * Recalculation of the position of all pq
+                 * after adding a node to the heap.
+                 */
                 for (let i = 1; i <= this.numberOfNodes(); i++) {
                     const node = this.pq[i];
                     const height = this.height(node);
-                    // y axis calc
+                    /**
+                     * Y axis calc
+                     */
                     let y = Y;
                     y += height * D * 2;
                     y -= this.height() * D;
-                    // x axis calc
+                    /**
+                     * X axis calc
+                     */
                     let x = X;
                     let isLeftNode = Number.isInteger(i / 2);
                     const parent = this.parent(node);
@@ -134,38 +143,68 @@ var visualizer = new Vue({
                     }
                     node.move(x, y);
                 }
-                yield sleep(.5);
-                if (this.parent(node))
+                yield sleep(.4);
+                if (this.parent(node)) {
                     node.lineTo(this.parent(node));
+                    yield sleep(.4);
+                }
+                this.swim(this.numberOfNodes());
             });
         },
         swim: function (k) {
             return __awaiter(this, void 0, void 0, function* () {
-                while (k > 1 && this.less(k / 2, k)) {
-                    const n1 = this.pq[k];
-                    const n2 = this.pq[k / 2];
-                    n1.wrong();
-                    n2.wrong();
-                    yield sleep(0.8);
-                    const x = n1.x;
-                    const y = n1.y;
-                    n1.move(n2.x, n2.y);
-                    n2.move(x, y);
+                while (k > 1 && this.less(int(k / 2), k)) {
+                    let p = int(k / 2); // index of parent node
+                    const parent = this.pq[p];
+                    const target = this.pq[k];
+                    // Mark nodes as wrong (red circles)
+                    parent.wrong();
+                    target.wrong();
                     yield sleep(0.4);
-                    n1.right();
-                    n2.right();
-                    this.exch(k, k / 2);
-                    k = k / 2;
+                    // Swap position of two nodes
+                    const parentLine = parent.line;
+                    const targetLine = target.line;
+                    parent.line = target.line = null;
+                    const pp = parent.parent;
+                    parent.parent = target.parent = null;
+                    const x = parent.x;
+                    const y = parent.y;
+                    parent.move(target.x, target.y);
+                    target.move(x, y);
+                    yield sleep(0.4);
+                    parent.line = targetLine;
+                    target.line = parentLine;
+                    parent.parent = target;
+                    // Mark nodes as right (green circles)
+                    parent.right();
+                    target.right();
+                    // Swap inside DS
+                    this.exch(this.pq, k, p);
+                    let lefChild = null;
+                    let rightChild = null;
+                    lefChild = this.pq[k * 2];
+                    rightChild = this.pq[(k * 2) + 1];
+                    if (lefChild)
+                        lefChild.parent = this.pq[k];
+                    if (rightChild)
+                        rightChild.parent = this.pq[k];
+                    lefChild = this.pq[p * 2];
+                    rightChild = this.pq[(p * 2) + 1];
+                    if (lefChild)
+                        lefChild.parent = this.pq[p];
+                    if (rightChild)
+                        rightChild.parent = this.pq[p];
+                    k = p;
                 }
             });
         },
         less: function (i, j) {
             return this.pq[i].key < this.pq[j].key;
         },
-        exch: function (i, j) {
-            const temp = this.pq[i];
-            this.pq[i] = this.pq[j];
-            this.pq[j] = temp;
+        exch: function (arr, i, j) {
+            const temp = arr[i];
+            arr[i] = arr[j];
+            arr[j] = temp;
         },
         addKye: function () {
             while (true) {
@@ -176,20 +215,13 @@ var visualizer = new Vue({
                 }
             }
         },
-        reloadState: function () {
-            this.pq = [null];
-            this.keys = [];
-            while (this.keys.length !== 10) {
-                this.addKye();
-            }
-        },
         shuffle: function () {
             const N = this.keys.length;
             for (let i = 0; i < N; i++) {
                 const r = window['randint'](0, i + 1);
                 this.exch(this.keys, i, r);
             }
-            this.keys.reverse();
+            this.keys.reverse(); // Hack: change detection for array in Vue
         },
         zoomIn: function () {
             if (this.zoom === 1)

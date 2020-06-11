@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load i18n %}
+{% load filters %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% block css %}
   <link rel="stylesheet" href="{% static 'priority-queue-visualizer.css' %}">
@@ -50,7 +52,17 @@
           <h1 class="text-24 m-0">{{algorithm.name_en}}</h1>
           <span class="badge badge-success ml-2">{{algorithm.get_difficulty_display}}</span>
         </div>
-        {{algorithm.text_en_as_html | safe}}
+
+        {% with algorithm|text:LANGUAGE_CODE as text %}
+          {% if text %}
+            {{text|safe}}
+          {% else %}
+            <div class="text-center mt-5">
+              We don't have an article in your language.<br>
+              Help us translate it...
+            </div>
+          {% endif %}
+        {% endwith %}
       </div>
 
       <div class="p-0" style="height: 100%">
@@ -58,7 +70,7 @@
           <div class="visualizer__header p-2">
             <div class="d-flex align-items-center">
               <div class="queue">
-                <div v-for="key in keys" class="queue__item">${key}</div>
+                <div v-for="(key, i) in keys" class="queue__item" v-bind:style="{ zIndex: keys.length-i }">${key}</div>
               </div>
               <button v-on:click="addKye" type="button" class="btn btn-secondary btn-sm ml-auto">
                 <i data-feather="plus"></i>
@@ -66,7 +78,7 @@
               <button v-on:click="shuffle" type="button" class="btn btn-secondary btn-sm ml-1">
                 <i data-feather="shuffle"></i>
               </button>
-              <button v-on:click="reloadState" type="button" class="btn btn-secondary btn-sm ml-1">
+              <button v-on:click="init" type="button" class="btn btn-secondary btn-sm ml-1">
                 <i data-feather="rotate-cw"></i>
               </button>
             </div>
