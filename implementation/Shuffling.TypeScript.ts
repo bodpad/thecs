@@ -6,6 +6,6 @@ function shuffling(arr: number[])
         const R: number = Math.floor(Math.random() * (i + 1));
         const SWAP: number = arr[R];
         arr[R] = arr[i];
-        arr[i] = SWAP
+        arr[i] = SWAP;
     }
 }

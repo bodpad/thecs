@@ -60,15 +60,11 @@ class GNode {
 
     }
     move(x: number, y: number) {
-        return new Promise(async (resolve, reject) => {
-            this.history.push([x, y]);
-            this.el.animate().cx(x).cy(y);
-            if (this.line && this.parent) {
-                this.line.animate().plot(this.x, this.y, this.parent.x, this.parent.y);
-            }
-            await sleep(400);
-            resolve();
-        });
+        this.history.push([x, y]);
+        this.el.animate().cx(x).cy(y);
+        if (this.line && this.parent) {
+            this.line.animate().plot(this.x, this.y, this.parent.x, this.parent.y);
+        }
     }
     get x(): number {
         const last = this.history.length - 1;
@@ -88,13 +84,12 @@ class GNode {
 var visualizer = new Vue({
     el: '#visualizer',
     data: {
-        value: 0,
         keys: null,
         draw: null,
         zoom: 1,
         line_container: null,
         pq: null,
-        options: { }
+        gal: false, // Global animation lock
     },
     created: function () {
         this.init();
@@ -117,7 +112,18 @@ var visualizer = new Vue({
             if (!this.keys.length) return;
             this.add(this.keys.shift());
         },
+        prevStep: function() {
+
+        },
+        enableGAL: function() {
+            this.gal = true;
+        },
+        disableGAL: function() {
+            this.gal = false;
+        },
         add: async function(key: number) {
+            this.enableGAL();
+
             const X = this.draw.node.scrollWidth / 2;
             const Y = this.draw.node.scrollHeight / 2;
 
@@ -223,6 +229,8 @@ var visualizer = new Vue({
 
                 k = p;
             }
+
+            this.disableGAL();
         },
         less: function(i: number, j: number) {
             return this.pq[i].key < this.pq[j].key;

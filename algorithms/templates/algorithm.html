@@ -84,31 +84,20 @@
             </div>
           </div>
 
-          <div class="visualizer__body">
-<!--            <svg class="visualizer__body__container"-->
-<!--                 viewBox="0 0 auto auto"-->
-<!--                 xmlns="http://www.w3.org/2000/svg"-->
-<!--                 v-bind:style="{ zoom: zoom }"></svg>-->
-          </div>
+          <div class="visualizer__body"></div>
 
           <div class="visualizer__footer p-2 row align-items-center">
             <div class="col-5">
               <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary" width="10">
+                <button v-on:click="prevStep" type="button" class="btn btn-secondary" :disabled="gal">
                   <i data-feather="rewind"></i>
                 </button>
-                <button v-on:click="nextStep" type="button" class="btn btn-secondary">
+                <button v-on:click="nextStep" type="button" class="btn btn-secondary" :disabled="gal">
                   <i data-feather="fast-forward"></i>
                 </button>
               </div>
             </div>
-            <div class="col-7">
-              <vue-slider
-                  ref="slider"
-                  v-model="value"
-                  v-bind="options">
-              </vue-slider>
-            </div>
+            <div class="col-7"></div>
           </div>
 
           <div class="zoom-group btn-group-vertical btn-group-sm" role="group">
