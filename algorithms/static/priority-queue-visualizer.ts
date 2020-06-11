@@ -102,12 +102,12 @@ var visualizer = new Vue({
     methods: {
         init: function() {
             this.pq = [null];
-            this.keys =  [60, 46, 51, 45, 65, 89, 39, 31, 7, 80, 54, 83, 94, 16, 74, 58, 53, 73, 29, 97];
-            // while (this.keys.length !== 20) {
-            //     this.addKye();
-            // }
+            this.keys =  [];
+            while (this.keys.length !== 20) {
+                this.addKye();
+            }
             if (this.draw) this.draw.remove();
-            console.log(this.keys);
+            // console.log(this.keys);
             setTimeout(() => { // fix for SVG.js
                 this.draw = SVG().addTo('.visualizer__body').size('100%', '100%');
                 this.line_container = this.draw.group();
