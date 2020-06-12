@@ -151,11 +151,11 @@ var visualizer = new Vue({
         let isLeftNode = Number.isInteger(i/2);
         const parent = this.parent(node);
         if (parent) {
-          const exponent = Math.pow(2, this.numberOfLowerLevels(node) + 1);
+          const exponent = Math.pow(2, this.numberOfLowerLevels(node) + 1) * R;
           if (isLeftNode) {
-            x = parent.x - (exponent * R);
+            x = parent.x - exponent;
           } else {
-            x = parent.x + (exponent * R);
+            x = parent.x + exponent;
           }
         }
 
@@ -212,23 +212,22 @@ var visualizer = new Vue({
         // Swap inside DS
         this.exch(this.pq, k, p);
 
-        let lefChild:   GNode = null;
-        let rightChild: GNode = null;
-
-        lefChild   = this.pq[k*2];
-        rightChild = this.pq[(k*2)+1];
-        if (lefChild)     lefChild.parent = this.pq[k];
-        if (rightChild) rightChild.parent = this.pq[k];
-
-        lefChild   = this.pq[p*2];
-        rightChild = this.pq[(p*2)+1];
-        if (lefChild)     lefChild.parent = this.pq[p];
-        if (rightChild) rightChild.parent = this.pq[p];
+        this.updateLinks(k);
+        this.updateLinks(p);
 
         k = p;
       }
 
       this.disableGAL();
+    },
+    updateLinks: function(k: number) {
+      const parent = this.pq[int(k/2)];
+      const lefChild = this.pq[k*2];
+      const rightChild = this.pq[(k*2)+1];
+
+      if (parent) this.pq[k].parent = parent;
+      if (lefChild) lefChild.parent = this.pq[k];
+      if (rightChild) rightChild.parent = this.pq[k];
     },
     less: function(i: number, j: number) {
       return this.pq[i].key < this.pq[j].key;
