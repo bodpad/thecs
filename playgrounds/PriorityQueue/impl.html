@@ -1,0 +1,48 @@
+{% load static %}
+
+<div class="visualizer" id="visualizer">
+    <div class="visualizer__header p-2">
+        <div class="d-flex align-items-center">
+            <div class="queue">
+                <div v-for="(key, i) in keys" class="queue__item" v-bind:style="{ zIndex: keys.length-i }">${key}</div>
+            </div>
+            <button v-on:click="addKye" type="button" class="btn btn-secondary btn-sm ml-auto">
+                <i data-feather="plus"></i>
+            </button>
+            <button v-on:click="shuffle" type="button" class="btn btn-secondary btn-sm ml-1">
+                <i data-feather="shuffle"></i>
+            </button>
+            <button v-on:click="init" type="button" class="btn btn-secondary btn-sm ml-1">
+                <i data-feather="rotate-cw"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="visualizer__body"></div>
+
+    <div class="visualizer__footer p-2 row align-items-center">
+        <div class="col-5">
+            <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                <button v-on:click="prevStep" type="button" class="btn btn-secondary" :disabled="gal">
+                    <i data-feather="rewind"></i>
+                </button>
+                <button v-on:click="nextStep" type="button" class="btn btn-secondary" :disabled="gal">
+                    <i data-feather="fast-forward"></i>
+                </button>
+            </div>
+        </div>
+        <div class="col-7"></div>
+    </div>
+
+    <div class="zoom-group btn-group-vertical btn-group-sm" role="group">
+        <button v-on:click="zoomIn" type="button" class="btn btn-secondary">
+            <i data-feather="zoom-in"></i>
+        </button>
+        <button v-on:click="zoomOut" type="button" class="btn btn-secondary">
+            <i data-feather="zoom-out"></i>
+        </button>
+    </div>
+</div>
+
+<script src="{% static 'PriorityQueue/impl.js' %}"></script>
+<link rel="stylesheet" href="{% static 'PriorityQueue/impl.css' %}">

@@ -1,14 +1,16 @@
 {
   "compilerOptions": {
     "target": "ES6",
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "types": [],
     "lib": [
       "es2018",
       "dom"
     ]
   },
-  "exclude": [
-    "implementation",
-    "node_modules",
-    "dist"
+  "include": [
+    "algorithms/**/*",
+    "playgrounds/**/*"
   ]
 }

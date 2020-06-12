@@ -57,7 +57,9 @@ ROOT_URLCONF = 'a25s.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, "playgrounds")
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

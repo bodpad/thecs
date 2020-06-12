@@ -12,3 +12,8 @@ dist/
 .DS_Store
 /project/project/_production_settings.py
 npm-debug.log
+
+algorithms/**/*.js
+playgrounds/**/*.js
+*.css
+*.map
