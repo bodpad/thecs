@@ -1,33 +1,4 @@
 declare var Vue: any;
-declare var rxjs: any;
-declare var axios: any;
-declare var hljs: any;
-declare var ClipboardJS: any;
-declare var SVG: any;
-
-var implementation = new Vue({
-    el: '#implementation',
-    data: {
-        implementations: [],
-        implementation: null
-    },
-    created: function () {
-        this.implementations = JSON.parse(document.getElementById('algorithm-implementations-data').textContent);
-        this.implementation = this.implementations[0];
-        this.getImplementation(this.implementation)
-    },
-    methods: {
-        getImplementation: async function(implementation: any) {
-            this.implementation = implementation;
-            const resp = await axios.get(`/implementation/${implementation.filename}/`);
-            this.$set(this.implementation, 'code', resp.data)
-            const block = document.querySelector('pre code');
-            block.innerHTML = resp.data;
-            hljs.initHighlighting.called = false;
-            hljs.highlightBlock(block);
-        }
-    }
-})
 
 var triptych = new Vue({
     el: '#triptych',

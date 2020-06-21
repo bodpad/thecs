@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+  <div class="container mt-4">
+    <div class="row">
+      <div class="col-4">
+        <h2>{% trans "Data structures" %}</h2>
+        {% for item in data_structures %}
+          <div>
+            <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="col-4">
+        <h2>{% trans "Data types" %}</h2>
+        {% for item in data_types %}
+          <div>
+            <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="col-4">
+        <h2>{% trans "Algorithms" %}</h2>
+        {% for item in algorithms %}
+          <div>
+            <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endblock %}

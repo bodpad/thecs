@@ -21,9 +21,8 @@ urlpatterns = [
     path('', views.index),
     path('i18n/', include('django.conf.urls.i18n')),
     path('about/', views.about, name='about'),
-    path('algorithms/', views.algorithms, name='algorithms'),
-    path('data-structures/', views.data_structures, name='data_structures'),
-    path('implementation/<str:filename>/', views.algorithm_implementation, name='algorithm_implementation'),
-    path('algorithms/<str:clean_url>/', views.algorithm, name='algorithm'),
+    path('cs/table-of-contents/', views.table_of_contents, name='table_of_contents'),
+    path('cs/<str:clean_url>/', views.cs, name='cs'),
+    path('cs/<str:clean_url>/<str:extension>/', views.implementation, name='implementation'),
     path('admin/', admin.site.urls),
 ]

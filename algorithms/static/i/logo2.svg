@@ -1,4 +1,4 @@
-<svg viewBox="0 0 280 101" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+<svg viewBox="0 0 280 88" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
 
     <style>.small { font: bold 20px monospace; }</style>
 
@@ -11,14 +11,14 @@
     <use href="#x"
          fill="transparent"
          stroke="#3C82F4"
-         x="34"
-         y="-10.5"/>
+         x="4"
+         y="-28"/>
 
     <use href="#x"
          fill="transparent"
          stroke="#DB4235"
-         x="94"
-         y="19"/>
+         x="61"
+         y="1"/>
 
     <use href="#x"
          fill="transparent"
@@ -29,11 +29,11 @@
     <use href="#x"
          fill="transparent"
          stroke="#0A9D57"
-         x="177"
-         y="2" />
+         x="176"
+         y="1" />
 
-    <!--    <text x="40" y="35" class="small" fill="#777">If:</text>-->
-    <text x="121" y="79" class="small" fill="#777">A25S</text>
-    <!--    <text x="144" y="35" class="small" fill="#777">Then:</text>-->
-    <!--    <text x="218" y="66" class="small" fill="#777">❤️</text>-->
+<!--    <text x="40" y="35" class="small" fill="#777">If:</text>-->
+    <text x="85" y="62" class="small" fill="#777">A25S</text>
+<!--    <text x="144" y="35" class="small" fill="#777">Then:</text>-->
+<!--    <text x="218" y="66" class="small" fill="#777">❤️</text>-->
 </svg>

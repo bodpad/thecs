@@ -4,3 +4,5 @@ window['randint'] = function(min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 }
 
+// Scope for Vue instances
+window['vm'] = {};

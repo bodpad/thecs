@@ -58,7 +58,8 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, "playgrounds")
+            # os.path.join(BASE_DIR, "playgrounds"),
+            os.path.join(BASE_DIR, "templates")
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -128,6 +129,7 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "node_modules"),
     os.path.join(BASE_DIR, "playgrounds"),
+    os.path.join(BASE_DIR, "dist"),
 ]
 
 # TAGGIT
@@ -136,4 +138,8 @@ TAGGIT_CASE_INSENSITIVE = True
 LANGUAGES = [
     ('ru', 'Russian'),
     ('en', 'English'),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
 ]

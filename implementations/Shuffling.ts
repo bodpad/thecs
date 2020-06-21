@@ -1,4 +1,4 @@
-function shuffling(arr: number[])
+function shuffling(arr: number[]): void
 {
     const N: number = arr.length;
 

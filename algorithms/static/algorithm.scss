@@ -3,31 +3,6 @@
   overflow: hidden;
 }
 
-.hljs {
-  padding: 0 .5em;
-}
-
-.pseudocode {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  background: #333;
-
-  &__header {
-    display: flex;
-    align-items: center;
-  }
-
-  &__body {
-    overflow: auto;
-    flex-grow: 1;
-  }
-
-  &__footer {
-
-  }
-}
-
 .text-layer {
   overflow-y: auto;
   height: 100%;

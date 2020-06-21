@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load i18n %}
+
+{% block css %}
+
+{% endblock %}
+
+{% block js %}
+
+{% endblock %}
+
+{% block content %}
+  <main role="main">
+    <div id=default></div>
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+      <div class="container">
+        <h1 class="display-4">Добро пожаловать!</h1>
+        <blockquote class="blockquote">
+          <p class="mb-0">
+            {% blocktrans %}
+            Мы приветствуем вас на образовательной площадке посвященной Алгоритмам и Структурам данных.
+            Это важный раздел информатики (computer since) дающее фундаментальное представелние о работе
+            вычислительных систем, понимание о том, как компьютеры эффективно хранят данные, манипулируют
+            ими и используют их для решения самого разнообразного круга задач.
+
+            Тот фундамент, который позволит вам открывать новые горизонты в вашей профессиональной деятельности.
+            {% endblocktrans %}
+          </p>
+          <footer class="blockquote-footer text-right">
+            C уважением
+            <cite title="Source Title">команда a25s</cite>
+          </footer>
+        </blockquote>
+        <p><a class="btn btn-primary btn-lg btn-sm" href="{% url 'about' %}" role="button">{% trans "Learn more" %} »</a></p>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Example row of columns -->
+      <div class="row">
+        {% for algorithm in last_modified %}
+        <div class="col-md-4">
+          <h2>{{algorithm.name_en}}</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn btn-secondary" href="{% url 'cs' algorithm.clean_url %}" role="button">View details »</a></p>
+        </div>
+        {% endfor %}
+      </div>
+
+      <hr>
+
+    </div> <!-- /container -->
+
+  </main>
+{% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-05 15:47+0000\n"
+"POT-Creation-Date: 2020-06-21 10:19+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,55 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: algorithms/templates/algorithm.html:66
+#: templates/algorithm.html:54
+msgid "We don't have an article in your language."
+msgstr "У нас нет перевода для вашего языка."
+
+#: templates/algorithm.html:55
+msgid "Help us translate it.."
+msgstr "Помогите нам сделать это..."
+
+#: templates/base.html:85
+msgid "Home"
+msgstr "Главная"
+
+#: templates/base.html:88
+msgid "Contents"
+msgstr "Содержание"
+
+#: templates/base.html:91
+msgid "About"
+msgstr "О проекте"
+
+#: templates/index.html:22
+msgid ""
+"\n"
+"            Мы приветствуем вас на образовательной площадке посвященной "
+"Алгоритмам и Структурам данных.\n"
+"            Это важный раздел информатики (computer since) дающее "
+"фундаментальное представелние о работе\n"
+"            вычислительных систем, понимание о том, как компьютеры "
+"эффективно хранят данные, манипулируют\n"
+"            ими и используют их для решения самого разнообразного круга "
+"задач.\n"
+"\n"
+"            Тот фундамент, который позволит вам открывать новые горизонты в "
+"вашей профессиональной деятельности.\n"
+"            "
+msgstr ""
+
+#: templates/index.html:36
+msgid "Learn more"
+msgstr "Читать далее"
+
+#: templates/table_of_contents.html:8
+msgid "Data structures"
+msgstr "Структуры данных"
+
+#: templates/table_of_contents.html:16
+msgid "Data types"
+msgstr "Типы данных"
+
+#: templates/table_of_contents.html:24
 msgid "Algorithms"
-msgstr "Fkuj"
+msgstr "Алгоритмы"
