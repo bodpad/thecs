@@ -18,6 +18,7 @@ class Algorithm(models.Model):
     ]
     PLAYGROUND_CHOICE = [
         ('binary-heap', 'BinaryHeap'),
+        ('shuffling', 'Shuffling'),
     ]
     name_en = models.CharField(max_length=255)
     name_ru = models.CharField(max_length=255)

@@ -104,3 +104,8 @@ text {
     display: none;
   }
 }
+
+.text-monospace {
+  font-family: "Sans Mono", "Consolas", "Courier", monospace;
+  white-space: pre;
+}
