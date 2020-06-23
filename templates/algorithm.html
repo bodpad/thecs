@@ -52,7 +52,7 @@
 
     <div class="triptych">
       <div class="p-0 text-layer container">
-        <div class="d-flex align-items-center px-3 mb-2 mt-3">
+        <div class="d-flex align-items-center px-3 mb-2 mt-4">
           <h1 class="text-24 m-0">{{algorithm.name_en}}</h1>
 <!--          <span class="badge badge-success ml-2">{{algorithm.get_difficulty_display}}</span>-->
         </div>
@@ -70,7 +70,7 @@
       </div>
 
       {% if algorithm.playground %}
-        <div class="p-0" style="height: 100%">
+        <div class="p-0 border-left" style="height: 100%">
           <{{algorithm.playground}}></{{algorithm.playground}}>
         </div>
       {% endif %}

@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build:front": "npm run build:CodeViewer && npm run build:BinaryHeap && npm run build:Shuffling",
     "build:CodeViewer": "vue-cli-service build --target lib --no-clean --filename code-viewer algorithms/static/CodeViewer.vue",
     "build:BinaryHeap": "vue-cli-service build --target lib --no-clean --filename binary-heap playgrounds/BinaryHeap.vue",
     "build:Shuffling": "vue-cli-service build --target lib --no-clean --filename shuffling playgrounds/Shuffling.vue",
