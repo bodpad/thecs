@@ -53,6 +53,7 @@
 <script lang="ts">
   import Vue from 'vue'
   import Component from 'vue-class-component'
+  import { timer } from 'rxjs'
   import { BIconPlus, BIconShuffle, BIconArrowClockwise, BIconSkipStartFill, BIconSkipEndFill } from 'bootstrap-vue'
 
   Vue.component('BIconPlus', BIconPlus);
@@ -61,9 +62,6 @@
   Vue.component('BIconSkipStartFill', BIconSkipStartFill);
   Vue.component('BIconSkipEndFill', BIconSkipEndFill);
 
-  declare const rxjs: any;
-  declare const axios: any;
-  declare const ClipboardJS: any;
   declare const SVG: any;
 
   // Diameter of Node
@@ -77,7 +75,7 @@
    * a floating point number for subsecond precision.
    */
   async function sleep(seconds) {
-    await rxjs.timer(seconds*1000).toPromise();
+    await timer(seconds*1000).toPromise();
   }
 
   function int(x) {
@@ -153,7 +151,6 @@
     gal = false; // Global animation lock
 
     created() {
-      console.log(this);
       this.init();
       window.addEventListener("resize", this.onWindowResize);
     }

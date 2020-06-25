@@ -5,7 +5,6 @@ __pycache__/
 node_modules/
 /project/templates/cache
 /media/*
-dist/
 
 *.py[cod]
 *$py.class
@@ -14,5 +13,5 @@ dist/
 npm-debug.log
 
 algorithms/**/*.js
-*.css
-*.map
+algorithms/**/*.css
+algorithms/**/*.map

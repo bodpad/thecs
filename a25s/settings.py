@@ -24,7 +24,7 @@ SECRET_KEY = '@hm7$l%b$d(g54bp(2cb21#b_!5pmwrtv1hg%%4h^7&&4)ge1b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -58,7 +58,6 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            # os.path.join(BASE_DIR, "playgrounds"),
             os.path.join(BASE_DIR, "templates")
         ],
         'APP_DIRS': True,
@@ -124,12 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, "static"),
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "node_modules"),
-    os.path.join(BASE_DIR, "playgrounds"),
-    os.path.join(BASE_DIR, "dist"),
+    os.path.join(BASE_DIR, "dist")
 ]
 
 # TAGGIT
