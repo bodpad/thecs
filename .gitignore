@@ -1,7 +1,7 @@
 venv/
 .idea/
 __pycache__/
-/static/
+/staticfiles/
 node_modules/
 /project/templates/cache
 /media/*

@@ -13,4 +13,4 @@ class Command(BaseCommand):
             src = os.path.join(settings.BASE_DIR, "node_modules", pkg)
             dst = os.path.join(settings.BASE_DIR, "dist", pkg)
             shutil.copytree(src, dst, dirs_exist_ok=True)
-        self.stdout.write(self.style.SUCCESS('Successfully closed poll ""'))
+        self.stdout.write(self.style.SUCCESS('Successfully'))

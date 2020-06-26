@@ -1,0 +1,39 @@
+<svg viewBox="0 0 280 101" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+
+    <style>.small { font: bold 20px monospace; }</style>
+
+    <defs>
+        <polygon id="x"
+                 points="0,55 50,30 100,55 50,80 0,55"
+                 stroke-width="4px"/>
+    </defs>
+
+    <use href="#x"
+         fill="transparent"
+         stroke="#3C82F4"
+         x="34"
+         y="-10.5"/>
+
+    <use href="#x"
+         fill="transparent"
+         stroke="#DB4235"
+         x="94"
+         y="19"/>
+
+    <use href="#x"
+         fill="transparent"
+         stroke="#F5AF00"
+         x="118"
+         y="-28" />
+
+    <use href="#x"
+         fill="transparent"
+         stroke="#0A9D57"
+         x="177"
+         y="2" />
+
+    <!--    <text x="40" y="35" class="small" fill="#777">If:</text>-->
+    <text x="121" y="79" class="small" fill="#777">A25S</text>
+    <!--    <text x="144" y="35" class="small" fill="#777">Then:</text>-->
+    <!--    <text x="218" y="66" class="small" fill="#777">❤️</text>-->
+</svg>

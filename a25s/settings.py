@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,7 +25,7 @@ SECRET_KEY = '@hm7$l%b$d(g54bp(2cb21#b_!5pmwrtv1hg%%4h^7&&4)ge1b'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['hidden-plateau-15367.herokuapp.com']
+ALLOWED_HOSTS = ['hidden-plateau-15367.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -123,10 +124,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "dist")
+    os.path.join(BASE_DIR, "dist"),
+    os.path.join(BASE_DIR, "static")
 ]
 
 # TAGGIT
@@ -140,3 +142,5 @@ LANGUAGES = [
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
+
+django_heroku.settings(locals())

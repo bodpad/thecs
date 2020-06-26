@@ -1,0 +1,9 @@
+.container-fluid {
+  height: calc(100vh - 56px);
+  overflow: hidden;
+}
+
+.text-layer {
+  overflow-y: auto;
+  height: 100%;
+}
