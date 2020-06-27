@@ -1,11 +1,11 @@
 import os
 import shutil
-from django.core.management.base import BaseCommand, CommandError
+from django.core.management.base import BaseCommand
 from django.conf import settings
 
 
 class Command(BaseCommand):
-    help = 'Closes the specified poll for voting'
+    help = ''
 
     def handle(self, *args, **options):
         packages = ["@svgdotjs", "vue", "bootstrap", "axios", "popper.js", "jquery", "highlight.js"]

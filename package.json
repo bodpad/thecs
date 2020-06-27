@@ -12,8 +12,6 @@
     "watch:BinaryHeap": "vue-cli-service build --watch --target lib --no-clean --filename binary-heap playgrounds/BinaryHeap.vue",
     "watch:Shuffling": "vue-cli-service build --watch --target lib --no-clean --filename shuffling playgrounds/Shuffling.vue",
     "lint": "vue-cli-service lint",
-    "makemessages": "python manage.py makemessages -a -i node_modules",
-    "compilemessages": "python manage.py compilemessages"
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.0.16",

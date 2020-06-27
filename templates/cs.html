@@ -51,6 +51,7 @@
 {% block content %}
 
     <div class="triptych">
+
       <div class="p-0 text-layer container">
         <div class="d-flex align-items-center px-3 mb-2 mt-4">
           <h1 class="text-24 m-0">{{algorithm.name_en}}</h1>
@@ -70,15 +71,27 @@
       </div>
 
       {% if algorithm.playground %}
-        <div class="p-0 border-left" style="height: 100%">
-          <{{algorithm.playground}}></{{algorithm.playground}}>
+        <div class="p-0 border-left h-100">
+          <{{algorithm.playground}}>
+            <div class="h-100 d-flex align-items-center justify-content-center">
+              <div class="spinner-border text-danger" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </{{algorithm.playground}}>
         </div>
       {% endif %}
 
       {% if algorithm.implementations %}
-        <div>
+        <div class="border-left">
           {{ algorithm.implementations|json_script:"algorithm-implementations-data" }}
-          <code-viewer></code-viewer>
+          <code-viewer>
+            <div class="h-100 d-flex align-items-center justify-content-center">
+              <div class="spinner-border text-primary" role="status">
+                <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </code-viewer>
         </div>
       {% endif %}
 

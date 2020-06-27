@@ -26,7 +26,7 @@ class Algorithm(models.Model):
     text_en = models.TextField(null=True, blank=True)
     text_ru = models.TextField(null=True, blank=True)
     difficulty = models.SmallIntegerField(choices=DIFFICULTY_CHOICE, null=True, blank=True)
-    publish = models.BooleanField(default=False)
+    publish = models.BooleanField(default=True)
     tags = TaggableManager(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)

@@ -11,6 +11,8 @@ node_modules/
 .DS_Store
 /project/project/_production_settings.py
 npm-debug.log
+dump.json
+db.sqlite3
 
 algorithms/**/*.js
 algorithms/**/*.css

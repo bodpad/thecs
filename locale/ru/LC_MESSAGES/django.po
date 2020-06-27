@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-21 10:19+0000\n"
+"POT-Creation-Date: 2020-06-27 12:46+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,27 +20,27 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: templates/algorithm.html:54
-msgid "We don't have an article in your language."
-msgstr "У нас нет перевода для вашего языка."
-
-#: templates/algorithm.html:55
-msgid "Help us translate it.."
-msgstr "Помогите нам сделать это..."
-
-#: templates/base.html:85
+#: templates/base.html:49
 msgid "Home"
 msgstr "Главная"
 
-#: templates/base.html:88
+#: templates/base.html:52
 msgid "Contents"
 msgstr "Содержание"
 
-#: templates/base.html:91
+#: templates/base.html:55
 msgid "About"
 msgstr "О проекте"
 
-#: templates/index.html:22
+#: templates/cs.html:66
+msgid "We don't have an article in your language."
+msgstr "У нас нет перевода для вашего языка."
+
+#: templates/cs.html:67
+msgid "Help us translate it.."
+msgstr "Помогите нам сделать это..."
+
+#: templates/index.html:20
 msgid ""
 "\n"
 "            Мы приветствуем вас на образовательной площадке посвященной "
@@ -57,18 +57,22 @@ msgid ""
 "            "
 msgstr ""
 
-#: templates/index.html:36
-msgid "Learn more"
-msgstr "Читать далее"
+#: templates/index.html:35
+msgid "About the project"
+msgstr "О проекте"
 
-#: templates/table_of_contents.html:8
+#: templates/index.html:36
+msgid "Learn"
+msgstr "Начать"
+
+#: templates/toc.html:8
 msgid "Data structures"
 msgstr "Структуры данных"
 
-#: templates/table_of_contents.html:16
+#: templates/toc.html:16
 msgid "Data types"
 msgstr "Типы данных"
 
-#: templates/table_of_contents.html:24
+#: templates/toc.html:24
 msgid "Algorithms"
 msgstr "Алгоритмы"

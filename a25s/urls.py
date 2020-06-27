@@ -21,7 +21,7 @@ urlpatterns = [
     path('', views.index),
     path('i18n/', include('django.conf.urls.i18n')),
     path('about/', views.about, name='about'),
-    path('cs/', views.table_of_contents, name='table_of_contents'),
+    path('cs/', views.table_of_contents, name='toc'),
     path('cs/<str:clean_url>/', views.cs, name='cs'),
     path('cs/<str:clean_url>/<str:extension>/', views.implementation, name='implementation'),
     path('admin/', admin.site.urls),

@@ -1,6 +1,4 @@
-import glob
 import os
-
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
 from .models import Algorithm
@@ -8,11 +6,7 @@ from django.conf import settings
 
 
 def index(request):
-    algs = Algorithm.objects.filter(entity=1).order_by('-created')[:10]
-    context = {
-        'last_modified': algs
-    }
-    return render(request, 'index.html', context)
+    return render(request, 'index.html')
 
 
 def cs(request, clean_url):
@@ -23,7 +17,7 @@ def cs(request, clean_url):
         "algorithm": obj,
         "playground": playground, # deprecated
     }
-    return render(request, 'algorithm.html', context)
+    return render(request, 'cs.html', context)
 
 
 def about(request):
@@ -39,7 +33,7 @@ def table_of_contents(request):
         "data_structures": data_structures,
         "data_types": data_types
     }
-    return render(request, 'table_of_contents.html', context)
+    return render(request, 'toc.html', context)
 
 
 def implementation(request, clean_url, extension):
