@@ -19,4 +19,4 @@
 
 ### Dump and load data
     python manage.py dumpdata --exclude=contenttypes > dump.json
-    python manage.py loaddata dump.json
+    cat dump.json | heroku run --no-tty -- python manage.py loaddata --format=json -
