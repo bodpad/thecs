@@ -1,7 +1,12 @@
-// @import "~bootstrap/scss/bootstrap";
+@import "../node_modules/bootstrap/scss/bootstrap";
+// @import "_markdown-fenced-code-tabs";
 
-button {
-  // line-height: 1!important;
+html {
+  font-size: 14px;
+}
+
+pre {
+  margin-bottom: 0;
 }
 
 .text-12 {
@@ -72,21 +77,37 @@ pre > code {
  * Triptych
  */
 .triptych {
-  display: flex;
-  height: calc(100vh - 56px);
-  & > * {
-    width: 33.333% !important;
-    flex-grow: 1;
-    overflow: hidden;
-  }
-  & > *:not(:first-child) {
+  &_single {
 
   }
-  & > *:nth-child(1) {
-    h2 {
-      font-size: 20px;
+
+  &_multiple {
+    display: flex;
+    height: calc(100vh - 56px);
+    & > *:first-child {
+      overflow-y: auto;
+      height: 100%;
+    }
+    & > * {
+      width: 33.333% !important;
+      flex-grow: 1;
+      overflow: hidden;
     }
   }
+
+  & > *:first-child {
+    h2 {
+      font-size: 1.4rem;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 4px;
+      color: purple;
+      padding-top: 10px;
+    }
+    h3 {
+      font-size: 1.1rem;
+    }
+  }
+
   & > *:nth-child(2) {
     background: #f9f9f9;
     height: 100%;
@@ -108,4 +129,43 @@ text {
 .text-monospace {
   font-family: "Sans Mono", "Consolas", "Courier", monospace;
   white-space: pre;
+}
+
+.codehilitetable {
+  background: #f8f8f8;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  width: 100%;
+  .linenodiv {
+    pre {
+      color: #888;
+    }
+  }
+  td.code {
+    width: 100%;
+  }
+  .codehilite {
+
+  }
+}
+
+.md-fenced-code-tabs {
+  padding: 10px;
+  box-shadow: 0 0 4px #ccc;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  .tab-content {
+    padding: 10px;
+    background: rgb(248, 248, 248);
+    border-bottom: 1px solid #dee2e6;
+    border-left: 1px solid #dee2e6;
+    border-right: 1px solid #dee2e6;
+  }
+  .nav-item {
+    font-size: 0.8rem;
+  }
+  .nav-link.active {
+    background: rgb(248, 248, 248);
+    border-bottom-color: rgb(248, 248, 248);
+  }
 }

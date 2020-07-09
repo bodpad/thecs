@@ -1,20 +1,17 @@
-import markdown
 import glob
 import os
 from django.db import models
 from taggit.managers import TaggableManager
 from django.conf import settings
+from .utils import markdown2html
 
 
 class Algorithm(models.Model):
-    DIFFICULTY_CHOICE = [
-        (1, 'Эффективный'),
-        (2, 'Неэффективный'),
-    ]
+    language_code = 'en'
     ENTITY_CHOICE = [
         (1, 'Algorithm'),
         (2, 'Data structure'),
-        (3, 'Data type'),
+        (3, 'Abstract data type'),
     ]
     PLAYGROUND_CHOICE = [
         ('binary-heap', 'BinaryHeap'),
@@ -25,12 +22,11 @@ class Algorithm(models.Model):
     clean_url = models.CharField(max_length=255)
     text_en = models.TextField(null=True, blank=True)
     text_ru = models.TextField(null=True, blank=True)
-    difficulty = models.SmallIntegerField(choices=DIFFICULTY_CHOICE, null=True, blank=True)
     publish = models.BooleanField(default=True)
     tags = TaggableManager(blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
-    entity = models.SmallIntegerField(choices=ENTITY_CHOICE, default=1)
+    entity = models.SmallIntegerField(choices=ENTITY_CHOICE, blank=True, null=True)
     playground = models.CharField(max_length=255, choices=PLAYGROUND_CHOICE, null=True, blank=True)
 
     def save(self, *args, **kwargs):
@@ -42,11 +38,18 @@ class Algorithm(models.Model):
         attr = f"text_{lang_code}"
         value = getattr(self, attr) if hasattr(self, attr) else None
         if value:
-            value = markdown.markdown(value, extensions=['tables', 'toc', 'nl2br', 'fenced_code', 'footnotes', 'attr_list'])
-            value = value.replace('<table>', '<table class="table table-sm table-bordered">')
-            value = value.replace('<thead>', '<thead class="thead-dark">')
-            return value
+            return markdown2html(value)
         return None
+
+    @property
+    def name(self):
+        attr = f"name_{self.language_code}"
+        return getattr(self, attr) if hasattr(self, attr) else self.name_en
+
+    @property
+    def text(self):
+        attr = f"text_{self.language_code}"
+        return getattr(self, attr) if hasattr(self, attr) else self.text_en
 
     def implementations(self):
         languages = {

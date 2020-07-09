@@ -8,13 +8,7 @@
     <title>Title</title>
     <meta http-equiv=X-UA-Compatible content="IE=edge">
     <meta name=viewport content="width=device-width,initial-scale=1">
-
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="{% static 'bootstrap/dist/css/bootstrap.min.css' %}">
-
-    <!-- Global styles -->
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-
     {% block css %}{% endblock %}
 </head>
 <body>
@@ -79,6 +73,11 @@
     <!-- Global js -->
     <script src="{% static 'global.js' %}"></script>
 
+<!--    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.0/build/styles/default.min.css">-->
+<!--    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.0/build/highlight.min.js"></script>-->
+<!--    <script>hljs.initHighlightingOnLoad();</script>-->
+
     {% block js %}{% endblock %}
+
 </body>
 </html>

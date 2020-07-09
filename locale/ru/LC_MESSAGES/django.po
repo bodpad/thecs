@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-06-27 12:46+0000\n"
+"POT-Creation-Date: 2020-07-02 11:03+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,11 +32,11 @@ msgstr "Содержание"
 msgid "About"
 msgstr "О проекте"
 
-#: templates/cs.html:66
+#: templates/cs.html:81
 msgid "We don't have an article in your language."
 msgstr "У нас нет перевода для вашего языка."
 
-#: templates/cs.html:67
+#: templates/cs.html:82
 msgid "Help us translate it.."
 msgstr "Помогите нам сделать это..."
 
@@ -57,22 +57,18 @@ msgid ""
 "            "
 msgstr ""
 
-#: templates/index.html:35
-msgid "About the project"
-msgstr "О проекте"
-
 #: templates/index.html:36
 msgid "Learn"
 msgstr "Начать"
 
-#: templates/toc.html:8
+#: templates/toc.html:13
 msgid "Data structures"
 msgstr "Структуры данных"
 
-#: templates/toc.html:16
-msgid "Data types"
-msgstr "Типы данных"
+#: templates/toc.html:21
+msgid "Abstract data types"
+msgstr "Абстарктные типы данных"
 
-#: templates/toc.html:24
+#: templates/toc.html:29
 msgid "Algorithms"
 msgstr "Алгоритмы"

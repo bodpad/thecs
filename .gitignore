@@ -5,6 +5,7 @@ __pycache__/
 node_modules/
 /project/templates/cache
 /media/*
+/temp/
 
 *.py[cod]
 *$py.class

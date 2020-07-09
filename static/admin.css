@@ -1,5 +1,13 @@
 textarea {
   font-family: Monaco, Menlo, Courier, Courier New, Andale Mono;
-  width: 50% !important;
+  width: 40% !important;
   min-height: 400px;
+}
+
+textarea + iframe {
+  width: 40% !important;
+  min-height: 400px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 10px;
 }

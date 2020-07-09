@@ -1,33 +1,68 @@
 {% extends 'base.html' %}
 {% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 
 {% block content %}
   <div class="container mt-4">
-    <div class="row">
+
+    <div class="border-bottom pb-4">
+      <a href="{% url 'cs' 'introduction' %}">{{introduction.name}}</a>
+    </div>
+
+    <div class="row mt-4">
       <div class="col-4">
-        <h4>{% trans "Data structures" %}</h4>
+        <h4 class="pb-2">{% trans "Data structures" %}</h4>
         {% for item in data_structures %}
-          <div>
-            <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+          <div class="row align-items-center">
+            <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
+              <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+            </div>
+            {% if not LANGUAGE_CODE == 'en' %}
+              <div class="col-6 text-12 text-secondary">
+                {{item.name_ru}}
+              </div>
+            {% endif %}
           </div>
         {% endfor %}
       </div>
-      <div class="col-4">
-        <h4>{% trans "Data types" %}</h4>
+      <div class="col-4 border-left border-right">
+        <h4 class="pb-2">{% trans "Abstract data types" %}</h4>
         {% for item in data_types %}
-          <div>
-            <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+          <div class="row align-items-center">
+            <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
+              <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+            </div>
+            {% if not LANGUAGE_CODE == 'en' %}
+            <div class="col-6 text-12 text-secondary">
+              {{item.name_ru}}
+            </div>
+            {% endif %}
           </div>
         {% endfor %}
       </div>
       <div class="col-4">
-        <h4>{% trans "Algorithms" %}</h4>
+        <h4 class="pb-2">{% trans "Algorithms" %}</h4>
         {% for item in algorithms %}
-          <div>
-            <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+          <div class="row align-items-center">
+            <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
+              <a href="{% url 'cs' item.clean_url %}">{{item.name_en}}</a>
+            </div>
+            {% if not LANGUAGE_CODE == 'en' %}
+            <div class="col-6 text-12 text-secondary">
+              {{item.name_ru}}
+            </div>
+            {% endif %}
           </div>
         {% endfor %}
       </div>
     </div>
+
+    <div class="border-top mt-4 pt-4">
+      <h4>{{glossary.name}}</h4>
+      <div>
+        {{glossary.text}}
+      </div>
+    </div>
+
   </div>
 {% endblock %}

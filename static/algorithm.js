@@ -7,6 +7,12 @@ var triptych = new Vue({
         rightHidden: JSON.parse(localStorage.getItem('triptych') || '{}').rightHidden,
     },
     created: function () {
+        if ($('.triptych').children().length === 1) {
+            $('.triptych').addClass('triptych_single');
+        }
+        else {
+            $('.triptych').addClass('triptych_multiple');
+        }
         if (this.leftHidden)
             this.hideLeft(false);
         if (this.centerHidden)
