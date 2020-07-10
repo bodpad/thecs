@@ -12,9 +12,9 @@ class AlgorithmAdmin(admin.ModelAdmin):
 
     class Media:
         css = {
-            'all': ('admin.css',),
+            'all': ('css/admin.css',),
         }
 
-        js = ('admin.js',)
+        js = ('js/admin.js',)
 
 

@@ -22,7 +22,7 @@
   {% endif %}
 
   <script>var app = new Vue({}).$mount('.triptych')</script>
-  <script src="{% static 'algorithm.js' %}"></script>
+  <script src="{% static 'js/algorithm.js' %}"></script>
 {% endblock %}
 
 {% block navbar_right_zone %}
@@ -52,7 +52,7 @@
 
 {% block content %}
 
-    <div class="triptych">
+    <div class="triptych {% if algorithm.playground or algorithm.implementations %}triptych_multiple{% endif %}">
 
       <div class="p-0 container">
         <div class="d-flex align-items-center px-3 mb-2 mt-4">
@@ -60,7 +60,7 @@
             {% if algorithm.entity %}
               {{algorithm.name_en}}
             {% else %}
-              {{algorithm|name:LANGUAGE_CODE}}
+              {{algorithm.name}}
             {% endif %}
           </h1>
 
@@ -73,16 +73,14 @@
           {% endif %}
         </div>
 
-        {% with algorithm|text:LANGUAGE_CODE as text %}
-          {% if text %}
-            <div class="px-3">{{text|safe}}</div>
-          {% else %}
-            <div class="text-center mt-5">
-              {% trans "We don't have an article in your language." %}<br>
-              {% trans "Help us translate it.." %}
-            </div>
-          {% endif %}
-        {% endwith %}
+        {% if algorithm.text %}
+          <div class="px-3">{{algorithm.text|safe}}</div>
+        {% else %}
+          <div class="text-center mt-5">
+            {% trans "We don't have an article in your language." %}<br>
+            {% trans "Help us translate it.." %}
+          </div>
+        {% endif %}
       </div>
 
       {% if algorithm.playground %}

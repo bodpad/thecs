@@ -15,8 +15,7 @@ def index(request):
 
 def cs(request, clean_url):
     obj = Algorithm.objects.get(clean_url=clean_url)
-    path = os.path.join(settings.BASE_DIR, "playgrounds", obj.clean_url)
-    playground = f"{obj.clean_url}/impl.html" if os.path.exists(path) else None
+    obj.language_code = request.LANGUAGE_CODE
     context = {
         "algorithm": obj
     }
@@ -33,8 +32,6 @@ def toc(request):
     data_types = Algorithm.objects.filter(entity=3, publish=True)
     other = list(Algorithm.objects.filter(id__in=[14, 16]))
 
-
-    print(Algorithm.objects.filter(id__in=[14, 16]))
     other[0].language_code = request.LANGUAGE_CODE
     other[1].language_code = request.LANGUAGE_CODE
 

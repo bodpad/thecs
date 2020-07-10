@@ -1,4 +1,4 @@
-@import "../node_modules/bootstrap/scss/bootstrap";
+@import "../../node_modules/bootstrap/scss/bootstrap";
 // @import "_markdown-fenced-code-tabs";
 
 html {
@@ -83,7 +83,7 @@ pre > code {
 
   &_multiple {
     display: flex;
-    height: calc(100vh - 56px);
+    height: calc(100vh - 49px);
     & > *:first-child {
       overflow-y: auto;
       height: 100%;

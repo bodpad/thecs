@@ -30086,12 +30086,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"71b67c42-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./playgrounds/CodeViewer.vue?vue&type=template&id=49fd16d3&scoped=true&
-var CodeViewervue_type_template_id_49fd16d3_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"p-0 invisible-scrollbar d-flex flex-column h-100",staticStyle:{"background":"#333"}},[_c('div',{staticClass:"d-flex align-items-center p-2"},[_c('a',{staticClass:"btn btn-secondary btn-sm ml-auto",attrs:{"href":_vm.implementation.extension,"download":_vm.implementation.filename}},[_c('b-icon-download')],1),_c('button',{directives:[{name:"clipboard",rawName:"v-clipboard:copy",value:(_vm.implementation.sourcecode),expression:"implementation.sourcecode",arg:"copy"}],staticClass:"btn btn-secondary btn-sm ml-1",attrs:{"type":"button","disabled":!_vm.implementation.sourcecode}},[_c('b-icon-clipboard')],1),_c('div',{staticClass:"dropdown"},[_c('button',{staticClass:"btn btn-secondary dropdown-toggle btn-sm ml-1",attrs:{"type":"button","id":"dropdownMenuButton","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v(" "+_vm._s(_vm.implementation.language)+" ")]),_c('div',{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"dropdownMenuButton"}},_vm._l((_vm.implementations),function(implementation){return _c('button',{key:implementation.extension,staticClass:"dropdown-item",on:{"click":function($event){return _vm.getImplementation(implementation)}}},[_vm._v(" "+_vm._s(implementation.language)+" ")])}),0)])]),_vm._m(0)])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"71b67c42-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./static/js/CodeViewer.vue?vue&type=template&id=2d703145&scoped=true&
+var CodeViewervue_type_template_id_2d703145_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"p-0 invisible-scrollbar d-flex flex-column h-100",staticStyle:{"background":"#333"}},[_c('div',{staticClass:"d-flex align-items-center p-2"},[_c('a',{staticClass:"btn btn-secondary btn-sm ml-auto",attrs:{"href":_vm.implementation.extension,"download":_vm.implementation.filename}},[_c('b-icon-download')],1),_c('button',{directives:[{name:"clipboard",rawName:"v-clipboard:copy",value:(_vm.implementation.sourcecode),expression:"implementation.sourcecode",arg:"copy"}],staticClass:"btn btn-secondary btn-sm ml-1",attrs:{"type":"button","disabled":!_vm.implementation.sourcecode}},[_c('b-icon-clipboard')],1),_c('div',{staticClass:"dropdown"},[_c('button',{staticClass:"btn btn-secondary dropdown-toggle btn-sm ml-1",attrs:{"type":"button","id":"dropdownMenuButton","data-toggle":"dropdown","aria-haspopup":"true","aria-expanded":"false"}},[_vm._v(" "+_vm._s(_vm.implementation.language)+" ")]),_c('div',{staticClass:"dropdown-menu",attrs:{"aria-labelledby":"dropdownMenuButton"}},_vm._l((_vm.implementations),function(implementation){return _c('button',{key:implementation.extension,staticClass:"dropdown-item",on:{"click":function($event){return _vm.getImplementation(implementation)}}},[_vm._v(" "+_vm._s(implementation.language)+" ")])}),0)])]),_vm._m(0)])}
 var staticRenderFns = [function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"flex-fill overflow-auto"},[_c('pre',[_c('code')])])}]
 
 
-// CONCATENATED MODULE: ./playgrounds/CodeViewer.vue?vue&type=template&id=49fd16d3&scoped=true&
+// CONCATENATED MODULE: ./static/js/CodeViewer.vue?vue&type=template&id=2d703145&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/tslib/tslib.es6.js
 /*! *****************************************************************************
@@ -32622,7 +32622,7 @@ var BIconXSquareFill = /*#__PURE__*/make_icon_makeIcon('XSquareFill', '<path fil
 var vue_clipboard = __webpack_require__("4eb5");
 var vue_clipboard_default = /*#__PURE__*/__webpack_require__.n(vue_clipboard);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/ts-loader??ref--14-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./playgrounds/CodeViewer.vue?vue&type=script&lang=ts&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js??ref--14-0!./node_modules/thread-loader/dist/cjs.js!./node_modules/babel-loader/lib!./node_modules/ts-loader??ref--14-3!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./static/js/CodeViewer.vue?vue&type=script&lang=ts&
 
 
 
@@ -32656,8 +32656,8 @@ let CodeViewervue_type_script_lang_ts_CodeViewer = class CodeViewer extends exte
 };
 CodeViewervue_type_script_lang_ts_CodeViewer = __decorate([vue_class_component_esm], CodeViewervue_type_script_lang_ts_CodeViewer);
 /* harmony default export */ var CodeViewervue_type_script_lang_ts_ = (CodeViewervue_type_script_lang_ts_CodeViewer);
-// CONCATENATED MODULE: ./playgrounds/CodeViewer.vue?vue&type=script&lang=ts&
- /* harmony default export */ var playgrounds_CodeViewervue_type_script_lang_ts_ = (CodeViewervue_type_script_lang_ts_); 
+// CONCATENATED MODULE: ./static/js/CodeViewer.vue?vue&type=script&lang=ts&
+ /* harmony default export */ var js_CodeViewervue_type_script_lang_ts_ = (CodeViewervue_type_script_lang_ts_); 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
 
@@ -32758,7 +32758,7 @@ function normalizeComponent (
   }
 }
 
-// CONCATENATED MODULE: ./playgrounds/CodeViewer.vue
+// CONCATENATED MODULE: ./static/js/CodeViewer.vue
 
 
 
@@ -32767,21 +32767,21 @@ function normalizeComponent (
 /* normalize component */
 
 var component = normalizeComponent(
-  playgrounds_CodeViewervue_type_script_lang_ts_,
-  CodeViewervue_type_template_id_49fd16d3_scoped_true_render,
+  js_CodeViewervue_type_script_lang_ts_,
+  CodeViewervue_type_template_id_2d703145_scoped_true_render,
   staticRenderFns,
   false,
   null,
-  "49fd16d3",
+  "2d703145",
   null
   
 )
 
-/* harmony default export */ var playgrounds_CodeViewer = (component.exports);
+/* harmony default export */ var js_CodeViewer = (component.exports);
 // CONCATENATED MODULE: ./node_modules/@vue/cli-service/lib/commands/build/entry-lib.js
 
 
-/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (playgrounds_CodeViewer);
+/* harmony default export */ var entry_lib = __webpack_exports__["default"] = (js_CodeViewer);
 
 
 

@@ -8,7 +8,7 @@
     <title>Title</title>
     <meta http-equiv=X-UA-Compatible content="IE=edge">
     <meta name=viewport content="width=device-width,initial-scale=1">
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block css %}{% endblock %}
 </head>
 <body>
@@ -45,16 +45,13 @@
                 <li class="nav-item active">
                     <a class="nav-link" href="{% url 'toc' %}">{% trans "Contents" %}</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'about' %}">{% trans "About" %}</a>
-                </li>
             </ul>
         </div>
 
         {% block navbar_right_zone %}{% endblock %}
     </nav>
 
-    <div style="height: 56px"></div>
+    <div style="height: 49px"></div>
 
     {% block content %}{% endblock %}
 
@@ -71,7 +68,7 @@
     <script>Vue.prototype.$http = axios;</script>
 
     <!-- Global js -->
-    <script src="{% static 'global.js' %}"></script>
+    <script src="{% static 'js/global.js' %}"></script>
 
 <!--    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.0/build/styles/default.min.css">-->
 <!--    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.0/build/highlight.min.js"></script>-->

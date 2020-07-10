@@ -9983,7 +9983,7 @@ pre > code {
  */
 .triptych_multiple {
   display: flex;
-  height: calc(100vh - 56px);
+  height: calc(100vh - 49px);
 }
 .triptych_multiple > *:first-child {
   overflow-y: auto;

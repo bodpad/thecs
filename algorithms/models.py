@@ -1,9 +1,22 @@
 import glob
 import os
+import re
 from django.db import models
 from taggit.managers import TaggableManager
 from django.conf import settings
 from .utils import markdown2html
+
+
+def PLAYGROUND_CHOICE():
+    playgrounds = os.listdir(os.path.join(settings.BASE_DIR, 'static/pg'))
+    playgrounds = [pg.replace('.vue', '') for pg in playgrounds]
+    output = []
+    for pg in playgrounds:
+        output.append((
+            re.sub(r'(?<!^)(?=[A-Z])', '-', pg).lower(),
+            pg
+        ))
+    return output
 
 
 class Algorithm(models.Model):
@@ -12,10 +25,6 @@ class Algorithm(models.Model):
         (1, 'Algorithm'),
         (2, 'Data structure'),
         (3, 'Abstract data type'),
-    ]
-    PLAYGROUND_CHOICE = [
-        ('binary-heap', 'BinaryHeap'),
-        ('shuffling', 'Shuffling'),
     ]
     name_en = models.CharField(max_length=255)
     name_ru = models.CharField(max_length=255)
@@ -27,7 +36,7 @@ class Algorithm(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     entity = models.SmallIntegerField(choices=ENTITY_CHOICE, blank=True, null=True)
-    playground = models.CharField(max_length=255, choices=PLAYGROUND_CHOICE, null=True, blank=True)
+    playground = models.CharField(max_length=255, choices=PLAYGROUND_CHOICE(), null=True, blank=True)
 
     def save(self, *args, **kwargs):
         self.text_en = self.text_en.strip()
@@ -49,7 +58,7 @@ class Algorithm(models.Model):
     @property
     def text(self):
         attr = f"text_{self.language_code}"
-        return getattr(self, attr) if hasattr(self, attr) else self.text_en
+        return markdown2html(getattr(self, attr)) if hasattr(self, attr) else markdown2html(self.text_en)
 
     def implementations(self):
         languages = {
