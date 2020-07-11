@@ -15,8 +15,9 @@
     python manage.py compilemessages
 
 ### Build front
-    npm run build:front && python manage.py buildfront
+    python manage.py pg build && python manage.py buildfront
 
 ### Dump and load data
     python manage.py dumpdata --exclude=contenttypes > dump.json
+    heroku run python manage.py flush --no-input
     cat dump.json | heroku run --no-tty -- python manage.py loaddata --format=json -
