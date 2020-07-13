@@ -23,9 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@hm7$l%b$d(g54bp(2cb21#b_!5pmwrtv1hg%%4h^7&&4)ge1b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', True)
 
-ALLOWED_HOSTS = ['hidden-plateau-15367.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['hidden-plateau-15367.herokuapp.com']
 
 
 # Application definition
