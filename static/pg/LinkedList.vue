@@ -35,9 +35,9 @@
 <span class="text-secondary">}</span>
 </pre>
             </div>
-            <svg xmlns="http://www.w3.org/2000/svg" height="90px" width="60px">
-              <path d="M0 56 C 30 56, 35 45, 60 45" stroke="#007bff" stroke-width="2px" fill="transparent"/>
-              <path d="M54 41 60 45 54 49" stroke="#007bff" stroke-width="1px" fill="#007bff"/>
+            <svg xmlns="http://www.w3.org/2000/svg" height="106px" width="60px">
+              <path d="M0 72 C 30 72, 35 53, 60 53" stroke="#007bff" stroke-width="2px" fill="transparent"/>
+              <path d="M54 49 60 53 54 57" stroke="#007bff" stroke-width="1px" fill="#007bff"/>
             </svg>
             <div v-if="nodes.length === (i+1)" class="null-pointer">null</div>
           </div>
@@ -129,7 +129,7 @@
   }
 
   .null-pointer {
-    height: 90px;
+    height: 106px;
     display: flex;
     align-items: center;
     padding: 8px;
