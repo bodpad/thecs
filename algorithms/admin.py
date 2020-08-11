@@ -4,7 +4,7 @@ from .models import Algorithm
 
 @admin.register(Algorithm)
 class AlgorithmAdmin(admin.ModelAdmin):
-    list_display = ('name_en', 'name_ru', 'clean_url', 'tag_list', 'playground', 'publish')
+    list_display = ('title_en', 'title_ru', 'clean_url', 'tag_list', 'playground', 'publish')
     list_filter = ('entity',)
 
     def tag_list(self, obj):

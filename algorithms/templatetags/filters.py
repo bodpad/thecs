@@ -14,4 +14,4 @@ def text(obg: Algorithm, lang_code: str):
 
 @register.filter
 def name(obg: Algorithm, lang_code: str):
-    return obg.name_en if lang_code == 'en' else obg.name_ru
+    return obg.title_en if lang_code == 'en' else obg.title_ru

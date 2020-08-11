@@ -1,9 +1,7 @@
-import java.util.ArrayList;
-
-class PriorityQueue
+class LinkedList<T>
 {
     private ArrayList<Key> pq;
-    private int N;
+    private head N;
 
     PriorityQueue()
     {

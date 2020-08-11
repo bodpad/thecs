@@ -18,7 +18,7 @@ from django.urls import path, include
 from algorithms import views
 
 urlpatterns = [
-    path('', views.index),
+    path('', views.index, name="index"),
     path('i18n/', include('django.conf.urls.i18n')),
     path('about/', views.about, name='about'),
     path('cs/', views.toc, name='toc'),

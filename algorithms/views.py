@@ -1,7 +1,7 @@
 import os
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
 from .utils import markdown2html
@@ -10,7 +10,22 @@ from django.conf import settings
 
 
 def index(request):
-    return render(request, 'index.html')
+    algorithms = Algorithm.objects.filter(entity=1, publish=True)
+    data_structures = Algorithm.objects.filter(entity=2, publish=True)
+    data_types = Algorithm.objects.filter(entity=3, publish=True)
+    other = list(Algorithm.objects.filter(id__in=[14, 16]))
+
+    other[0].language_code = request.LANGUAGE_CODE
+    other[1].language_code = request.LANGUAGE_CODE
+
+    context = {
+        "algorithms": algorithms,
+        "data_structures": data_structures,
+        "data_types": data_types,
+        "introduction": other[0],
+        "glossary": other[1],
+    }
+    return render(request, 'index.html', context)
 
 
 def cs(request, clean_url):
@@ -27,22 +42,7 @@ def about(request):
 
 
 def toc(request):
-    algorithms = Algorithm.objects.filter(entity=1, publish=True)
-    data_structures = Algorithm.objects.filter(entity=2, publish=True)
-    data_types = Algorithm.objects.filter(entity=3, publish=True)
-    other = list(Algorithm.objects.filter(id__in=[14, 16]))
-
-    other[0].language_code = request.LANGUAGE_CODE
-    other[1].language_code = request.LANGUAGE_CODE
-
-    context = {
-        "algorithms": algorithms,
-        "data_structures": data_structures,
-        "data_types": data_types,
-        "introduction": other[0],
-        "glossary": other[1],
-    }
-    return render(request, 'toc.html', context)
+    return redirect('index')
 
 
 def implementation(request, clean_url, extension):

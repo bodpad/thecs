@@ -19,29 +19,46 @@ def PLAYGROUND_CHOICE():
     return output
 
 
-class Algorithm(models.Model):
+class Article(models.Model):
     language_code = 'en'
+
+    title_en = models.CharField(max_length=255)
+    title_ru = models.CharField(max_length=255)
+    clean_url = models.CharField(max_length=255)
+    text_en = models.TextField(null=True, blank=True)
+    text_ru = models.TextField(null=True, blank=True)
+    tags = TaggableManager(blank=True)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
+    publish = models.BooleanField(default=True)
+
+    def save(self, *args, **kwargs):
+        self.text_en = self.text_en.strip()
+        self.text_ru = self.text_ru.strip()
+        super(Article, self).save(*args, **kwargs)
+
+    @property
+    def name(self):
+        attr = f"title_{self.language_code}"
+        return getattr(self, attr) if hasattr(self, attr) else self.title_en
+
+    @property
+    def text(self):
+        attr = f"text_{self.language_code}"
+        return markdown2html(getattr(self, attr)) if hasattr(self, attr) else markdown2html(self.text_en)
+
+    class Meta:
+        abstract = True
+
+
+class Algorithm(Article):
     ENTITY_CHOICE = [
         (1, 'Algorithm'),
         (2, 'Data structure'),
         (3, 'Abstract data type'),
     ]
-    name_en = models.CharField(max_length=255)
-    name_ru = models.CharField(max_length=255)
-    clean_url = models.CharField(max_length=255)
-    text_en = models.TextField(null=True, blank=True)
-    text_ru = models.TextField(null=True, blank=True)
-    publish = models.BooleanField(default=True)
-    tags = TaggableManager(blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
     entity = models.SmallIntegerField(choices=ENTITY_CHOICE, blank=True, null=True)
     playground = models.CharField(max_length=255, choices=PLAYGROUND_CHOICE(), null=True, blank=True)
-
-    def save(self, *args, **kwargs):
-        self.text_en = self.text_en.strip()
-        self.text_ru = self.text_ru.strip()
-        super(Algorithm, self).save(*args, **kwargs)
 
     def formated_text(self, lang_code):
         attr = f"text_{lang_code}"
@@ -49,16 +66,6 @@ class Algorithm(models.Model):
         if value:
             return markdown2html(value)
         return None
-
-    @property
-    def name(self):
-        attr = f"name_{self.language_code}"
-        return getattr(self, attr) if hasattr(self, attr) else self.name_en
-
-    @property
-    def text(self):
-        attr = f"text_{self.language_code}"
-        return markdown2html(getattr(self, attr)) if hasattr(self, attr) else markdown2html(self.text_en)
 
     def implementations(self):
         languages = {
