@@ -9953,34 +9953,30 @@ pre {
  * Custom scroll
  */
 div::-webkit-scrollbar {
-  width: 0;
-  height: 0;
-}
-
-div:hover::-webkit-scrollbar {
   width: 4px;
   height: 4px;
 }
 
-div::-webkit-scrollbar-track {
-  -webkit-box-shadow: inset 0 0 6px #eee;
-  -webkit-border-radius: 10px;
-  border-radius: 0px;
+div:hover::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px #eee;
 }
 
-div::-webkit-scrollbar-thumb {
-  -webkit-border-radius: 10px;
-  border-radius: 1px;
+div:hover::-webkit-scrollbar-thumb {
   background: #ccc;
 }
 
-div::-webkit-scrollbar-thumb:window-inactive {
-  background: rgba(255, 0, 0, 0.4);
+div::-webkit-scrollbar-track {
+  border-radius: 0;
+}
+
+div::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background: transparent;
 }
 
 *.invisible-scrollbar *::-webkit-scrollbar {
-  width: 0px !important;
-  height: 0px !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 pre > code {
@@ -9990,6 +9986,17 @@ pre > code {
 /**
  * Triptych
  */
+.triptych .playground-container > * {
+  box-shadow: 0 0 4px #ccc;
+  background: #f9f9f9;
+  border-radius: 4px;
+}
+.triptych .implementation-container > * {
+  box-shadow: 0 0 4px #ccc;
+  background: #f9f9f9;
+  border-radius: 4px;
+  overflow: hidden;
+}
 .triptych_multiple {
   display: flex;
   height: calc(100vh - 49px);
@@ -10012,10 +10019,6 @@ pre > code {
 }
 .triptych > *:first-child h3 {
   font-size: 1.1rem;
-}
-.triptych > *:nth-child(2) {
-  background: #f9f9f9;
-  height: 100%;
 }
 
 text {
@@ -10071,15 +10074,6 @@ text {
 .navbar {
   border-bottom: 1px solid #eee;
   background: #fff;
-}
-
-.j {
-  position: relative;
-  overflow: hidden;
-}
-.j .container {
-  position: relative;
-  z-index: 3;
 }
 
 /*# sourceMappingURL=styles.css.map */
