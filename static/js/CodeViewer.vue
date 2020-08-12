@@ -190,7 +190,6 @@ export default class CodeViewer extends Vue {
     this.implementations = JSON.parse(document.getElementById('algorithm-implementations-data').textContent);
     this.implementation = this.implementations[0];
     this.getImplementation(this.implementation);
-    console.log(this.implementations);
   }
 
   mounted() {
