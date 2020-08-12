@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 import django_heroku
+from distutils.util import strtobool
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,9 +24,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@hm7$l%b$d(g54bp(2cb21#b_!5pmwrtv1hg%%4h^7&&4)ge1b'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG', True)
+DEBUG = strtobool(os.environ.get('DEBUG')) if os.environ.get('DEBUG') else True
 
-ALLOWED_HOSTS = ['hidden-plateau-15367.herokuapp.com']
+ALLOWED_HOSTS = ['hidden-plateau-15367.herokuapp.com', 'thecs.org']
 
 
 # Application definition
