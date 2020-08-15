@@ -5,16 +5,17 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>{% block title %}{% endblock %} - TheCS</title>
     <meta http-equiv=X-UA-Compatible content="IE=edge">
     <meta name=viewport content="width=device-width,initial-scale=1">
+    {% if YANDEX_METRIKA_ID %}{% include 'metrika.html' %}{% endif %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block css %}{% endblock %}
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
         <a class="navbar-brand p-0" href="/">
-            <img src="/static/i/logo.svg" alt="" height="32px">
+            <b>TheCS</b>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>

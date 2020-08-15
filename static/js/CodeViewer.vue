@@ -44,7 +44,7 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false">
-          Code style: <b>{{ selectedTheme }}</b>
+          Theme: <b>{{ selectedTheme }}</b>
         </button>
 
         <div class="dropdown-menu overflow-auto" aria-labelledby="dropdownMenuButton" style="max-height: 50vh">

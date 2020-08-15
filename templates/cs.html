@@ -4,6 +4,10 @@
 {% load filters %}
 {% get_current_language as LANGUAGE_CODE %}
 
+{% block title %}
+    {{algorithm.title_en}}
+{% endblock %}
+
 {% block css %}
   <link rel="stylesheet" href="{% static 'css/algorithm.css' %}">
 {% endblock %}
@@ -53,37 +57,37 @@
 
     <div class="triptych {% if algorithm.playground or algorithm.implementations %}triptych_multiple{% endif %}">
 
-      <div class="p-0 container">
-        <div class="d-flex align-items-center px-3 mb-2 mt-4">
-          <h1 class="text-24 m-0">
-            {% if algorithm.entity %}
-              {{algorithm.title_en}}
+      <div class="p-3 container">
+        <div class="">
+            <div class="d-flex align-items-center mb-2">
+                <h1 class="text-24 m-0">
+                    {% if algorithm.entity %}
+                    {{algorithm.title_en}}
+                    {% else %}
+                    {{algorithm.name}}
+                    {% endif %}
+                </h1>
+
+                {% if request.user.is_superuser %}
+                    <a href="{% url 'admin:algorithms_algorithm_change' algorithm.id %}"
+                       target="_blank"
+                       class="ml-2">[edit]</a>
+                {% endif %}
+            </div>
+
+            {% if algorithm.text %}
+                <div class="">{{algorithm.text|safe}}</div>
             {% else %}
-              {{algorithm.name}}
+                <div class="text-center mt-5">
+                    {% trans "We don't have an article in your language." %}<br>
+                    {% trans "Help us translate it.." %}
+                </div>
             {% endif %}
-          </h1>
-
-<!--          <span class="badge badge-success ml-2">{{algorithm.get_difficulty_display}}</span>-->
-
-          {% if request.user.is_superuser %}
-            <a href="{% url 'admin:algorithms_algorithm_change' algorithm.id %}"
-               target="_blank"
-               class="ml-2">[edit]</a>
-          {% endif %}
         </div>
-
-        {% if algorithm.text %}
-          <div class="px-3">{{algorithm.text|safe}}</div>
-        {% else %}
-          <div class="text-center mt-5">
-            {% trans "We don't have an article in your language." %}<br>
-            {% trans "Help us translate it.." %}
-          </div>
-        {% endif %}
       </div>
 
       {% if algorithm.playground %}
-        <div class="p-2 h-100 playground-container">
+        <div class="pt-3 pr-3 pb-3 h-100 playground-container">
             <div class="h-100">
               <{{algorithm.playground}}>
                 <div class="h-100 d-flex align-items-center justify-content-center">
@@ -97,7 +101,7 @@
       {% endif %}
 
       {% if algorithm.implementations %}
-        <div class="p-2 implementation-container">
+        <div class="pt-3 pr-3 pb-3 implementation-container">
             <div class="h-100">
               {{ algorithm.implementations|json_script:"algorithm-implementations-data" }}
               <code-viewer>

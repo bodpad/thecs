@@ -88,7 +88,7 @@ pre > code {
 
   .playground-container {
     & > * {
-      box-shadow: 0 0 4px #ccc;
+      box-shadow: 0 0 7px 0 #ccc inset;
       background: #f9f9f9;
       border-radius: 4px;
     }
