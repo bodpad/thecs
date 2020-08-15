@@ -17,4 +17,3 @@ db.sqlite3
 algorithms/**/*.js
 algorithms/**/*.css
 algorithms/**/*.map
-.env
