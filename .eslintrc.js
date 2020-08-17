@@ -20,6 +20,7 @@ module.exports = {
     "no-console": "off",
     "no-irregular-whitespace": "off",
     "no-constant-condition": "off",
-    "vue/require-v-for-key": "off"
+    "vue/require-v-for-key": "off",
+    "@typescript-eslint/ban-ts-ignore": "off"
   }
 };

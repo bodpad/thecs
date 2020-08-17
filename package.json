@@ -4,12 +4,13 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build:CodeViewer": "vue-cli-service build --target lib --no-clean --filename code-viewer static/js/CodeViewer.vue",
-    "watch:CodeViewer": "vue-cli-service build --watch --target lib --no-clean --filename code-viewer static/js/CodeViewer.vue",
+    "build:CodeViewer": "vue-cli-service build --target lib --no-clean --filename code-viewer src/components/CodeViewer.vue",
+    "watch:CodeViewer": "vue-cli-service build --watch --target lib --no-clean --filename code-viewer src/components/CodeViewer.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "@svgdotjs/svg.js": "^3.0.16",
+    "@types/lodash": "^4.14.159",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "bootstrap-icons": "^1.0.0-alpha4",

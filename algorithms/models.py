@@ -8,8 +8,9 @@ from .utils import markdown2html
 
 
 def PLAYGROUND_CHOICE():
-    playgrounds = os.listdir(os.path.join(settings.BASE_DIR, 'static/pg'))
+    playgrounds = os.listdir(os.path.join(settings.BASE_DIR, 'src/components'))
     playgrounds = [pg.replace('.vue', '') for pg in playgrounds]
+    playgrounds = filter(lambda pg: pg not in ['CodeViewer'], playgrounds)
     output = []
     for pg in playgrounds:
         output.append((
