@@ -5,96 +5,98 @@
 {% block title %}Algorithms & Data structures{% endblock %}
 
 {% block content %}
-  <div class="container">
-    <div class="jumbotron mt-4 py-4 px-2">
-      <div class="container">
-        <h1 class="display-4" style="font-size: 20px; font-weight: 600;">👋 Привет!</h1>
-        <blockquote class="blockquote text-14">
-          <p class="mb-0">
-            {% blocktrans %}
-            Мы приветствуем тебя на образовательном ресурсе посвященной <b>Алгоритмам</b> и <b>Структурам данных</b>.
-            Это важный раздел информатики (computer since) дающее фундаментальное представелние о работе
-            вычислительных систем, понимание о том, как компьютеры эффективно хранят данные, манипулируют
-            ими и используют их для решения самого разнообразного круга задач.
-
-            Тот фундамент, который позволит вам открывать новые горизонты в вашей профессиональной деятельности.
-            {% endblocktrans %}
-          </p>
-          <footer class="blockquote-footer text-right">
-            C уважением
-            <cite title="Source Title">команда a25s</cite>
-          </footer>
-        </blockquote>
-      </div>
+<div class="container">
+  <div class="jumbotron mt-4 py-4 px-2">
+    <div class="container">
+      <h1 class="display-4" style="font-size: 20px; font-weight: 600;">Привет! 👋</h1>
+      <blockquote class="blockquote text-14">
+        <p class="mb-0">
+          {% blocktrans %}
+          Приветствуем тебя на образовательном ресурсе посвященном <b>Алгоритмам</b> и <b>Структурам
+          данных</b>.
+          Это важный раздел информатики (computer since) дающее фундаментальное представелние о способах
+          эффективного хранения и организации данных в памяти компьютера и использованию их для решения
+          самого разнообразного круга задач.
+          <br>
+          Это необходимый фундамент знаний и навыков, который позволит вам открывать новые горизонты в вашей
+          профессиональной деятельности.
+          {% endblocktrans %}
+        </p>
+        <footer class="blockquote-footer text-right">
+          C уважением
+          <cite title="Source Title">команда a25s</cite>
+        </footer>
+      </blockquote>
     </div>
-
-    <div class="border-bottom pb-4">
-      <a href="{% url 'cs' 'introduction' %}">{{introduction.name}}</a>
-    </div>
-
-    <div class="row mt-4">
-      <div class="col-4">
-        <h4 class="pb-2">{% trans "Data structures" %}</h4>
-        {% for item in data_structures %}
-        <div class="row align-items-center">
-          <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
-            <a href="{% url 'cs' item.clean_url %}">{{item.title_en}}</a>
-          </div>
-          {% if not LANGUAGE_CODE == 'en' %}
-          <div class="col-6 text-12 text-secondary">
-            {{item.title_ru}}
-          </div>
-          {% endif %}
-        </div>
-        {% endfor %}
-      </div>
-      <div class="col-4 border-left border-right">
-        <h4 class="pb-2">{% trans "Abstract data types" %}</h4>
-        {% for item in data_types %}
-        <div class="row align-items-center">
-          <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
-            <a href="{% url 'cs' item.clean_url %}">{{item.title_en}}</a>
-          </div>
-          {% if not LANGUAGE_CODE == 'en' %}
-          <div class="col-6 text-12 text-secondary">
-            {{item.title_ru}}
-          </div>
-          {% endif %}
-        </div>
-        {% endfor %}
-      </div>
-      <div class="col-4">
-        <h4 class="pb-2">{% trans "Algorithms" %}</h4>
-        {% for item in algorithms %}
-        <div class="row align-items-center">
-          <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
-            <a href="{% url 'cs' item.clean_url %}">{{item.title_en}}</a>
-          </div>
-          {% if not LANGUAGE_CODE == 'en' %}
-          <div class="col-6 text-12 text-secondary">
-            {{item.title_ru}}
-          </div>
-          {% endif %}
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <div class="border-top mt-4 pt-4">
-      <h4>{{glossary.name}}</h4>
-      <div>
-        {{glossary.text|safe}}
-      </div>
-    </div>
-
-    <footer class="pt-4 my-md-5 pt-md-5 border-top">
-      <div class="row">
-        <div class="col-12 col-md">
-          <b>TheCS.org</b>
-          <small class="d-block mb-3 text-muted">MIT License © 2020-{% now "Y" %}</small>
-        </div>
-      </div>
-    </footer>
-
   </div>
+
+  <div class="border-bottom pb-4">
+    <a href="{% url 'cs' 'introduction' %}">{{ introduction.title }}</a>
+  </div>
+
+  <div class="row mt-4">
+    <div class="col-sm-12 col-md-4">
+      <h4 class="pb-2">{% trans "Data structures" %}</h4>
+      {% for item in data_structures %}
+      <div class="row align-items-center">
+        <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
+          <a href="{% url 'cs' item.clean_url %}">{{ item.title_en }}</a>
+        </div>
+        {% if not LANGUAGE_CODE == 'en' %}
+        <div class="col-6 text-12 text-secondary">
+          {{ item.title_ru }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-sm-12 col-md-4 border-left border-right">
+      <h4 class="pb-2">{% trans "Abstract data types" %}</h4>
+      {% for item in data_types %}
+      <div class="row align-items-center">
+        <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
+          <a href="{% url 'cs' item.clean_url %}">{{ item.title_en }}</a>
+        </div>
+        {% if not LANGUAGE_CODE == 'en' %}
+        <div class="col-6 text-12 text-secondary">
+          {{ item.title_ru }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <h4 class="pb-2">{% trans "Algorithms" %}</h4>
+      {% for item in algorithms %}
+      <div class="row align-items-center">
+        <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
+          <a href="{% url 'cs' item.clean_url %}">{{ item.title_en }}</a>
+        </div>
+        {% if not LANGUAGE_CODE == 'en' %}
+        <div class="col-6 text-12 text-secondary">
+          {{ item.title_ru }}
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="border-top mt-4 pt-4">
+    <h4>{{ glossary.title }}</h4>
+    <div>
+      {{ glossary.text|safe }}
+    </div>
+  </div>
+
+  <footer class="pt-4 my-md-5 pt-md-5 border-top">
+    <div class="row">
+      <div class="col-12 col-md">
+        <b>TheCS.org</b>
+        <small class="d-block mb-3 text-muted">MIT License © 2020-{% now "Y" %}</small>
+      </div>
+    </div>
+  </footer>
+
+</div>
 {% endblock %}

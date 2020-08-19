@@ -39,7 +39,7 @@ class Article(models.Model):
         super(Article, self).save(*args, **kwargs)
 
     @property
-    def name(self):
+    def title(self):
         attr = f"title_{self.language_code}"
         return getattr(self, attr) if hasattr(self, attr) else self.title_en
 

@@ -13,17 +13,19 @@ def index(request):
     algorithms = Algorithm.objects.filter(entity=1, publish=True)
     data_structures = Algorithm.objects.filter(entity=2, publish=True)
     data_types = Algorithm.objects.filter(entity=3, publish=True)
-    other = list(Algorithm.objects.filter(id__in=[14, 16]))
 
-    other[0].language_code = request.LANGUAGE_CODE
-    other[1].language_code = request.LANGUAGE_CODE
+    introduction = Algorithm.objects.get(id=14)
+    introduction.language_code = request.LANGUAGE_CODE
+
+    glossary = Algorithm.objects.get(id=16)
+    glossary.language_code = request.LANGUAGE_CODE
 
     context = {
         "algorithms": algorithms,
         "data_structures": data_structures,
         "data_types": data_types,
-        "introduction": other[0],
-        "glossary": other[1],
+        "introduction": introduction,
+        "glossary": glossary,
     }
     return render(request, 'index.html', context)
 

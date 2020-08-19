@@ -44,7 +44,7 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false">
-          Theme: <b>{{ selectedTheme }}</b>
+          {{t('Theme')}}: <b>{{ selectedTheme }}</b>
         </button>
 
         <div class="dropdown-menu overflow-auto" aria-labelledby="dropdownMenuButton" style="max-height: 50vh">
@@ -68,6 +68,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
+import {BaseComponent} from '../utils/base-component';
 import hljs from 'highlight.js';
 import {BIconDownload, BIconClipboard} from 'bootstrap-vue';
 import VueClipboard from 'vue-clipboard2';
@@ -85,7 +86,7 @@ interface Implementation {
 }
 
 @Component
-export default class CodeViewer extends Vue {
+export default class CodeViewer extends BaseComponent {
   implementations: Implementation[] = null;
   implementation: Implementation = null;
   selectedTheme = '';
@@ -185,6 +186,11 @@ export default class CodeViewer extends Vue {
     // 'Xt 256',
     'Zenburn',
   ]
+  translations = {
+    ru: {
+      "Theme": "Тема",
+    }
+  }
 
   created() {
     this.implementations = JSON.parse(document.getElementById('algorithm-implementations-data').textContent);
