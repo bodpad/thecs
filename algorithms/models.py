@@ -21,7 +21,7 @@ def PLAYGROUND_CHOICE():
 
 
 class Article(models.Model):
-    language_code = 'en'
+    _language_code = 'en'
 
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255)
@@ -38,14 +38,27 @@ class Article(models.Model):
         self.text_ru = self.text_ru.strip()
         super(Article, self).save(*args, **kwargs)
 
+    def get_language(self):
+        return self._language_code
+
+    def set_language(self, language_code):
+        self._language_code = language_code
+
+    def formatted_text(self, lang_code):
+        attr = f"text_{lang_code}"
+        value = getattr(self, attr) if hasattr(self, attr) else None
+        if value:
+            return markdown2html(value)
+        return None
+
     @property
     def title(self):
-        attr = f"title_{self.language_code}"
+        attr = f"title_{self._language_code}"
         return getattr(self, attr) if hasattr(self, attr) else self.title_en
 
     @property
     def text(self):
-        attr = f"text_{self.language_code}"
+        attr = f"text_{self._language_code}"
         return markdown2html(getattr(self, attr)) if hasattr(self, attr) else markdown2html(self.text_en)
 
     class Meta:
@@ -61,12 +74,13 @@ class Algorithm(Article):
     entity = models.SmallIntegerField(choices=ENTITY_CHOICE, blank=True, null=True)
     playground = models.CharField(max_length=255, choices=PLAYGROUND_CHOICE(), null=True, blank=True)
 
-    def formated_text(self, lang_code):
-        attr = f"text_{lang_code}"
-        value = getattr(self, attr) if hasattr(self, attr) else None
-        if value:
-            return markdown2html(value)
-        return None
+    @property
+    def has_playground(self):
+        return bool(self.playground)
+
+    @property
+    def has_implementation(self):
+        return bool(self.implementations())
 
     def implementations(self):
         languages = {

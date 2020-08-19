@@ -15,10 +15,10 @@ def index(request):
     data_types = Algorithm.objects.filter(entity=3, publish=True)
 
     introduction = Algorithm.objects.get(id=14)
-    introduction.language_code = request.LANGUAGE_CODE
+    introduction.set_language(request.LANGUAGE_CODE)
 
     glossary = Algorithm.objects.get(id=16)
-    glossary.language_code = request.LANGUAGE_CODE
+    glossary.set_language(request.LANGUAGE_CODE)
 
     context = {
         "algorithms": algorithms,
@@ -32,7 +32,7 @@ def index(request):
 
 def cs(request, clean_url):
     obj = Algorithm.objects.get(clean_url=clean_url)
-    obj.language_code = request.LANGUAGE_CODE
+    obj.set_language(request.LANGUAGE_CODE)
     context = {
         "algorithm": obj
     }

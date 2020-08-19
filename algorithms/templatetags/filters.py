@@ -9,7 +9,7 @@ register.filter("markdown2html", markdown2html)
 
 @register.filter
 def text(obg: Algorithm, lang_code: str):
-    return obg.formated_text(lang_code)
+    return obg.formatted_text(lang_code)
 
 
 @register.filter
