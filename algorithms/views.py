@@ -14,6 +14,15 @@ def index(request):
     data_structures = Algorithm.objects.filter(entity=2, publish=True)
     data_types = Algorithm.objects.filter(entity=3, publish=True)
 
+    for obj in algorithms:
+        obj.set_language(request.LANGUAGE_CODE)
+
+    for obj in data_structures:
+        obj.set_language(request.LANGUAGE_CODE)
+
+    for obj in data_types:
+        obj.set_language(request.LANGUAGE_CODE)
+
     introduction = Algorithm.objects.get(id=14)
     introduction.set_language(request.LANGUAGE_CODE)
 

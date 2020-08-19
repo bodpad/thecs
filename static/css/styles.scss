@@ -199,3 +199,32 @@ text {
     margin: 0;
   }
 }
+
+.has-text,
+.has-playground,
+.has-implementation {
+  background: red;
+  min-width: 16px;
+  height: 16px;
+}
+
+.has-text {
+  background: url('/static/i/text.svg') no-repeat;
+  &.active {
+    background-image: url('/static/i/text-active.svg') !important;
+  }
+}
+
+.has-playground {
+  background: url('/static/i/puzzle.svg') no-repeat;
+  &.active {
+    background-image: url('/static/i/puzzle-active.svg') !important;
+  }
+}
+
+.has-implementation {
+  background: url('/static/i/code.svg') no-repeat;
+  &.active {
+    background-image: url('/static/i/code-active.svg') !important;
+  }
+}

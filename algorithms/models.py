@@ -82,6 +82,10 @@ class Algorithm(Article):
     def has_implementation(self):
         return bool(self.implementations())
 
+    @property
+    def has_text(self):
+        return bool(self.text)
+
     def implementations(self):
         languages = {
             "py": "Python",
