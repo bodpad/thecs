@@ -59,21 +59,19 @@
 
       <div class="p-3 container">
         <div class="">
-            <div class="d-flex align-items-center mb-2">
-                <h1 class="text-24 m-0">
-                    {% if algorithm.entity %}
-                    {{algorithm.title_en}}
-                    {% else %}
-                    {{algorithm.name}}
-                    {% endif %}
-                </h1>
-
-                {% if request.user.is_superuser %}
-                    <a href="{% url 'admin:algorithms_algorithm_change' algorithm.id %}"
-                       target="_blank"
-                       class="ml-2">[edit]</a>
-                {% endif %}
-            </div>
+          <h1 class="m-0 pb-3 mb-3 border-bottom">
+            <span class="d-block text-22">
+              {{algorithm.title}}
+              {% if request.user.is_superuser %}
+                <a href="{% url 'admin:algorithms_algorithm_change' algorithm.id %}"
+                   target="_blank"
+                   class="text-16">[edit]</a>
+              {% endif %}
+            </span>
+            {% if algorithm.entity and LANGUAGE_CODE != 'en' %}
+              <span class="d-block text-18 text-secondary">{{algorithm.title_en}}</span>
+            {% endif %}
+          </h1>
 
             {% if algorithm.text %}
                 <div class="">{{algorithm.text|safe}}</div>
