@@ -24,7 +24,7 @@
         </p>
         <footer class="blockquote-footer text-right">
           C уважением
-          <cite title="Source Title">команда a25s</cite>
+          <cite title="Source Title">команда <b>TheCS</b></cite>
         </footer>
       </blockquote>
     </div>
@@ -39,16 +39,14 @@
       <h4 class="pb-2">{% trans "Data structures" %}</h4>
       {% for obj in data_structures %}
       <div class="row mb-3">
-        <div class="col-8">
-          <div class="lh-1">
-            <a href="{% url 'cs' obj.clean_url %}">{{ obj.title_en }}</a>
-          </div>
+        <a class="col-8 text-decoration-none" href="{% url 'cs' obj.clean_url %}">
+          <div class="lh-1">{{ obj.title_en }}</div>
           {% if not LANGUAGE_CODE == 'en' %}
           <div class="text-12 text-secondary">
             {{ obj.title_ru }}
           </div>
           {% endif %}
-        </div>
+        </a>
         <div class="col-4 d-flex justify-content-end">
           <div class="has-text rounded {% if obj.has_text %}active{% endif %}"></div>
           <div class="has-playground rounded ml-1 {% if obj.has_playground %}active{% endif %}"></div>
@@ -61,16 +59,14 @@
       <h4 class="pb-2">{% trans "Abstract data types" %}</h4>
       {% for obj in data_types %}
       <div class="row mb-3">
-        <div class="col-8">
-          <div class="lh-1">
-            <a href="{% url 'cs' obj.clean_url %}">{{ obj.title_en }}</a>
-          </div>
+        <a class="col-8 text-decoration-none" href="{% url 'cs' obj.clean_url %}">
+          <div class="lh-1">{{ obj.title_en }}</div>
           {% if not LANGUAGE_CODE == 'en' %}
           <div class="text-12 text-secondary">
             {{ obj.title_ru }}
           </div>
           {% endif %}
-        </div>
+        </a>
         <div class="col-4 d-flex justify-content-end">
           <div class="has-text rounded {% if obj.has_text %}active{% endif %}"></div>
           <div class="has-playground rounded ml-1 {% if obj.has_playground %}active{% endif %}"></div>
@@ -83,16 +79,14 @@
       <h4 class="pb-2">{% trans "Algorithms" %}</h4>
       {% for obj in algorithms %}
       <div class="row mb-3">
-        <div class="col-8">
-          <div class="lh-1">
-            <a href="{% url 'cs' obj.clean_url %}">{{ obj.title_en }}</a>
-          </div>
+        <a class="col-8 text-decoration-none" href="{% url 'cs' obj.clean_url %}">
+          <div class="lh-1">{{ obj.title_en }}</div>
           {% if not LANGUAGE_CODE == 'en' %}
           <div class="text-12 text-secondary">
             {{ obj.title_ru }}
           </div>
           {% endif %}
-        </div>
+        </a>
         <div class="col-4 d-flex justify-content-end">
           <div class="has-text rounded {% if obj.has_text %}active{% endif %}"></div>
           <div class="has-playground rounded ml-1 {% if obj.has_playground %}active{% endif %}"></div>
