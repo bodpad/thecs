@@ -1,5 +1,6 @@
 import markdown
 from markdown_fenced_code_tabs import CodeTabsExtension
+from algorithms.markdown_extensions.alert import AlertExtension
 
 
 def markdown2html(markdown_text: str):
@@ -10,15 +11,21 @@ def markdown2html(markdown_text: str):
         markdown_text,
         extensions=[
             fenced_code_tabs,
-            'tables', 'toc', 'nl2br',
-            'footnotes', 'attr_list', 'codehilite'
+            AlertExtension(),
+            'tables',
+            'toc',
+            'nl2br',
+            'footnotes',
+            'attr_list',
+            'codehilite'
         ],
         extension_configs={
             "markdown_fenced_code_tabs": {
                 "template": "bootstrap4"
             },
             "codehilite": {
-                "noclasses": True
+                "noclasses": True,
+                "linenums": True
             }
         }
     )

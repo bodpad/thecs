@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'taggit',
     'ckeditor',
-    'algorithms'
+    'algorithms',
+    'star_ratings'
 ]
 
 MIDDLEWARE = [
@@ -121,21 +122,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, "dist"),
-    os.path.join(BASE_DIR, "static")
-]
-
-# TAGGIT
-TAGGIT_CASE_INSENSITIVE = True
-
 LANGUAGES = [
     ('ru', 'Russian'),
     ('en', 'English'),
@@ -144,5 +130,26 @@ LANGUAGES = [
 LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
+
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/3.0/howto/static-files/
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "dist"),
+    os.path.join(BASE_DIR, "static")
+]
+
+# Taggit app config
+TAGGIT_CASE_INSENSITIVE = True
+
+# Rating app config
+TAR_RATINGS_ANONYMOUS = True
+STAR_RATINGS_STAR_HEIGHT = STAR_RATINGS_STAR_WIDTH = 20
 
 django_heroku.settings(locals())

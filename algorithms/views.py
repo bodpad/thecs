@@ -40,10 +40,10 @@ def index(request):
 
 
 def cs(request, clean_url):
-    obj = Algorithm.objects.get(clean_url=clean_url)
-    obj.set_language(request.LANGUAGE_CODE)
+    object = Algorithm.objects.get(clean_url=clean_url)
+    object.set_language(request.LANGUAGE_CODE)
     context = {
-        "algorithm": obj
+        "object": object
     }
     return render(request, 'cs.html', context)
 

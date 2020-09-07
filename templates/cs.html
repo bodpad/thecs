@@ -2,10 +2,11 @@
 {% load static %}
 {% load i18n %}
 {% load filters %}
+{% load ratings %}
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block title %}
-    {{algorithm.title_en}}
+  {{object.title_en}}
 {% endblock %}
 
 {% block css %}
@@ -13,23 +14,24 @@
 {% endblock %}
 
 {% block js %}
-  {% if algorithm.implementations %}
+  {% if object.implementations %}
     <script src="{% static 'code-viewer.umd.min.js' %}"></script>
     <script>Vue.component('code-viewer', CodeViewer)</script>
+    <script>var impl = new Vue({}).$mount('.implementation-container')</script>
   {% endif %}
 
-  {% if algorithm.playground %}
+  {% if object.playground %}
     <script src="{% static '@svgdotjs/svg.js/dist/svg.min.js' %}"></script>
-    <script src="{% static algorithm.playground|add:'.umd.min.js' %}"></script>
-    <script>Vue.component('{{algorithm.playground}}', {{algorithm.get_playground_display}})</script>
+    <script src="{% static object.playground|add:'.umd.min.js' %}"></script>
+    <script>Vue.component('{{object.playground}}', {{object.get_playground_display}})</script>
+    <script>var plgr = new Vue({}).$mount('.playground-container')</script>
   {% endif %}
 
-  <script>var app = new Vue({}).$mount('.triptych')</script>
   <script src="{% static 'js/algorithm.js' %}"></script>
 {% endblock %}
 
 {% block navbar_right_zone %}
-  {% if algorithm.playground or algorithm.implementations %}
+  {% if object.playground or object.implementations %}
     <div id="triptych" class="btn-group shadow-sm border bg-white ml-4" role="group" aria-label="Basic example">
       <button v-on:click="hideLeft" type="button" class="btn btn-white text-primary border-right" v-bind:class="{'text-dark': leftHidden}">
         <svg class="bi bi-layout-sidebar-inset" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -37,13 +39,13 @@
           <path d="M3 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z"/>
         </svg>
       </button>
-      <button {% if not algorithm.playground %}disabled{% endif %} v-on:click="hideCenter" type="button" class="btn btn-white text-primary" v-bind:class="{'text-dark': centerHidden}">
+      <button {% if not object.playground %}disabled{% endif %} v-on:click="hideCenter" type="button" class="btn btn-white text-primary" v-bind:class="{'text-dark': centerHidden}">
         <svg class="bi bi-layout-sidebar-inset" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M14 2H2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1zM2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2z"/>
           <path d="M10 4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V4z"/>
         </svg>
       </button>
-      <button {% if not algorithm.implementations %}disabled{% endif %} v-on:click="hideRight" type="button" class="btn btn-white text-primary border-right border-left" v-bind:class="{'text-dark': rightHidden}">
+      <button {% if not object.implementations %}disabled{% endif %} v-on:click="hideRight" type="button" class="btn btn-white text-primary border-right border-left" v-bind:class="{'text-dark': rightHidden}">
         <svg class="bi bi-layout-sidebar-inset-reverse" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
           <path fill-rule="evenodd" d="M2 2h12a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1V3a1 1 0 0 1 1-1zm12-1a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h12z"/>
           <path d="M13 4a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V4z"/>
@@ -55,53 +57,52 @@
 
 {% block content %}
 
-    <div class="triptych {% if algorithm.playground or algorithm.implementations %}triptych_multiple{% endif %}">
+    <div class="triptych {% if object.playground or object.implementations %}triptych_multiple{% endif %}">
 
-      <div class="p-3 container">
+      <div class="p-3 container text-container">
         <div class="">
           <h1 class="m-0 pb-3 mb-3 border-bottom">
-            <span class="d-block text-22">
-              {{algorithm.title}}
-              {% if request.user.is_superuser %}
-                <a href="{% url 'admin:algorithms_algorithm_change' algorithm.id %}"
-                   target="_blank"
-                   class="text-16">[edit]</a>
-              {% endif %}
-            </span>
-            {% if algorithm.entity and LANGUAGE_CODE != 'en' %}
-              <span class="d-block text-18 text-secondary">{{algorithm.title_en}}</span>
+            {{object.title}}
+            {% if request.user.is_superuser %}
+              <a href="{% url 'admin:algorithms_algorithm_change' object.id %}"
+                 target="_blank"
+                 class="text-16">[edit]</a>
+            {% endif %}
+            {% if object.entity and LANGUAGE_CODE != 'en' %}
+              <span class="d-block text-18 text-secondary">{{object.title_en}}</span>
             {% endif %}
           </h1>
 
-            {% if algorithm.text %}
-                <div class="">{{algorithm.text|safe}}</div>
+            {% if object.text %}
+              <div class="">{{object.text|safe}}</div>
+              {% ratings object %}
             {% else %}
-                <div class="text-center mt-5">
-                    {% trans "We don't have an article in your language." %}<br>
-                    {% trans "Help us translate it.." %}
-                </div>
+              <div class="text-center mt-5">
+                {% trans "We don't have an article in your language." %}<br>
+                {% trans "Help us translate it.." %}
+              </div>
             {% endif %}
         </div>
       </div>
 
-      {% if algorithm.playground %}
+      {% if object.playground %}
         <div class="pt-3 pr-3 pb-3 h-100 playground-container">
             <div class="h-100">
-              <{{algorithm.playground}}>
+              <{{object.playground}}>
                 <div class="h-100 d-flex align-items-center justify-content-center">
                   <div class="spinner-border text-danger" role="status">
                     <span class="sr-only">Loading...</span>
                   </div>
                 </div>
-              </{{algorithm.playground}}>
+              </{{object.playground}}>
             </div>
         </div>
       {% endif %}
 
-      {% if algorithm.implementations %}
+      {% if object.implementations %}
         <div class="pt-3 pr-3 pb-3 implementation-container">
             <div class="h-100">
-              {{ algorithm.implementations|json_script:"algorithm-implementations-data" }}
+              {{ object.implementations|json_script:"algorithm-implementations-data" }}
               <code-viewer>
                 <div class="h-100 d-flex align-items-center justify-content-center">
                   <div class="spinner-border text-primary" role="status">

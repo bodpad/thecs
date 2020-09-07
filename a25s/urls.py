@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 from algorithms import views
 
 urlpatterns = [
@@ -26,4 +28,5 @@ urlpatterns = [
     path('cs/<str:clean_url>/<str:extension>/', views.implementation, name='implementation'),
     path('preview/', views.preview),
     path('admin/', admin.site.urls),
-]
+    path('ratings/', include('star_ratings.urls', namespace='ratings')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

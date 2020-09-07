@@ -11,3 +11,10 @@ textarea + iframe {
   border-radius: 4px;
   padding: 10px;
 }
+
+textarea[name="text_ru"],
+textarea[name="text_ru"] + iframe {
+  height: 95vh;
+  padding: 10px;
+  box-sizing: border-box;
+}
