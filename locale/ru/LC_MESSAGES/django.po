@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-02 11:03+0000\n"
+"POT-Creation-Date: 2020-09-11 19:35+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,55 +20,58 @@ msgstr ""
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
 
-#: templates/base.html:49
+#: templates/base.html:45
 msgid "Home"
 msgstr "Главная"
 
-#: templates/base.html:52
+#: templates/base.html:48
 msgid "Contents"
 msgstr "Содержание"
 
-#: templates/base.html:55
-msgid "About"
-msgstr "О проекте"
+#: templates/cs.html:82
+msgid "Feedback"
+msgstr "Оцените"
 
-#: templates/cs.html:81
+#: templates/cs.html:87
 msgid "We don't have an article in your language."
 msgstr "У нас нет перевода для вашего языка."
 
-#: templates/cs.html:82
+#: templates/cs.html:88
 msgid "Help us translate it.."
 msgstr "Помогите нам сделать это..."
 
-#: templates/index.html:20
+#: templates/index.html:14
 msgid ""
 "\n"
-"            Мы приветствуем вас на образовательной площадке посвященной "
-"Алгоритмам и Структурам данных.\n"
-"            Это важный раздел информатики (computer since) дающее "
-"фундаментальное представелние о работе\n"
-"            вычислительных систем, понимание о том, как компьютеры "
-"эффективно хранят данные, манипулируют\n"
-"            ими и используют их для решения самого разнообразного круга "
-"задач.\n"
-"\n"
-"            Тот фундамент, который позволит вам открывать новые горизонты в "
-"вашей профессиональной деятельности.\n"
-"            "
+"          Приветствуем тебя на образовательном ресурсе посвященном "
+"<b>Алгоритмам</b> и <b>Структурам\n"
+"          данных</b>.\n"
+"          Это важный раздел информатики (computer since) дающее "
+"фундаментальное представелние о способах\n"
+"          эффективного хранения и организации данных в памяти компьютера и "
+"использованию их для решения\n"
+"          самого разнообразного круга задач.\n"
+"          <br>\n"
+"          Это необходимый фундамент знаний и навыков, который позволит вам "
+"открывать новые горизонты в вашей\n"
+"          профессиональной деятельности.\n"
+"          "
 msgstr ""
 
-#: templates/index.html:36
-msgid "Learn"
-msgstr "Начать"
-
-#: templates/toc.html:13
+#: templates/index.html:39 templates/toc.html:14
 msgid "Data structures"
 msgstr "Структуры данных"
 
-#: templates/toc.html:21
+#: templates/index.html:59 templates/toc.html:29
 msgid "Abstract data types"
 msgstr "Абстарктные типы данных"
 
-#: templates/toc.html:29
+#: templates/index.html:79 templates/toc.html:44
 msgid "Algorithms"
 msgstr "Алгоритмы"
+
+#~ msgid "About"
+#~ msgstr "О проекте"
+
+#~ msgid "Learn"
+#~ msgstr "Начать"

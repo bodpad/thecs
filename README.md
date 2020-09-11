@@ -11,8 +11,8 @@
 ## Helper commands
 
 ### Translates
-    python manage.py makemessages -a -i node_modules
-    python manage.py compilemessages
+    python manage.py makemessages -a -i venv
+    python manage.py compilemessages -i venv
 
 ### Build front
     python manage.py pg build && python manage.py buildfront
