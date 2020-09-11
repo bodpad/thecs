@@ -35,6 +35,10 @@ setTimeout(() => {
         $('.field-text_ru textarea').on('input', () => onTextareaChange.bind(this)(iframe2, $('.field-text_ru textarea')));
 
         /******************************************/
+
+        $('textarea').each(function(i, el){
+            new Behave({textarea: el});
+        });
     })})(django.jQuery);
 }, 500)
 

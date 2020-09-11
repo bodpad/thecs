@@ -15,6 +15,9 @@ class AlgorithmAdmin(admin.ModelAdmin):
             'all': ('css/admin.css',),
         }
 
-        js = ('js/admin.js',)
+        js = (
+            'behave-js/behave.js',
+            'js/admin.js',
+        )
 
 

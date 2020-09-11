@@ -26,7 +26,7 @@
         </div>
 
         <div v-if="isLastStep && !lock" class="w-100 mt-5">
-          <div class="text-secondary text-bold">
+          <div class="text-secondary">
             Finished! Source array was:
           </div>
           <div class="d-flex align-items-center mt-2">

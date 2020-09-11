@@ -74,8 +74,14 @@
           </h1>
 
             {% if object.text %}
-              <div class="">{{object.text|safe}}</div>
-              {% ratings object %}
+              <div class="text-block">{{object.text|safe}}</div>
+
+              <hr>
+
+              <div class="text-center">
+                <div class="font-weight-bold mb-2">{% trans 'Feedback' %}</div>
+                {% ratings object %}
+              </div>
             {% else %}
               <div class="text-center mt-5">
                 {% trans "We don't have an article in your language." %}<br>

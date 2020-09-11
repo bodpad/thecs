@@ -1,30 +1,20 @@
 {% extends "star_ratings/widget_base.html" %}
 {% load i18n %}
 
-{% block rating_detail %}
-  {% block rating_average %}
-    <div class="star-ratings-rating-average">
-      {% trans 'Average: ' %}
-      <span class='star-ratings-rating-value'>{{ rating.average|floatformat:"-2" }}</span>
-    </div>
-  {% endblock rating_average %}
+{% block rating_container %}
+<div id="{{ id }}" class="star-ratings" data-max-rating="{{ star_count }}" data-avg-rating="{{ rating.average }}">
+  <div class="star-ratings-rating-average text-22 font-weight-bold pb-2 lh-1">
+    <span class="star-ratings-rating-value">{{ rating.average|floatformat:2 }}</span>
+  </div>
 
-  {% block rating_count %}
-    <div class="star-ratings-rating-count">
-      {% trans 'Rating Count: ' %}
-      <span class='star-ratings-rating-value'>{{ rating.count }}</span>
-    </div>
-  {% endblock rating_count %}
+  {% block rating_stars %}
+    {{block.super}}
+  {% endblock %}
 
-  {% block rating_user %}
-    <div class="star-ratings-rating-user">
-      {% trans 'You Rated: ' %}
-      <span class='star-ratings-rating-value'>{% if user_rating %}{{ user_rating.score }}{% else %}{% trans 'Not rated' %}{% endif %}</span>
-    </div>
-    {% if not user.is_authenticated and not anonymous_ratings and not read_only %}
-      <p>{% trans 'Please log in to rate.' %}</p>
-    {% endif %}
-  {% endblock rating_user %}
-
-  <div class="star-ratings-errors"></div>
-{% endblock rating_detail %}
+  <div class="star-ratings-rating-count text-secondary text-14 lh-1">
+    based on
+    <span class='star-ratings-rating-value'>{{ rating.count }}</span>
+    ratings
+  </div>
+</div>
+{% endblock rating_container %}

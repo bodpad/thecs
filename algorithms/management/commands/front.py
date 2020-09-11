@@ -22,12 +22,6 @@ class Command(BaseCommand):
                 self.build_vue_file(pg_name)
             else:
                 shutil.rmtree(os.path.join(settings.BASE_DIR, "dist"))
-                packages = ["@svgdotjs", "vue", "bootstrap", "axios", "popper.js", "jquery", "highlight.js"]
-                for pkg in packages:
-                    src = os.path.join(settings.BASE_DIR, "node_modules", pkg)
-                    dst = os.path.join(settings.BASE_DIR, "dist", pkg)
-                    shutil.copytree(src, dst)
-
                 for pg_name in os.listdir(os.path.join(settings.BASE_DIR, f'src/components/')):
                     self.build_vue_file(pg_name.replace('.vue', ''))
 

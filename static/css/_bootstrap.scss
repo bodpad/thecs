@@ -1,0 +1,15 @@
+$container-max-widths: (
+        sm: 540px,
+        md: 720px,
+        lg: 900px,
+        xl: 990px
+) !default;
+
+$font-size-base:  1rem;
+$h1-font-size:    $font-size-base * 2.0;
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
+
+.alert {
+  font-size: $font-size-base - .1;
+}

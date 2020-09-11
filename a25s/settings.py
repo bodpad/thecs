@@ -141,6 +141,14 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 
 STATICFILES_DIRS = [
+    ("@svgdotjs",    os.path.join(BASE_DIR, "node_modules", "@svgdotjs")),
+    ("vue",          os.path.join(BASE_DIR, "node_modules", "vue")),
+    ("bootstrap",    os.path.join(BASE_DIR, "node_modules", "bootstrap")),
+    ("axios",        os.path.join(BASE_DIR, "node_modules", "axios")),
+    ("popper.js",    os.path.join(BASE_DIR, "node_modules", "popper.js")),
+    ("jquery",       os.path.join(BASE_DIR, "node_modules", "jquery")),
+    ("highlight.js", os.path.join(BASE_DIR, "node_modules", "highlight.js")),
+    ("behave-js",    os.path.join(BASE_DIR, "node_modules", "behave-js")),
     os.path.join(BASE_DIR, "dist"),
     os.path.join(BASE_DIR, "static")
 ]

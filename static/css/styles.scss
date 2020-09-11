@@ -1,15 +1,6 @@
-$container-max-widths: (
-  sm: 540px,
-  md: 720px,
-  lg: 900px,
-  xl: 990px
-) !default;
-
-$font-size-base:  1rem;
-$h1-font-size:    $font-size-base * 2.0;
-
-@import "../../node_modules/bootstrap/scss/bootstrap";
-// @import "_markdown-fenced-code-tabs";
+@import "./bootstrap";
+@import "./_markdown-tabbed.css";
+@import "./_markdown-codehilite.css";
 
 /**
  * Reset
@@ -28,10 +19,6 @@ pre > code {
   line-height: 1;
 }
 
-.alert {
-  font-size: $font-size-base - .1;
-}
-
 text {
   user-select: none;
 }
@@ -41,7 +28,7 @@ pre {
 }
 
 /**
- * Text utils
+ * Additional text utils
  */
 
 .text-12 {
@@ -130,10 +117,17 @@ div::-webkit-scrollbar-thumb {
 
   }
 
-  .text-container img {
-    display: block;
-    margin: 0 auto;
-    max-width: 100%;
+  .text-container {
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+    }
+    .text-block {
+      hr {
+        border-style: dashed;
+      }
+    }
   }
 
   .playground-container {
@@ -169,14 +163,25 @@ div::-webkit-scrollbar-thumb {
 
   & > *:first-child {
     h2 {
-      font-size: 1.4rem;
-      border-bottom: 1px solid #ccc;
+      font-size: 1.5rem;
+      // border-bottom: 2px solid var(--pink);
       padding-bottom: 4px;
-      color: purple;
+      color: #202124;
       padding-top: 10px;
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(to right, var(--pink), var(--primary), var(--warning), var(--success));
+      }
     }
     h3 {
-      font-size: 1.1rem;
+      font-size: 1.25rem;
+      color: #202124;
     }
   }
 }
@@ -188,6 +193,10 @@ div::-webkit-scrollbar-thumb {
 .codehilitetable {
   background: #fafafa;
   border: 1px solid #e3e3e3;
+  margin-bottom: 1rem;
+  .codehilite {
+    margin-bottom: 0!important;
+  }
   td:first-child {
     background: #f2f2f2;
     padding: 0 8px;
@@ -207,25 +216,7 @@ div::-webkit-scrollbar-thumb {
 .codehilite {
   padding: 1rem;
   background: transparent!important;
-}
-
-.md-fenced-code-tabs {
-  padding: 0;
-  margin-bottom: 15px;
-  .codehilite {
-    border-top: none;
-  }
-  .tab-content {
-    background: rgb(248, 248, 248);
-  }
-  .nav-item {
-    font-size: 0.8rem;
-  }
-  .nav-link.active {
-    background: rgb(248, 248, 248);
-    border-bottom-color: rgb(248, 248, 248);
-    border-radius: 0;
-  }
+  margin-bottom: 1rem;
 }
 
 /**
@@ -277,4 +268,15 @@ div::-webkit-scrollbar-thumb {
 a[href^="http://"]:not([href*="thecs.org"]):not([href*="localhost"]):after,
 a[href^="https://"]:not([href*="thecs.org"]):not([href*="localhost"]):after {
   content: " " url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=);
+}
+
+.toc {
+  background-color: #e6f4ea;
+  border-radius: 8px;
+  padding: 2rem 4rem;
+  margin-bottom: 1rem;
+  ul {
+    margin: 0;
+    padding: 0;
+  }
 }
