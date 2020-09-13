@@ -11,7 +11,7 @@
 
     <div class="row mt-4">
       <div class="col-4">
-        <h4 class="pb-2">{% trans "Data structures" %}</h4>
+        <h4 class="pb-2">{% translate "Data structures" %}</h4>
         {% for item in data_structures %}
           <div class="row align-items-center">
             <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
@@ -26,7 +26,7 @@
         {% endfor %}
       </div>
       <div class="col-4 border-left border-right">
-        <h4 class="pb-2">{% trans "Abstract data types" %}</h4>
+        <h4 class="pb-2">{% translate "Abstract data types" %}</h4>
         {% for item in data_types %}
           <div class="row align-items-center">
             <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
@@ -41,7 +41,7 @@
         {% endfor %}
       </div>
       <div class="col-4">
-        <h4 class="pb-2">{% trans "Algorithms" %}</h4>
+        <h4 class="pb-2">{% translate "Algorithms" %}</h4>
         {% for item in algorithms %}
           <div class="row align-items-center">
             <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">

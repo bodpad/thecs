@@ -36,7 +36,7 @@
 
   <div class="row mt-4">
     <div class="col-sm-12 col-md-4">
-      <h4 class="pb-2">{% trans "Data structures" %}</h4>
+      <h4 class="pb-2">{% translate "Data structures" %}</h4>
       {% for obj in data_structures %}
       <div class="row mb-3">
         <a class="col-8 text-decoration-none" href="{{ obj.get_absolute_url }}">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="col-sm-12 col-md-4 border-left border-right">
-      <h4 class="pb-2">{% trans "Abstract data types" %}</h4>
+      <h4 class="pb-2">{% translate "Abstract data types" %}</h4>
       {% for obj in data_types %}
       <div class="row mb-3">
         <a class="col-8 text-decoration-none" href="{{ obj.get_absolute_url }}">
@@ -78,7 +78,7 @@
     </div>
 
     <div class="col-sm-12 col-md-4">
-      <h4 class="pb-2">{% trans "Algorithms" %}</h4>
+      <h4 class="pb-2">{% translate "Algorithms" %}</h4>
       {% for obj in algorithms %}
       <div class="row mb-3">
         <a class="col-8 text-decoration-none" href="{{ obj.get_absolute_url }}">

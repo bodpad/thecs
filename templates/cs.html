@@ -82,6 +82,9 @@
                 viewBox="0 0 16 16"
                 class="bi bi-share-fill cursor-pointer"
                 fill="currentColor"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="{% translate 'Share it' %}"
                 xmlns="http://www.w3.org/2000/svg"
                 onclick="document.getElementById('share-it').scrollIntoView()">
                 <path fill-rule="evenodd" d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
@@ -94,6 +97,9 @@
                 viewBox="0 0 16 16"
                 class="bi bi-star-half cursor-pointer"
                 fill="currentColor"
+                data-toggle="tooltip"
+                data-placement="bottom"
+                title="{% translate 'Rate it' %}"
                 xmlns="http://www.w3.org/2000/svg"
                 onclick="document.getElementById('rate-it').scrollIntoView()">
                 <path fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z"/>
@@ -106,19 +112,19 @@
 
             <div class="row align-items-center py-4 rounded" style="background: #eee">
               <div id="rate-it" class="col-6 border-right text-center">
-                <div class="font-weight-bold mb-2">{% trans 'Rate it' %}</div>
+                <div class="font-weight-bold mb-2">{% translate 'Rate it' %}</div>
                 {% ratings object %}
               </div>
               <div id="share-it" class="col-6 text-center">
-                <div class="font-weight-bold mb-2">{% trans 'Share it' %}</div>
+                <div class="font-weight-bold mb-2">{% translate 'Share it' %}</div>
                 <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5f5e4781a86c6e0012410fef&product=inline-share-buttons" async="async"></script>
                 <div class='sharethis-inline-share-buttons'></div>
               </div>
             </div>
           {% else %}
             <div class="text-center mt-5">
-              {% trans "We don't have an article in your language." %}<br>
-              {% trans "Help us translate it.." %}
+              {% translate "We don't have an article in your language." %}<br>
+              {% translate "Help us translate it.." %}
             </div>
           {% endif %}
         </div>

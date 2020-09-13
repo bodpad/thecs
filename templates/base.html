@@ -49,10 +49,10 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="/">{% trans "Home" %} <span class="sr-only">(current)</span></a>
+          <a class="nav-link" href="/">{% translate "Home" %} <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item active">
-<!--      <a class="nav-link" href="{% url 'toc' %}">{% trans "Contents" %}</a>-->
+<!--      <a class="nav-link" href="{% url 'toc' %}">{% translate "Contents" %}</a>-->
         </li>
       </ul>
     </div>
@@ -83,7 +83,10 @@
 
   {% block js %}{% endblock %}
 
-  <script>$('[data-toggle="popover"]').popover()</script>
+  <script>
+      $('[data-toggle="popover"]').popover();
+      $('[data-toggle="tooltip"]').tooltip();
+  </script>
 
 </body>
 </html>
