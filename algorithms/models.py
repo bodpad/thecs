@@ -29,14 +29,17 @@ class Article(models.Model):
     text_en = models.TextField(null=True, blank=True)
     text_ru = models.TextField(null=True, blank=True)
     tags = TaggableManager(blank=True)
-    created = models.DateTimeField(auto_now_add=True)
-    modified = models.DateTimeField(auto_now=True)
-    publish = models.BooleanField(default=True)
+    pub_date = models.DateTimeField(auto_now_add=True)
+    mod_date = models.DateTimeField(auto_now=True)
+    published = models.BooleanField(default=True)
 
     def save(self, *args, **kwargs):
         self.text_en = self.text_en.strip()
         self.text_ru = self.text_ru.strip()
         super(Article, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return "/article/%s/" % self.clean_url
 
     def get_language(self):
         return self._language_code
@@ -73,6 +76,9 @@ class Algorithm(Article):
     ]
     entity = models.SmallIntegerField(choices=ENTITY_CHOICE, blank=True, null=True)
     playground = models.CharField(max_length=255, choices=PLAYGROUND_CHOICE(), null=True, blank=True)
+
+    def get_absolute_url(self):
+        return "/cs/%s/" % self.clean_url
 
     @property
     def has_playground(self):

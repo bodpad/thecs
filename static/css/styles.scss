@@ -28,7 +28,7 @@ pre {
 }
 
 /**
- * Additional text utils
+ * Additional utils
  */
 
 .text-12 {
@@ -61,6 +61,10 @@ pre {
 
 .lh-1 {
   line-height: 1!important;
+}
+
+.cursor-pointer {
+  cursor: pointer;
 }
 
 
@@ -191,11 +195,10 @@ div::-webkit-scrollbar-thumb {
  */
 
 .codehilitetable {
-  background: #fafafa;
   border: 1px solid #e3e3e3;
-  margin-bottom: 1rem;
   .codehilite {
-    margin-bottom: 0!important;
+    border: 0;
+    margin-bottom: 0;
   }
   td:first-child {
     background: #f2f2f2;
@@ -211,11 +214,15 @@ div::-webkit-scrollbar-thumb {
   td:last-child {
     width: 100%;
   }
+  & + * {
+    margin-top: 1rem;
+  }
 }
 
 .codehilite {
   padding: 1rem;
-  background: transparent!important;
+  background: #fafafa;
+  border: 1px solid #e3e3e3;
   margin-bottom: 1rem;
 }
 
@@ -229,7 +236,7 @@ div::-webkit-scrollbar-thumb {
 }
 
 .jumbotron {
-  background: no-repeat url(/static/i/t.jpg) right / auto 110%;
+  background: no-repeat url(/static/i/t.jpg) right/auto 110%, url(https://developer.mozilla.org/static/img/embed/promos/grid-tools-bg.33d7e775dcb5.svg) no-repeat left bottom;
   .container {
     width: 75%;
     margin: 0;

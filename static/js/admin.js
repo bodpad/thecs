@@ -31,14 +31,16 @@ setTimeout(() => {
             }, 500);
         }
 
-        $('.field-text_en textarea').on('input', () => onTextareaChange.bind(this)(iframe1, $('.field-text_en textarea')));
-        $('.field-text_ru textarea').on('input', () => onTextareaChange.bind(this)(iframe2, $('.field-text_ru textarea')));
-
-        /******************************************/
-
         $('textarea').each(function(i, el){
             new Behave({textarea: el});
         });
+
+        BehaveHooks.add('keydown', function() {
+            onTextareaChange.bind(this)(iframe1, $('.field-text_en textarea'));
+            onTextareaChange.bind(this)(iframe2, $('.field-text_ru textarea'));
+        });
+
+        /******************************************/
     })})(django.jQuery);
 }, 500)
 

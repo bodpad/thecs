@@ -6,25 +6,25 @@
 {% get_current_language as LANGUAGE_CODE %}
 
 {% block title %}
-  {{object.title_en}}
+  {{object.title_en}} {{object.get_entity_display}}
 {% endblock %}
 
 {% block css %}
-  <link rel="stylesheet" href="{% static 'css/algorithm.css' %}">
+
 {% endblock %}
 
 {% block js %}
   {% if object.implementations %}
     <script src="{% static 'code-viewer.umd.min.js' %}"></script>
     <script>Vue.component('code-viewer', CodeViewer)</script>
-    <script>var impl = new Vue({}).$mount('.implementation-container')</script>
+    <script>new Vue({}).$mount('.implementation-container')</script>
   {% endif %}
 
   {% if object.playground %}
     <script src="{% static '@svgdotjs/svg.js/dist/svg.min.js' %}"></script>
     <script src="{% static object.playground|add:'.umd.min.js' %}"></script>
     <script>Vue.component('{{object.playground}}', {{object.get_playground_display}})</script>
-    <script>var plgr = new Vue({}).$mount('.playground-container')</script>
+    <script>new Vue({}).$mount('.playground-container')</script>
   {% endif %}
 
   <script src="{% static 'js/algorithm.js' %}"></script>
@@ -61,33 +61,66 @@
 
       <div class="p-3 container text-container">
         <div class="">
-          <h1 class="m-0 pb-3 mb-3 border-bottom">
-            {{object.title}}
-            {% if request.user.is_superuser %}
-              <a href="{% url 'admin:algorithms_algorithm_change' object.id %}"
-                 target="_blank"
-                 class="text-16">[edit]</a>
-            {% endif %}
-            {% if object.entity and LANGUAGE_CODE != 'en' %}
-              <span class="d-block text-18 text-secondary">{{object.title_en}}</span>
-            {% endif %}
-          </h1>
+          <div class="row align-items-center pb-3 mb-3 border-bottom">
+            <div class="col-10">
+              <h1 class="m-0">
+                {{object.title}}
+                {% if request.user.is_superuser %}
+                <a href="{% url 'admin:algorithms_algorithm_change' object.id %}"
+                   target="_blank"
+                   class="text-16">[edit]</a>
+                {% endif %}
+                {% if object.entity and LANGUAGE_CODE != 'en' %}
+                <span class="d-block text-18 text-secondary">{{object.title_en}}</span>
+                {% endif %}
+              </h1>
+            </div>
+            <div class="col-1 text-center">
+              <svg
+                width="1.4em"
+                height="1.4em"
+                viewBox="0 0 16 16"
+                class="bi bi-share-fill cursor-pointer"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                onclick="document.getElementById('share-it').scrollIntoView()">
+                <path fill-rule="evenodd" d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
+              </svg>
+            </div>
+            <div class="col-1 text-center">
+              <svg
+                width="1.6em"
+                height="1.6em"
+                viewBox="0 0 16 16"
+                class="bi bi-star-half cursor-pointer"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                onclick="document.getElementById('rate-it').scrollIntoView()">
+                <path fill-rule="evenodd" d="M5.354 5.119L7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.519.519 0 0 1-.146.05c-.341.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.171-.403.59.59 0 0 1 .084-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027c.08 0 .16.018.232.056l3.686 1.894-.694-3.957a.564.564 0 0 1 .163-.505l2.906-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.002 2.223 8 2.226v9.8z"/>
+              </svg>
+            </div>
+          </div>
 
-            {% if object.text %}
-              <div class="text-block">{{object.text|safe}}</div>
+          {% if object.text %}
+            <div class="text-block">{{object.text|safe}}</div>
 
-              <hr>
-
-              <div class="text-center">
-                <div class="font-weight-bold mb-2">{% trans 'Feedback' %}</div>
+            <div class="row align-items-center py-4 rounded" style="background: #eee">
+              <div id="rate-it" class="col-6 border-right text-center">
+                <div class="font-weight-bold mb-2">{% trans 'Rate it' %}</div>
                 {% ratings object %}
               </div>
-            {% else %}
-              <div class="text-center mt-5">
-                {% trans "We don't have an article in your language." %}<br>
-                {% trans "Help us translate it.." %}
+              <div id="share-it" class="col-6 text-center">
+                <div class="font-weight-bold mb-2">{% trans 'Share it' %}</div>
+                <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=5f5e4781a86c6e0012410fef&product=inline-share-buttons" async="async"></script>
+                <div class='sharethis-inline-share-buttons'></div>
               </div>
-            {% endif %}
+            </div>
+          {% else %}
+            <div class="text-center mt-5">
+              {% trans "We don't have an article in your language." %}<br>
+              {% trans "Help us translate it.." %}
+            </div>
+          {% endif %}
         </div>
       </div>
 

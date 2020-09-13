@@ -10,9 +10,9 @@ from django.conf import settings
 
 
 def index(request):
-    algorithms = Algorithm.objects.filter(entity=1, publish=True)
-    data_structures = Algorithm.objects.filter(entity=2, publish=True)
-    data_types = Algorithm.objects.filter(entity=3, publish=True)
+    algorithms = Algorithm.objects.filter(entity=1, published=True)
+    data_structures = Algorithm.objects.filter(entity=2, published=True)
+    data_types = Algorithm.objects.filter(entity=3, published=True)
 
     for obj in algorithms:
         obj.set_language(request.LANGUAGE_CODE)

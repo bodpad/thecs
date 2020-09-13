@@ -3,6 +3,7 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>{% block title %}{% endblock %} - TheCS</title>
@@ -10,75 +11,79 @@
   <meta name=viewport content="width=device-width,initial-scale=1">
   {% if YANDEX_METRIKA_ID %}{% include 'metrika.html' %}{% endif %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-  {% block css %}{% endblock %}
   <link rel="stylesheet" href="{% static 'star-ratings/css/star-ratings.css' %}">
+  {% block css %}{% endblock %}
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
-        <a class="navbar-brand p-0" href="/">
-            <b>TheCS</b>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+  <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light">
+    <a class="navbar-brand p-0 font-weight-bold" href="/">TheCS</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-toggle="collapse"
+      data-target="#navbarCollapse"
+      aria-controls="navbarCollapse"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
-        <form name="set_language" action="{% url 'set_language' %}" method="post" class="form-inline mr-3">
-            <div class="form-group">
-                {% csrf_token %}
-                <input name="next" type="hidden" value="{{ redirect_to }}">
-                <select name="language" class="form-control form-control-sm" onchange="document.forms['set_language'].submit()">
-                    {% get_current_language as LANGUAGE_CODE %}
-                    {% get_available_languages as LANGUAGES %}
-                    {% get_language_info_list for LANGUAGES as languages %}
-                    {% for language in languages %}
-                    <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                        {{ language.code }}
-                    </option>
-                    {% endfor %}
-                </select>
-            </div>
-        </form>
+    <form name="set_language" action="{% url 'set_language' %}" method="post" class="form-inline mr-3">
+      <div class="form-group">
+        {% csrf_token %}
+        <input name="next" type="hidden" value="{{ redirect_to }}">
+        <select name="language" class="form-control form-control-sm" onchange="document.forms['set_language'].submit()">
+          {% get_current_language as LANGUAGE_CODE %}
+          {% get_available_languages as LANGUAGES %}
+          {% get_language_info_list for LANGUAGES as languages %}
+          {% for language in languages %}
+          <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+            {{ language.code }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+    </form>
 
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="/">{% trans "Home" %} <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-<!--                    <a class="nav-link" href="{% url 'toc' %}">{% trans "Contents" %}</a>-->
-                </li>
-            </ul>
-        </div>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">{% trans "Home" %} <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item active">
+<!--      <a class="nav-link" href="{% url 'toc' %}">{% trans "Contents" %}</a>-->
+        </li>
+      </ul>
+    </div>
 
-        {% block navbar_right_zone %}{% endblock %}
-    </nav>
+    {% block navbar_right_zone %}{% endblock %}
+  </nav>
 
-    <div style="height: 57px"></div>
+  <div style="height: 57px"></div>
 
-    {% block content %}{% endblock %}
+  {% block content %}{% endblock %}
 
-    <!-- Bootstrap -->
-    <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
-    <script src="{% static 'popper.js/dist/umd/popper.min.js' %}"></script>
-    <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
+  <!-- Bootstrap -->
+  <script src="{% static 'jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'popper.js/dist/umd/popper.min.js' %}"></script>
+  <script src="{% static 'bootstrap/dist/js/bootstrap.min.js' %}"></script>
 
-    <!-- Vue -->
-    <script src="{% static 'vue/dist/vue.min.js' %}"></script>
+  <!-- Vue -->
+  <script src="{% static 'vue/dist/vue.min.js' %}"></script>
 
-    <!-- Axios -->
-    <script src="{% static 'axios/dist/axios.min.js' %}"></script>
-    <script>Vue.prototype.$http = axios;</script>
+  <!-- Axios -->
+  <script src="{% static 'axios/dist/axios.min.js' %}"></script>
+  <script>Vue.prototype.$http = axios;</script>
 
-    <!-- Global js -->
-    <script src="{% static 'js/global.js' %}"></script>
+  <!-- Global js -->
+  <script src="{% static 'js/global.js' %}"></script>
 
-    <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
 
-<!--    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.0/build/styles/default.min.css">-->
-<!--    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@10.0.0/build/highlight.min.js"></script>-->
-<!--    <script>hljs.initHighlightingOnLoad();</script>-->
+  {% block js %}{% endblock %}
 
-    {% block js %}{% endblock %}
+  <script>$('[data-toggle="popover"]').popover()</script>
 
 </body>
 </html>

@@ -17,7 +17,13 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.sitemaps.views import sitemap
 from algorithms import views
+from algorithms.sitemaps import AlgorithmSitemap
+
+sitemaps = {
+    "algorithms": AlgorithmSitemap
+}
 
 urlpatterns = [
     path('', views.index, name="index"),
@@ -29,4 +35,5 @@ urlpatterns = [
     path('preview/', views.preview),
     path('admin/', admin.site.urls),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

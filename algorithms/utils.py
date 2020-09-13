@@ -20,4 +20,5 @@ def markdown2html(markdown_text: str):
     )
     value = value.replace('<table>', '<table class="table table-sm table-bordered">')
     value = value.replace('<thead>', '<thead class="thead-dark">')
+    value = value.replace('<img', '<img loading=lazy')
     return value
