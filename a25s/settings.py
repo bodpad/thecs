@@ -176,6 +176,7 @@ STAR_RATINGS_STAR_HEIGHT = STAR_RATINGS_STAR_WIDTH = 20
 # https://django-compressor.readthedocs.io/en/stable/
 
 COMPRESS_ENABLED = True
+COMPRESS_OFFLINE = not DEBUG
 
 # Heroku
 
