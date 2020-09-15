@@ -223,7 +223,7 @@ export default class CodeViewer extends BaseComponent {
         const hljsBgColor: string = window
             .getComputedStyle(this.$el.querySelector('code') ,null)
             .getPropertyValue('background-color');
-        this.$el.style.backgroundColor = hljsBgColor;
+        (this.$el as HTMLElement).style.backgroundColor = hljsBgColor;
       });
     }
   }

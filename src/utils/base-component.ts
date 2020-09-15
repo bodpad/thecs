@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 export class BaseComponent extends Vue {
     translations: any;
+    declare $http: any;
 
     t(key: string): string {
         const value = `; ${document.cookie}`;

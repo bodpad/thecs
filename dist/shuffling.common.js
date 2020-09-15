@@ -205,7 +205,7 @@ function toComment(sourceMap) {
   var undefined;
 
   /** Used as the semantic version number. */
-  var VERSION = '4.17.15';
+  var VERSION = '4.17.20';
 
   /** Used as the size to enable large array optimizations. */
   var LARGE_ARRAY_SIZE = 200;
@@ -3912,8 +3912,21 @@ function toComment(sourceMap) {
      * @returns {Array} Returns the new sorted array.
      */
     function baseOrderBy(collection, iteratees, orders) {
+      if (iteratees.length) {
+        iteratees = arrayMap(iteratees, function(iteratee) {
+          if (isArray(iteratee)) {
+            return function(value) {
+              return baseGet(value, iteratee.length === 1 ? iteratee[0] : iteratee);
+            }
+          }
+          return iteratee;
+        });
+      } else {
+        iteratees = [identity];
+      }
+
       var index = -1;
-      iteratees = arrayMap(iteratees.length ? iteratees : [identity], baseUnary(getIteratee()));
+      iteratees = arrayMap(iteratees, baseUnary(getIteratee()));
 
       var result = baseMap(collection, function(value, key, collection) {
         var criteria = arrayMap(iteratees, function(iteratee) {
@@ -4170,6 +4183,10 @@ function toComment(sourceMap) {
         var key = toKey(path[index]),
             newValue = value;
 
+        if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+          return object;
+        }
+
         if (index != lastIndex) {
           var objValue = nested[key];
           newValue = customizer ? customizer(objValue, key, nested) : undefined;
@@ -4322,11 +4339,14 @@ function toComment(sourceMap) {
      *  into `array`.
      */
     function baseSortedIndexBy(array, value, iteratee, retHighest) {
-      value = iteratee(value);
-
       var low = 0,
-          high = array == null ? 0 : array.length,
-          valIsNaN = value !== value,
+          high = array == null ? 0 : array.length;
+      if (high === 0) {
+        return 0;
+      }
+
+      value = iteratee(value);
+      var valIsNaN = value !== value,
           valIsNull = value === null,
           valIsSymbol = isSymbol(value),
           valIsUndefined = value === undefined;
@@ -5811,10 +5831,11 @@ function toComment(sourceMap) {
       if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
         return false;
       }
-      // Assume cyclic values are equal.
-      var stacked = stack.get(array);
-      if (stacked && stack.get(other)) {
-        return stacked == other;
+      // Check that cyclic values are equal.
+      var arrStacked = stack.get(array);
+      var othStacked = stack.get(other);
+      if (arrStacked && othStacked) {
+        return arrStacked == other && othStacked == array;
       }
       var index = -1,
           result = true,
@@ -5976,10 +5997,11 @@ function toComment(sourceMap) {
           return false;
         }
       }
-      // Assume cyclic values are equal.
-      var stacked = stack.get(object);
-      if (stacked && stack.get(other)) {
-        return stacked == other;
+      // Check that cyclic values are equal.
+      var objStacked = stack.get(object);
+      var othStacked = stack.get(other);
+      if (objStacked && othStacked) {
+        return objStacked == other && othStacked == object;
       }
       var result = true;
       stack.set(object, other);
@@ -9360,6 +9382,10 @@ function toComment(sourceMap) {
      * // The `_.property` iteratee shorthand.
      * _.filter(users, 'active');
      * // => objects for ['barney']
+     *
+     * // Combining several predicates using `_.overEvery` or `_.overSome`.
+     * _.filter(users, _.overSome([{ 'age': 36 }, ['age', 40]]));
+     * // => objects for ['fred', 'barney']
      */
     function filter(collection, predicate) {
       var func = isArray(collection) ? arrayFilter : baseFilter;
@@ -10109,15 +10135,15 @@ function toComment(sourceMap) {
      * var users = [
      *   { 'user': 'fred',   'age': 48 },
      *   { 'user': 'barney', 'age': 36 },
-     *   { 'user': 'fred',   'age': 40 },
+     *   { 'user': 'fred',   'age': 30 },
      *   { 'user': 'barney', 'age': 34 }
      * ];
      *
      * _.sortBy(users, [function(o) { return o.user; }]);
-     * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 40]]
+     * // => objects for [['barney', 36], ['barney', 34], ['fred', 48], ['fred', 30]]
      *
      * _.sortBy(users, ['user', 'age']);
-     * // => objects for [['barney', 34], ['barney', 36], ['fred', 40], ['fred', 48]]
+     * // => objects for [['barney', 34], ['barney', 36], ['fred', 30], ['fred', 48]]
      */
     var sortBy = baseRest(function(collection, iteratees) {
       if (collection == null) {
@@ -14992,11 +15018,11 @@ function toComment(sourceMap) {
 
       // Use a sourceURL for easier debugging.
       // The sourceURL gets injected into the source that's eval-ed, so be careful
-      // with lookup (in case of e.g. prototype pollution), and strip newlines if any.
-      // A newline wouldn't be a valid sourceURL anyway, and it'd enable code injection.
+      // to normalize all kinds of whitespace, so e.g. newlines (and unicode versions of it) can't sneak in
+      // and escape the comment, thus injecting code that gets evaled.
       var sourceURL = '//# sourceURL=' +
         (hasOwnProperty.call(options, 'sourceURL')
-          ? (options.sourceURL + '').replace(/[\r\n]/g, ' ')
+          ? (options.sourceURL + '').replace(/\s/g, ' ')
           : ('lodash.templateSources[' + (++templateCounter) + ']')
         ) + '\n';
 
@@ -15029,8 +15055,6 @@ function toComment(sourceMap) {
 
       // If `variable` is not specified wrap a with-statement around the generated
       // code to add the data object to the top of the scope chain.
-      // Like with sourceURL, we take care to not check the option's prototype,
-      // as this configuration is a code injection vector.
       var variable = hasOwnProperty.call(options, 'variable') && options.variable;
       if (!variable) {
         source = 'with (obj) {\n' + source + '\n}\n';
@@ -15737,6 +15761,9 @@ function toComment(sourceMap) {
      * values against any array or object value, respectively. See `_.isEqual`
      * for a list of supported value comparisons.
      *
+     * **Note:** Multiple values can be checked by combining several matchers
+     * using `_.overSome`
+     *
      * @static
      * @memberOf _
      * @since 3.0.0
@@ -15752,6 +15779,10 @@ function toComment(sourceMap) {
      *
      * _.filter(objects, _.matches({ 'a': 4, 'c': 6 }));
      * // => [{ 'a': 4, 'b': 5, 'c': 6 }]
+     *
+     * // Checking for several possible values
+     * _.filter(objects, _.overSome([_.matches({ 'a': 1 }), _.matches({ 'a': 4 })]));
+     * // => [{ 'a': 1, 'b': 2, 'c': 3 }, { 'a': 4, 'b': 5, 'c': 6 }]
      */
     function matches(source) {
       return baseMatches(baseClone(source, CLONE_DEEP_FLAG));
@@ -15765,6 +15796,9 @@ function toComment(sourceMap) {
      * **Note:** Partial comparisons will match empty array and empty object
      * `srcValue` values against any array or object value, respectively. See
      * `_.isEqual` for a list of supported value comparisons.
+     *
+     * **Note:** Multiple values can be checked by combining several matchers
+     * using `_.overSome`
      *
      * @static
      * @memberOf _
@@ -15782,6 +15816,10 @@ function toComment(sourceMap) {
      *
      * _.find(objects, _.matchesProperty('a', 4));
      * // => { 'a': 4, 'b': 5, 'c': 6 }
+     *
+     * // Checking for several possible values
+     * _.filter(objects, _.overSome([_.matchesProperty('a', 1), _.matchesProperty('a', 4)]));
+     * // => [{ 'a': 1, 'b': 2, 'c': 3 }, { 'a': 4, 'b': 5, 'c': 6 }]
      */
     function matchesProperty(path, srcValue) {
       return baseMatchesProperty(path, baseClone(srcValue, CLONE_DEEP_FLAG));
@@ -16005,6 +16043,10 @@ function toComment(sourceMap) {
      * Creates a function that checks if **all** of the `predicates` return
      * truthy when invoked with the arguments it receives.
      *
+     * Following shorthands are possible for providing predicates.
+     * Pass an `Object` and it will be used as an parameter for `_.matches` to create the predicate.
+     * Pass an `Array` of parameters for `_.matchesProperty` and the predicate will be created using them.
+     *
      * @static
      * @memberOf _
      * @since 4.0.0
@@ -16031,6 +16073,10 @@ function toComment(sourceMap) {
      * Creates a function that checks if **any** of the `predicates` return
      * truthy when invoked with the arguments it receives.
      *
+     * Following shorthands are possible for providing predicates.
+     * Pass an `Object` and it will be used as an parameter for `_.matches` to create the predicate.
+     * Pass an `Array` of parameters for `_.matchesProperty` and the predicate will be created using them.
+     *
      * @static
      * @memberOf _
      * @since 4.0.0
@@ -16050,6 +16096,9 @@ function toComment(sourceMap) {
      *
      * func(NaN);
      * // => false
+     *
+     * var matchesFunc = _.overSome([{ 'a': 1 }, { 'a': 2 }])
+     * var matchesPropertyFunc = _.overSome([['a', 1], ['a', 2]])
      */
     var overSome = createOver(arraySome);
 
@@ -17341,20 +17390,6 @@ exports.features = {};
 
 /***/ }),
 
-/***/ "4769":
-/***/ (function(module, exports, __webpack_require__) {
-
-// Imports
-var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
-exports = ___CSS_LOADER_API_IMPORT___(false);
-// Module
-exports.push([module.i, ".rows>*[data-v-2f9e52cd]{width:10%;text-align:center}.items>*[data-v-2f9e52cd]{transition:all .5s}.pointer[data-v-2f9e52cd]{text-align:center}.pointer.red[data-v-2f9e52cd]:before{border-bottom-color:red}.pointer.red[data-v-2f9e52cd]:after{content:\"i\"}.pointer.green[data-v-2f9e52cd]:before{border-bottom-color:green}.pointer.green[data-v-2f9e52cd]:after{content:\"r\"}.pointer[data-v-2f9e52cd]:before{width:0;height:0;border:6px solid transparent;margin:0 auto;content:\"\";display:block}.pointer[data-v-2f9e52cd]:after{display:block}", ""]);
-// Exports
-module.exports = exports;
-
-
-/***/ }),
-
 /***/ "499e":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -17621,6 +17656,17 @@ function applyToTag (styleElement, obj) {
 
 /***/ }),
 
+/***/ "5c1c":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Shuffling_vue_vue_type_style_index_0_id_aefbb9f0_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("a005");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Shuffling_vue_vue_type_style_index_0_id_aefbb9f0_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Shuffling_vue_vue_type_style_index_0_id_aefbb9f0_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
+/* unused harmony reexport * */
+ /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Shuffling_vue_vue_type_style_index_0_id_aefbb9f0_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
 /***/ "62e4":
 /***/ (function(module, exports) {
 
@@ -17647,17 +17693,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-
-/***/ "7aa6":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Shuffling_vue_vue_type_style_index_0_id_2f9e52cd_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__("921f");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Shuffling_vue_vue_type_style_index_0_id_2f9e52cd_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Shuffling_vue_vue_type_style_index_0_id_2f9e52cd_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0__);
-/* unused harmony reexport * */
- /* unused harmony default export */ var _unused_webpack_default_export = (_node_modules_vue_style_loader_index_js_ref_8_oneOf_1_0_node_modules_css_loader_dist_cjs_js_ref_8_oneOf_1_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_2_node_modules_postcss_loader_src_index_js_ref_8_oneOf_1_3_node_modules_sass_loader_dist_cjs_js_ref_8_oneOf_1_4_node_modules_cache_loader_dist_cjs_js_ref_0_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Shuffling_vue_vue_type_style_index_0_id_2f9e52cd_lang_scss_scoped_true___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -17753,21 +17788,6 @@ module.exports = require("vue");
 
 /***/ }),
 
-/***/ "921f":
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__("4769");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__("499e").default
-var update = add("a69c80a6", content, true, {"sourceMap":false,"shadowMode":false});
-
-/***/ }),
-
 /***/ "938d":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -17853,6 +17873,35 @@ var getNoWarn = function getNoWarn() {
   return getEnv('BOOTSTRAP_VUE_NO_WARN');
 };
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__("4362")))
+
+/***/ }),
+
+/***/ "a005":
+/***/ (function(module, exports, __webpack_require__) {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__("a842");
+if(typeof content === 'string') content = [[module.i, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__("499e").default
+var update = add("0f5a3430", content, true, {"sourceMap":false,"shadowMode":false});
+
+/***/ }),
+
+/***/ "a842":
+/***/ (function(module, exports, __webpack_require__) {
+
+// Imports
+var ___CSS_LOADER_API_IMPORT___ = __webpack_require__("24fb");
+exports = ___CSS_LOADER_API_IMPORT___(false);
+// Module
+exports.push([module.i, ".rows>*[data-v-aefbb9f0]{width:10%;text-align:center}.items>*[data-v-aefbb9f0]{transition:all .5s}.pointer[data-v-aefbb9f0]{text-align:center}.pointer.red[data-v-aefbb9f0]:before{border-bottom-color:red}.pointer.red[data-v-aefbb9f0]:after{content:\"i\"}.pointer.green[data-v-aefbb9f0]:before{border-bottom-color:green}.pointer.green[data-v-aefbb9f0]:after{content:\"r\"}.pointer[data-v-aefbb9f0]:before{width:0;height:0;border:6px solid transparent;margin:0 auto;content:\"\";display:block}.pointer[data-v-aefbb9f0]:after{display:block}", ""]);
+// Exports
+module.exports = exports;
+
 
 /***/ }),
 
@@ -18224,12 +18273,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"f9d875b8-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Shuffling.vue?vue&type=template&id=2f9e52cd&scoped=true&
-var Shufflingvue_type_template_id_2f9e52cd_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"d-flex flex-column h-100 px-3"},[_c('div',{staticClass:"pt-3 text-right"},[_c('button',{staticClass:"btn btn-secondary btn-sm ml-auto",attrs:{"type":"button"},on:{"click":_vm.init}},[_c('b-icon-arrow-clockwise')],1)]),_c('div',{staticClass:"d-flex flex-fill flex-column align-items-center justify-content-center"},[_c('div',{staticClass:"w-100 h-50 d-flex flex-fill flex-column justify-content-end"},[_c('div',{staticClass:"rows d-flex text-secondary w-100"},_vm._l((_vm.items),function(item,i){return _c('div',{key:item,staticClass:"text-monospace"},[_vm._v("["+_vm._s(i)+"]")])}),0),_c('div',{staticClass:"items rows d-flex w-100 mt-3"},_vm._l((_vm.items),function(item){return _c('div',{key:item},[_vm._v(_vm._s(item))])}),0)]),_c('div',{staticClass:"w-100 h-50 d-flex flex-fill flex-column justify-content-start"},[(!(_vm.isLastStep && !_vm.lock))?_c('div',{staticClass:"rows d-flex w-100 mt-3"},_vm._l((_vm.items),function(item,_i){return _c('div',{key:item},[(_vm.i === _i)?_c('div',{staticClass:"pointer red text-monospace"}):_vm._e(),(_vm.r === _i)?_c('div',{staticClass:"pointer green text-monospace"}):_vm._e()])}),0):_vm._e(),(_vm.isLastStep && !_vm.lock)?_c('div',{staticClass:"w-100 mt-5"},[_c('div',{staticClass:"text-secondary text-bold"},[_vm._v(" Finished! Source array was: ")]),_c('div',{staticClass:"d-flex align-items-center mt-2"},[_c('div',[_vm._v("[")]),_c('div',{staticClass:"items rows d-flex w-100"},_vm._l((_vm.snapshot),function(item,key){return _c('div',{key:item},[_vm._v(" "+_vm._s(item)+" "),(key !== _vm.snapshot.length - 1)?_c('span',[_vm._v(",")]):_vm._e()])}),0),_c('div',[_vm._v("]")])])]):_vm._e()])]),_c('div',{staticClass:"pb-3 text-center"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","disabled":_vm.lock},on:{"click":_vm.nextStep}},[_vm._v(" next ")])])])}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"3dfd3878-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/Shuffling.vue?vue&type=template&id=aefbb9f0&scoped=true&
+var Shufflingvue_type_template_id_aefbb9f0_scoped_true_render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{staticClass:"d-flex flex-column h-100 px-3"},[_c('div',{staticClass:"pt-3 text-right"},[_c('button',{staticClass:"btn btn-secondary btn-sm ml-auto",attrs:{"type":"button"},on:{"click":_vm.init}},[_c('b-icon-arrow-clockwise')],1)]),_c('div',{staticClass:"d-flex flex-fill flex-column align-items-center justify-content-center"},[_c('div',{staticClass:"w-100 h-50 d-flex flex-fill flex-column justify-content-end"},[_c('div',{staticClass:"rows d-flex text-secondary w-100"},_vm._l((_vm.items),function(item,i){return _c('div',{key:item,staticClass:"text-monospace"},[_vm._v("["+_vm._s(i)+"]")])}),0),_c('div',{staticClass:"items rows d-flex w-100 mt-3"},_vm._l((_vm.items),function(item){return _c('div',{key:item},[_vm._v(_vm._s(item))])}),0)]),_c('div',{staticClass:"w-100 h-50 d-flex flex-fill flex-column justify-content-start"},[(!(_vm.isLastStep && !_vm.lock))?_c('div',{staticClass:"rows d-flex w-100 mt-3"},_vm._l((_vm.items),function(item,_i){return _c('div',{key:item},[(_vm.i === _i)?_c('div',{staticClass:"pointer red text-monospace"}):_vm._e(),(_vm.r === _i)?_c('div',{staticClass:"pointer green text-monospace"}):_vm._e()])}),0):_vm._e(),(_vm.isLastStep && !_vm.lock)?_c('div',{staticClass:"w-100 mt-5"},[_c('div',{staticClass:"text-secondary"},[_vm._v(" Finished! Source array was: ")]),_c('div',{staticClass:"d-flex align-items-center mt-2"},[_c('div',[_vm._v("[")]),_c('div',{staticClass:"items rows d-flex w-100"},_vm._l((_vm.snapshot),function(item,key){return _c('div',{key:item},[_vm._v(" "+_vm._s(item)+" "),(key !== _vm.snapshot.length - 1)?_c('span',[_vm._v(",")]):_vm._e()])}),0),_c('div',[_vm._v("]")])])]):_vm._e()])]),_c('div',{staticClass:"pb-3 text-center"},[_c('button',{staticClass:"btn btn-secondary",attrs:{"type":"button","disabled":_vm.lock},on:{"click":_vm.nextStep}},[_vm._v(" next ")])])])}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/Shuffling.vue?vue&type=template&id=2f9e52cd&scoped=true&
+// CONCATENATED MODULE: ./src/components/Shuffling.vue?vue&type=template&id=aefbb9f0&scoped=true&
 
 // CONCATENATED MODULE: ./node_modules/tslib/tslib.es6.js
 /*! *****************************************************************************
@@ -20768,6 +20817,7 @@ class base_component_BaseComponent extends external_commonjs_vue_commonjs2_vue_r
     if (locale === 'en') return key;
     if (!this['translations']) return key;
     if (!this['translations'][locale]) return key;
+    if (!this['translations'][locale][key]) return key;
     return this.translations[locale][key];
   }
 
@@ -21765,8 +21815,8 @@ Shufflingvue_type_script_lang_ts_Shuffling = __decorate([vue_class_component_esm
 /* harmony default export */ var Shufflingvue_type_script_lang_ts_ = (Shufflingvue_type_script_lang_ts_Shuffling);
 // CONCATENATED MODULE: ./src/components/Shuffling.vue?vue&type=script&lang=ts&
  /* harmony default export */ var components_Shufflingvue_type_script_lang_ts_ = (Shufflingvue_type_script_lang_ts_); 
-// EXTERNAL MODULE: ./src/components/Shuffling.vue?vue&type=style&index=0&id=2f9e52cd&lang=scss&scoped=true&
-var Shufflingvue_type_style_index_0_id_2f9e52cd_lang_scss_scoped_true_ = __webpack_require__("7aa6");
+// EXTERNAL MODULE: ./src/components/Shuffling.vue?vue&type=style&index=0&id=aefbb9f0&lang=scss&scoped=true&
+var Shufflingvue_type_style_index_0_id_aefbb9f0_lang_scss_scoped_true_ = __webpack_require__("5c1c");
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 /* globals __VUE_SSR_CONTEXT__ */
@@ -21879,11 +21929,11 @@ function normalizeComponent (
 
 var component = normalizeComponent(
   components_Shufflingvue_type_script_lang_ts_,
-  Shufflingvue_type_template_id_2f9e52cd_scoped_true_render,
+  Shufflingvue_type_template_id_aefbb9f0_scoped_true_render,
   staticRenderFns,
   false,
   null,
-  "2f9e52cd",
+  "aefbb9f0",
   null
   
 )

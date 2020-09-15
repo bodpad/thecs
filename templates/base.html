@@ -10,6 +10,7 @@
   <title>{% block title %}{% endblock %} - TheCS</title>
   <meta http-equiv=X-UA-Compatible content="IE=edge">
   <meta name=viewport content="width=device-width,initial-scale=1">
+  <meta name="description" content="{% block description %}{% endblock %}">
   {% if YANDEX_METRIKA_ID %}{% include 'metrika.html' %}{% endif %}
   {% compress css %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -79,6 +80,9 @@
     <!-- Axios -->
     <script src="{% static 'axios/dist/axios.min.js' %}"></script>
     <script>Vue.prototype.$http = axios;</script>
+
+    <!-- SVG.js -->
+    <script src="{% static '@svgdotjs/svg.js/dist/svg.min.js' %}"></script>
 
     <!-- Global js -->
     <script src="{% static 'js/global.js' %}"></script>

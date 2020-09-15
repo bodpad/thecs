@@ -28,6 +28,8 @@ class Article(models.Model):
     clean_url = models.CharField(max_length=255)
     text_en = models.TextField(null=True, blank=True)
     text_ru = models.TextField(null=True, blank=True)
+    description_en = models.CharField(max_length=255, null=True, blank=True)
+    description_ru = models.CharField(max_length=255, null=True, blank=True)
     tags = TaggableManager(blank=True)
     pub_date = models.DateTimeField(auto_now_add=True)
     mod_date = models.DateTimeField(auto_now=True)
@@ -58,6 +60,10 @@ class Article(models.Model):
     def title(self):
         attr = f"title_{self._language_code}"
         return getattr(self, attr) if hasattr(self, attr) else self.title_en
+
+    @property
+    def description(self):
+        return getattr(self, f"description_{self._language_code}") or ''
 
     @property
     def text(self):

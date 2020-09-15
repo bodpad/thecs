@@ -5,30 +5,47 @@
 {% load ratings %}
 {% get_current_language as LANGUAGE_CODE %}
 
+
 {% block title %}
   {{object.title_en}} {{object.get_entity_display}}
 {% endblock %}
 
-{% block css %}
 
+{% block description %}
+  {{object.description}}
 {% endblock %}
+
 
 {% block js %}
   {% if object.implementations %}
-    <script src="{% static 'code-viewer.umd.min.js' %}"></script>
-    <script>Vue.component('code-viewer', CodeViewer)</script>
-    <script>new Vue({}).$mount('.implementation-container')</script>
+  <script>
+      var impl = document.createElement('script');
+      impl.onload = function(){
+          Vue.component('code-viewer', CodeViewer)
+          new Vue({}).$mount('.implementation-container')
+      };
+      impl.async = true;
+      impl.src = "{% static 'code-viewer.umd.min.js' %}";
+      document.body.appendChild(impl);
+  </script>
   {% endif %}
 
   {% if object.playground %}
-    <script src="{% static '@svgdotjs/svg.js/dist/svg.min.js' %}"></script>
-    <script src="{% static object.playground|add:'.umd.min.js' %}"></script>
-    <script>Vue.component('{{object.playground}}', {{object.get_playground_display}})</script>
-    <script>new Vue({}).$mount('.playground-container')</script>
+  <script>
+      var pg = document.createElement('script');
+      pg.onload = function(){
+          Vue.component('{{object.playground}}', {{object.get_playground_display}})
+          new Vue({}).$mount('.playground-container')
+      };
+      pg.async = true;
+      pg.src = "{% static object.playground|add:'.umd.min.js' %}";
+      document.body.appendChild(pg);
+  </script>
   {% endif %}
 
-  <script src="{% static 'js/algorithm.js' %}"></script>
+  <script async src="{% static 'js/algorithm.js' %}"></script>
 {% endblock %}
+
 
 {% block navbar_right_zone %}
   {% if object.playground or object.implementations %}
@@ -70,10 +87,15 @@
                    target="_blank"
                    class="text-16">[edit]</a>
                 {% endif %}
-                {% if object.entity and LANGUAGE_CODE != 'en' %}
-                <span class="d-block text-18 text-secondary">{{object.title_en}}</span>
-                {% endif %}
               </h1>
+              {% if object.entity and LANGUAGE_CODE != 'en' %}
+              <div>
+                <span class="text-22 text-secondary">{{object.title_en}}</span>
+                <span class="badge badge-pill badge-primary position-relative" style="top: -1px">
+                  {{ object.get_entity_display }}
+                </span>
+              </div>
+              {% endif %}
             </div>
             <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 ml-auto text-center">
               <svg
