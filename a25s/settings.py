@@ -28,6 +28,7 @@ DEBUG = strtobool(os.environ.get('DEBUG')) if os.environ.get('DEBUG') else True
 
 ALLOWED_HOSTS = ['hidden-plateau-15367.herokuapp.com', 'thecs.org']
 
+ADMINS = [('King', os.environ.get('ADMIN_EMAIL'))]
 
 # Application definition
 
@@ -79,6 +80,15 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'a25s.wsgi.application'
+
+
+# SMTP settings
+# https://docs.djangoproject.com/en/3.1/topics/email/
+EMAIL_HOST = 'smtp.yandex.ru'
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 465
+EMAIL_USE_SSL = True
 
 
 # Database
@@ -166,17 +176,20 @@ STATICFILES_FINDERS = (
 
 TAGGIT_CASE_INSENSITIVE = True
 
+
 # Django Star Ratings
 # https://django-star-ratings.readthedocs.io/en/latest/?badge=latest/
 
 TAR_RATINGS_ANONYMOUS = True
 STAR_RATINGS_STAR_HEIGHT = STAR_RATINGS_STAR_WIDTH = 20
 
+
 # Django Compressor
 # https://django-compressor.readthedocs.io/en/stable/
 
 COMPRESS_ENABLED = True
 COMPRESS_OFFLINE = not DEBUG
+
 
 # Heroku
 
