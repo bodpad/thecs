@@ -62,7 +62,7 @@
       <div class="p-3 container text-container">
         <div class="">
           <div class="row align-items-center pb-3 mb-3 border-bottom">
-            <div class="col-10">
+            <div class="col-sm-12 col-md-10 col-lg-10 col-xl-10">
               <h1 class="m-0">
                 {{object.title}}
                 {% if request.user.is_superuser %}
@@ -75,7 +75,7 @@
                 {% endif %}
               </h1>
             </div>
-            <div class="col-1 text-center">
+            <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 ml-auto text-center">
               <svg
                 width="1.4em"
                 height="1.4em"
@@ -90,7 +90,7 @@
                 <path fill-rule="evenodd" d="M11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5z"/>
               </svg>
             </div>
-            <div class="col-1 text-center">
+            <div class="col-2 col-sm-2 col-md-1 col-lg-1 col-xl-1 text-center">
               <svg
                 width="1.6em"
                 height="1.6em"
@@ -110,7 +110,7 @@
           {% if object.text %}
             <div class="text-block">{{object.text|safe}}</div>
 
-            <div class="row align-items-center py-4 rounded" style="background: #eee">
+            <div class="row align-items-center py-4 rounded m-0" style="background: #eee">
               <div id="rate-it" class="col-6 border-right text-center">
                 <div class="font-weight-bold mb-2">{% translate 'Rate it' %}</div>
                 {% ratings object %}

@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'taggit',
     'ckeditor',
     'algorithms',
-    'star_ratings'
+    'star_ratings',
+    'compressor'
 ]
 
 MIDDLEWARE = [
@@ -154,11 +155,28 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static")
 ]
 
-# Taggit app config
+STATICFILES_FINDERS = (
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'compressor.finders.CompressorFinder',
+)
+
+# Django Taggit
+# https://django-taggit.readthedocs.io/en/latest/
+
 TAGGIT_CASE_INSENSITIVE = True
 
-# Rating app config
+# Django Star Ratings
+# https://django-star-ratings.readthedocs.io/en/latest/?badge=latest/
+
 TAR_RATINGS_ANONYMOUS = True
 STAR_RATINGS_STAR_HEIGHT = STAR_RATINGS_STAR_WIDTH = 20
+
+# Django Compressor
+# https://django-compressor.readthedocs.io/en/stable/
+
+COMPRESS_ENABLED = True
+
+# Heroku
 
 django_heroku.settings(locals())

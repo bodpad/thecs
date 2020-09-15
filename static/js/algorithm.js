@@ -68,4 +68,17 @@ var triptych = new Vue({
         }
     }
 });
-//# sourceMappingURL=algorithm.js.map
+
+/**
+ * Change all active tabs on selected snippet language
+ */
+$('input[type="radio"]').on('change', function (event) {
+    if (!event.target.id.startsWith('__tabbed')) return;
+    var label = event.target.nextElementSibling; // HTMLLabelElement
+    $('label').each(function(i, el){
+        if (label === el) return;
+        if (!el.htmlFor.startsWith('__tabbed')) return;
+        if (el.innerText !== label.innerText) return;
+        $(el).prev().prop("checked", true);
+    });
+});
