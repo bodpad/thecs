@@ -84,6 +84,7 @@ WSGI_APPLICATION = 'a25s.wsgi.application'
 
 # SMTP settings
 # https://docs.djangoproject.com/en/3.1/topics/email/
+
 EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_HOST_USER = DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
@@ -143,6 +144,7 @@ LOCALE_PATHS = [
     os.path.join(BASE_DIR, 'locale')
 ]
 
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
@@ -170,6 +172,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'compressor.finders.CompressorFinder',
 )
+
 
 # Django Taggit
 # https://django-taggit.readthedocs.io/en/latest/
