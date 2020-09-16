@@ -54,7 +54,7 @@
 
     <script>
         $('[data-toggle="popover"]').popover();
-        $('[data-toggle="tooltip"]').tooltip();
+        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
     </script>
   {% endcompress %}
 
