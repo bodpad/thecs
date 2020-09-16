@@ -6,11 +6,10 @@
 <html lang="en" class="h-100">
 
 <head>
-  <meta charset="UTF-8">
-  <title>{% block title %}{% endblock %} - TheCS</title>
-  <meta http-equiv=X-UA-Compatible content="IE=edge">
-  <meta name=viewport content="width=device-width,initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <meta name="description" content="{% block description %}{% endblock %}">
+  <title>{% block title %}{% endblock %} - TheCS</title>
   {% if YANDEX_METRIKA_ID %}{% include 'metrika.html' %}{% endif %}
   {% compress css %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -22,45 +21,7 @@
 </head>
 
 <body class="d-flex flex-column h-100">
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand p-0 font-weight-bold" href="/">TheCS</a>
-    <button
-      class="navbar-toggler"
-      type="button"
-      data-toggle="collapse"
-      data-target="#navbarCollapse"
-      aria-controls="navbarCollapse"
-      aria-expanded="false"
-      aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/">{% translate "Home" %} <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item active d-flex">
-        </li>
-      </ul>
-      <form class="form-inline my-2 my-lg-0" name="set_language" action="{% url 'set_language' %}" method="post">
-        <div class="form-group">
-          {% csrf_token %}
-          <input name="next" type="hidden" value="{{ redirect_to }}">
-          <select name="language" class="form-control form-control-sm" onchange="document.forms['set_language'].submit()">
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
-            {% get_language_info_list for LANGUAGES as languages %}
-            {% for language in languages %}
-            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-              {{ language.code }}
-            </option>
-            {% endfor %}
-          </select>
-        </div>
-      </form>
-    </div>
-  </nav>
+  {% include 'header.html' %}
 
   <main class="flex-shrink-0">
     {% block content %}{% endblock %}
@@ -68,14 +29,7 @@
 
   <div style="min-height: 48px"></div>
 
-  <footer class="container-fluid py-3 mt-auto border-top">
-    <div class="row">
-      <div class="col-12 col-md">
-        <b>TheCS.org</b>
-        <small class="d-block text-muted">MIT License © 2020-{% now "Y" %}</small>
-      </div>
-    </div>
-  </footer>
+  {% include 'footer.html' %}
 
   {% compress js %}
     <!-- Bootstrap -->
