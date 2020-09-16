@@ -99,11 +99,41 @@ div::-webkit-scrollbar-thumb {
 /**
  * Triptych
  */
-.triptych {
-  &_single {
-
+.multiple {
+  // height: calc(100vh - 57px);
+  .btn-group > * {
+    display: flex;
+    align-items: center;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
   }
 
+}
+
+.jumper {
+  width: 0;
+  opacity: 0;
+  transition: all 150ms;
+}
+
+.article-header {
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255,255,255,0.8);
+  &_sticky {
+    border-bottom: 1px solid #eee;
+  }
+}
+
+.implementation-container,
+.playground-container {
+  position: sticky;
+  top: 73px;
+}
+
+.triptych {
   .text-container {
     img {
       display: block;
@@ -114,6 +144,26 @@ div::-webkit-scrollbar-thumb {
       hr {
         border-style: dashed;
       }
+    }
+    h2 {
+      font-size: 1.5rem;
+      padding-bottom: 4px;
+      color: #202124;
+      padding-top: 10px;
+      position: relative;
+      &:after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        height: 2px;
+        background: linear-gradient(to right, var(--pink), var(--primary));
+      }
+    }
+    h3 {
+      font-size: 1.25rem;
+      color: #202124;
     }
   }
 
@@ -135,40 +185,14 @@ div::-webkit-scrollbar-thumb {
   }
 
   &_multiple {
-    display: flex;
-    height: calc(100vh - 49px);
     & > *:first-child {
-      overflow-y: auto;
-      height: 100%;
+      //overflow-y: auto;
+      //height: 100%;
     }
     & > * {
-      width: 33.333% !important;
-      flex-grow: 1;
-      overflow: hidden;
-    }
-  }
-
-  & > *:first-child {
-    h2 {
-      font-size: 1.5rem;
-      // border-bottom: 2px solid var(--pink);
-      padding-bottom: 4px;
-      color: #202124;
-      padding-top: 10px;
-      position: relative;
-      &:after {
-        content: '';
-        position: absolute;
-        left: 0;
-        bottom: 0;
-        right: 0;
-        height: 2px;
-        background: linear-gradient(to right, var(--pink), var(--primary));
-      }
-    }
-    h3 {
-      font-size: 1.25rem;
-      color: #202124;
+      //width: 33.333% !important;
+      //flex-grow: 1;
+      //overflow: hidden;
     }
   }
 }

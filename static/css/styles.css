@@ -550,12 +550,12 @@ pre code {
 }
 @media (min-width: 992px) {
   .container {
-    max-width: 900px;
+    max-width: 960px;
   }
 }
 @media (min-width: 1200px) {
   .container {
-    max-width: 990px;
+    max-width: 1140px;
   }
 }
 
@@ -579,12 +579,12 @@ pre code {
 }
 @media (min-width: 992px) {
   .container-lg, .container-md, .container-sm, .container {
-    max-width: 900px;
+    max-width: 960px;
   }
 }
 @media (min-width: 1200px) {
   .container-xl, .container-lg, .container-md, .container-sm, .container {
-    max-width: 990px;
+    max-width: 1140px;
   }
 }
 .row {
@@ -10008,6 +10008,36 @@ div::-webkit-scrollbar-thumb {
 /**
  * Triptych
  */
+.multiple .btn-group > * {
+  display: flex;
+  align-items: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.jumper {
+  width: 0;
+  opacity: 0;
+  transition: all 150ms;
+}
+
+.article-header {
+  position: sticky;
+  top: -1px;
+  z-index: 1;
+  backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255, 255, 255, 0.8);
+}
+.article-header_sticky {
+  border-bottom: 1px solid #eee;
+}
+
+.implementation-container,
+.playground-container {
+  position: sticky;
+  top: 73px;
+}
+
 .triptych .text-container img {
   display: block;
   margin: 0 auto;
@@ -10015,6 +10045,26 @@ div::-webkit-scrollbar-thumb {
 }
 .triptych .text-container .text-block hr {
   border-style: dashed;
+}
+.triptych .text-container h2 {
+  font-size: 1.5rem;
+  padding-bottom: 4px;
+  color: #202124;
+  padding-top: 10px;
+  position: relative;
+}
+.triptych .text-container h2:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(to right, var(--pink), var(--primary));
+}
+.triptych .text-container h3 {
+  font-size: 1.25rem;
+  color: #202124;
 }
 .triptych .playground-container > * {
   box-shadow: 0 0 7px 0 #ccc inset;
@@ -10027,40 +10077,6 @@ div::-webkit-scrollbar-thumb {
   border-radius: 4px;
   overflow: hidden;
 }
-.triptych_multiple {
-  display: flex;
-  height: calc(100vh - 49px);
-}
-.triptych_multiple > *:first-child {
-  overflow-y: auto;
-  height: 100%;
-}
-.triptych_multiple > * {
-  width: 33.333% !important;
-  flex-grow: 1;
-  overflow: hidden;
-}
-.triptych > *:first-child h2 {
-  font-size: 1.5rem;
-  padding-bottom: 4px;
-  color: #202124;
-  padding-top: 10px;
-  position: relative;
-}
-.triptych > *:first-child h2:after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(to right, var(--pink), var(--primary));
-}
-.triptych > *:first-child h3 {
-  font-size: 1.25rem;
-  color: #202124;
-}
-
 /**
  *  Code highlight
  */

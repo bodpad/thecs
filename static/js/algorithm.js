@@ -71,6 +71,7 @@ var triptych = new Vue({
 
 /**
  * Change all active tabs on selected snippet language
+ * @type {*|jQuery}
  */
 $('input[type="radio"]').on('change', function (event) {
     if (!event.target.id.startsWith('__tabbed')) return;
@@ -82,3 +83,55 @@ $('input[type="radio"]').on('change', function (event) {
         $(el).prev().prop("checked", true);
     });
 });
+
+
+/**
+ *
+ * @type {*|jQuery}
+ */
+var headerHeight = $('.navbar').outerHeight();
+var $articleHeader = $('#article-header');
+var $implementationContainer = $('.implementation-container');
+var $playgroundContainer = $('.playground-container');
+var $jumper = $('.jumper');
+
+
+$(window).on('scroll', function() {
+    var windowScrollTop = $(this).scrollTop();
+
+    if ($implementationContainer.length || $playgroundContainer.length) {
+        var offset = (headerHeight - windowScrollTop) > 0 ? headerHeight - windowScrollTop : 0;
+        var height = $(this).height() - $articleHeader.outerHeight() - 16 - offset;
+        if ($implementationContainer.length) $implementationContainer.height(height);
+        if ($playgroundContainer.length) $playgroundContainer.height(height);
+    }
+
+}).trigger('scroll');
+
+var observer = new IntersectionObserver(function (entries) {
+    if (entries[0].isIntersecting) {
+        $articleHeader.removeClass('article-header_sticky');
+        $jumper.css({
+            'width': '',
+            'opacity': ''
+        });
+    } else {
+        $articleHeader.addClass('article-header_sticky');
+        $jumper.css({
+            'width': $jumper.get(0).scrollWidth + 'px',
+            'opacity': '1'
+        });
+    }
+}, {
+    threshold: 1.0,
+});
+observer.observe($articleHeader.get(0));
+
+/**
+ *
+ */
+if ($('.star-ratings').length) {
+    window.addEventListener("rate-success", function (e) {
+        // console.log(e.detail);
+    }, false);
+}
