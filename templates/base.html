@@ -51,14 +51,14 @@
     <script src="{% static 'js/global.js' %}"></script>
 
     <script type="text/javascript" src="{% static 'star-ratings/js/dist/star-ratings.min.js' %}"></script>
-
-    <script>
-        $('[data-toggle="popover"]').popover();
-        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
-    </script>
   {% endcompress %}
 
   {% block js %}{% endblock %}
+
+  <script>
+      $('[data-toggle="popover"]').popover();
+      $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+  </script>
 
 </body>
 </html>

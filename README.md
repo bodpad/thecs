@@ -15,8 +15,8 @@
     python manage.py runserver
 
 ### Translates
-    python manage.py makemessages -a -i venv
-    python manage.py compilemessages -i venv
+    python manage.py makemessages -a -i venv -i node_modules
+    python manage.py compilemessages -i venv -i node_modules
 
 ### Build front
     python manage.py pg build
