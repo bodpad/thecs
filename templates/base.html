@@ -21,6 +21,7 @@
 </head>
 
 <body class="d-flex flex-column h-100">
+
   {% include 'header.html' %}
 
   <main class="flex-shrink-0">
@@ -57,7 +58,7 @@
 
   <script>
       $('[data-toggle="popover"]').popover();
-      $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' });
+      $('[data-toggle="tooltip"]').tooltip({ boundary: 'window', trigger : 'hover' });
   </script>
 
 </body>
