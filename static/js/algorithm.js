@@ -160,22 +160,17 @@ $(window).on('scroll', function() {
 }).trigger('scroll');
 
 var observer = new IntersectionObserver(function (entries) {
-    console.log(1);
     if (entries[0].isIntersecting) {
         $articleHeader.removeClass('article-header_sticky');
-        $jumper.css({
-            'width': '',
-            'opacity': ''
-        });
+        $jumper.css({'width': '', 'opacity': ''});
+        $articleHeader.removeClass('py-2').addClass('py-4')
     } else {
         $articleHeader.addClass('article-header_sticky');
-        $jumper.css({
-            'width': $jumper.get(0).scrollWidth + 'px',
-            'opacity': '1'
-        });
+        $jumper.css({'width': $jumper.get(0).scrollWidth + 'px', 'opacity': '1'});
+        $articleHeader.removeClass('py-4').addClass('py-2')
     }
 }, {
-    threshold: 1.0,
+    threshold: 1,
 });
 observer.observe($articleHeader.get(0));
 

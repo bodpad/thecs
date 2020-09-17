@@ -120,6 +120,7 @@ div::-webkit-scrollbar-thumb {
   position: sticky;
   top: -1px;
   z-index: 1;
+  transition: padding 250ms;
   backdrop-filter: saturate(180%) blur(20px);
   background: rgba(255,255,255,0.8);
   &_sticky {
