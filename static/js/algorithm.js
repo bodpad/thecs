@@ -12,7 +12,7 @@ if (document.getElementById('triptych')) {
             lstRef: document.querySelector('.implementation-container')
         },
         created: function () {
-            const mql = window.matchMedia('(max-width: 720px)');
+            const mql = window.matchMedia('(max-width: 991px)');
             this.matchMediaHandler(mql);
             mql.addListener(this.matchMediaHandler.bind(this));
         },
@@ -160,6 +160,7 @@ $(window).on('scroll', function() {
 }).trigger('scroll');
 
 var observer = new IntersectionObserver(function (entries) {
+    console.log(1);
     if (entries[0].isIntersecting) {
         $articleHeader.removeClass('article-header_sticky');
         $jumper.css({
