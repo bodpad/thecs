@@ -22,7 +22,9 @@
 
 <body class="d-flex flex-column h-100">
 
-  {% include 'header.html' %}
+  {% block header %}
+    {% include 'header.html' %}
+  {% endblock %}
 
   <main class="flex-shrink-0">
     {% block content %}{% endblock %}
@@ -30,7 +32,9 @@
 
   <div style="min-height: 48px"></div>
 
-  {% include 'footer.html' %}
+  {% block footer %}
+    {% include 'footer.html' %}
+  {% endblock %}
 
   {% compress js %}
     <!-- Bootstrap -->
@@ -48,7 +52,7 @@
     <!-- SVG.js -->
     <script src="{% static '@svgdotjs/svg.js/dist/svg.min.js' %}"></script>
 
-  <!-- Clipboard.js -->
+    <!-- Clipboard.js -->
     <script src="{% static 'clipboard/dist/clipboard.min.js' %}"></script>
 
     <!-- Global js -->

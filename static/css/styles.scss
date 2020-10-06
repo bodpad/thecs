@@ -360,10 +360,10 @@ a[href^="https://"]:not([href*="thecs.org"]):not([href*="localhost"]):after {
     background: #eee;
     margin: -4px -4px 2px -4px;
     color: #333;
-  }
-  &:after {
-    content: "Program ended with exit code: 0";
-    font-family: $font-family-monospace;
-    font-size: 87.5%;
-  }
+  } 
+  //&:after {
+  //  content: "Program ended with exit code: 0";
+  //  font-family: $font-family-monospace;
+  //  font-size: 87.5%;
+  //}
 }

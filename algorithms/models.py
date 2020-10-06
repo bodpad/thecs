@@ -20,7 +20,7 @@ def PLAYGROUND_CHOICE():
     return output
 
 
-class BaseArticle(models.Model):
+class BasePage(models.Model):
     _language_code = 'en'
 
     title_en = models.CharField(max_length=255)
@@ -38,10 +38,10 @@ class BaseArticle(models.Model):
     def save(self, *args, **kwargs):
         self.text_en = self.text_en.strip()
         self.text_ru = self.text_ru.strip()
-        super(BaseArticle, self).save(*args, **kwargs)
+        super(BasePage, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return "/article/%s/" % self.path
+        return "/%s/" % self.path
 
     def get_language(self):
         return self._language_code
@@ -74,12 +74,11 @@ class BaseArticle(models.Model):
         abstract = True
 
 
-class Page(BaseArticle):
-    def get_absolute_url(self):
-        return "/%s/" % self.path
+class Page(BasePage):
+    pass
 
 
-class Algorithm(BaseArticle):
+class Algorithm(BasePage):
     ENTITY_CHOICE = [
         (1, 'Algorithm'),
         (2, 'Data structure'),
