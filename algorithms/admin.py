@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Algorithm
+from .models import Algorithm, Page
 
 
 @admin.register(Algorithm)
@@ -19,5 +19,11 @@ class AlgorithmAdmin(admin.ModelAdmin):
             'behave-js/behave.js',
             'js/admin.js',
         )
+
+
+@admin.register(Page)
+class PageAdmin(admin.ModelAdmin):
+    list_display = ('title_en', 'title_ru', 'clean_url', 'published')
+
 
 

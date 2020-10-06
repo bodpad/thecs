@@ -157,6 +157,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATICFILES_DIRS = [
     ("@svgdotjs",    os.path.join(BASE_DIR, "node_modules", "@svgdotjs")),
     ("vue",          os.path.join(BASE_DIR, "node_modules", "vue")),
+    ("clipboard",    os.path.join(BASE_DIR, "node_modules", "clipboard")),
     ("bootstrap",    os.path.join(BASE_DIR, "node_modules", "bootstrap")),
     ("axios",        os.path.join(BASE_DIR, "node_modules", "axios")),
     ("popper.js",    os.path.join(BASE_DIR, "node_modules", "popper.js")),

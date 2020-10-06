@@ -5,15 +5,18 @@
 {% block title %}Algorithms & Data structures{% endblock %}
 
 {% block content %}
-<div class="container">
-  <div class="intro jumbotron border mt-4 py-4 px-2">
-    <div class="container ">
-      <h1 class="display-4" style="font-size: 20px; font-weight: 600;"><span class="text-danger">The</span> Computer Science.</h1>
-      <div class="row">
-      <blockquote class="blockquote text-14 col-sm-12 col-md-12 col-lg-9 col-xl-9">
-        <p class="mb-0">
+
+<div class="border-bottom mb-5 py-5">
+  <div class="container">
+    <div class="row align-items-center mx-auto" style="max-width: 1000px">
+      <div class="col-sm-12 col-md-12 col-lg-7 col-xl-7">
+        <h1 class="display-4 font-weight-bold" style="font-size: 30px;">
+          <span class="text-danger">The</span>
+          Computer Science;
+        </h1>
+        <p class="mb-0" style="line-height: 1.8">
           {% blocktrans %}
-          <b>TheCS.org</b> - это образовательный ресурс посвященный <b>Алгоритмам</b> и <b>Структурам
+          <b>TheCS.org</b> - это открытый образовательный ресурс посвященный <b>Алгоритмам</b> и <b>Структурам
           данных</b>.
           Это важный раздел информатики (computer since) дающее фундаментальное представелние о способах
           эффективного хранения и организации данных в памяти компьютера и использованию их для решения
@@ -23,17 +26,18 @@
           профессиональной деятельности.
           {% endblocktrans %}
         </p>
-        <footer class="blockquote-footer text-right ml-auto">
-          C уважением
-          <cite title="Source Title">команда <b>TheCS</b></cite>
-        </footer>
-      </blockquote>
+      </div>
+      <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5 d-none d-lg-block text-right">
+        <img src="/static/i/t.jpg" alt="" height="300px" style="border-radius: 10px">
       </div>
     </div>
   </div>
+</div>
+
+<div class="container">
 
   <div class="pb-4">
-    <a href="{% url 'cs' 'introduction' %}">{{ introduction.title }}</a>
+    <a href="{{ introduction.get_absolute_url }}">{{ introduction.title }}</a>
   </div>
 
   <div class="row mt-4">

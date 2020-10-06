@@ -1,0 +1,85 @@
+{% extends 'page.html' %}
+
+
+{% block content %}
+<div class="container">
+  <h1 class="mt-4 mb-3">{{object.title}}</h1>
+</div>
+
+<div class="container-fluid" style="max-width: 1440px">
+  <div class="row text-center text-14">
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 px-md-5 px-lg-3 px-xl-5 border-right">
+      <div class="row mb-2 text-secondary">
+        <div class="col-2">Decimal</div>
+        <div class="col-4">Binary</div>
+        <div class="col-2">Octal</div>
+        <div class="col-2">Hex</div>
+        <div class="col-2">ASCII</div>
+      </div>
+      {% for row in data|slice:":32"  %}
+      <div class="row" style="font-family: Monospace">
+        <div class="col-2 text-right">{{ row.0 }}</div>
+        <div class="col-4">{{ row.1 }}</div>
+        <div class="col-2">{{ row.2 }}</div>
+        <div class="col-2">{{ row.3 }}</div>
+        <div class="col-2">{{ row.4 }}</div>
+      </div>
+      {% endfor  %}
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 px-md-5 px-lg-3 px-xl-5 border-right">
+      <div class="row mb-2 text-secondary">
+        <div class="col-2">Decimal</div>
+        <div class="col-4">Binary</div>
+        <div class="col-2">Octal</div>
+        <div class="col-2">Hex</div>
+        <div class="col-2">ASCII</div>
+      </div>
+      {% for row in data|slice:"32:64"  %}
+      <div class="row" style="font-family: Monospace">
+        <div class="col-2 text-right">{{ row.0 }}</div>
+        <div class="col-4">{{ row.1 }}</div>
+        <div class="col-2">{{ row.2 }}</div>
+        <div class="col-2">{{ row.3 }}</div>
+        <div class="col-2">{{ row.4 }}</div>
+      </div>
+      {% endfor  %}
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 px-md-5 px-lg-3 px-xl-5 border-right">
+      <div class="row mb-2 text-secondary">
+        <div class="col-2">Decimal</div>
+        <div class="col-4">Binary</div>
+        <div class="col-2">Octal</div>
+        <div class="col-2">Hex</div>
+        <div class="col-2">ASCII</div>
+      </div>
+      {% for row in data|slice:"64:96"  %}
+      <div class="row" style="font-family: Monospace">
+        <div class="col-2 text-right">{{ row.0 }}</div>
+        <div class="col-4">{{ row.1 }}</div>
+        <div class="col-2">{{ row.2 }}</div>
+        <div class="col-2">{{ row.3 }}</div>
+        <div class="col-2">{{ row.4 }}</div>
+      </div>
+      {% endfor  %}
+    </div>
+    <div class="col-sm-12 col-md-6 col-lg-3 col-xl-3 px-md-5 px-lg-3 px-xl-5">
+      <div class="row mb-2 text-secondary">
+        <div class="col-2">Decimal</div>
+        <div class="col-4">Binary</div>
+        <div class="col-2">Octal</div>
+        <div class="col-2">Hex</div>
+        <div class="col-2">ASCII</div>
+      </div>
+      {% for row in data|slice:"96:128"  %}
+      <div class="row" style="font-family: Monospace">
+        <div class="col-2 text-right">{{ row.0 }}</div>
+        <div class="col-4">{{ row.1 }}</div>
+        <div class="col-2">{{ row.2 }}</div>
+        <div class="col-2">{{ row.3 }}</div>
+        <div class="col-2">{{ row.4 }}</div>
+      </div>
+      {% endfor  %}
+    </div>
+  </div>
+</div>
+{% endblock %}

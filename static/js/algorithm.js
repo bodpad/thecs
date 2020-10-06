@@ -136,6 +136,10 @@ $('input[type="radio"]').on('change', function (event) {
 });
 
 
+$('.text-container table:not(.codehilitetable)').addClass(['table', 'table-sm', 'table-bordered']);
+$('.text-container thead').addClass(['thead-dark']);
+
+
 /**
  *
  * @type {*|jQuery}
@@ -161,13 +165,17 @@ $(window).on('scroll', function() {
 
 var observer = new IntersectionObserver(function (entries) {
     if (entries[0].isIntersecting) {
-        $articleHeader.removeClass('article-header_sticky');
-        $jumper.css({'width': '', 'opacity': ''});
-        $articleHeader.removeClass('py-2').addClass('py-4')
+        setTimeout(() => {
+            $articleHeader.removeClass('article-header_sticky');
+            $jumper.css({'width': '', 'opacity': ''});
+            $articleHeader.removeClass('py-2').addClass('py-4')
+        })
     } else {
-        $articleHeader.addClass('article-header_sticky');
-        $jumper.css({'width': $jumper.get(0).scrollWidth + 'px', 'opacity': '1'});
-        $articleHeader.removeClass('py-4').addClass('py-2')
+        setTimeout(() => {
+            $articleHeader.addClass('article-header_sticky');
+            $jumper.css({'width': $jumper.get(0).scrollWidth + 'px', 'opacity': '1'});
+            $articleHeader.removeClass('py-4').addClass('py-2')
+        })
     }
 }, {
     threshold: 1,
@@ -181,4 +189,38 @@ if ($('.star-ratings').length) {
     window.addEventListener("rate-success", function (e) {
         // console.log(e.detail);
     }, false);
+}
+
+/**
+ *
+ */
+var $triptych = $('.triptych');
+var $textContainer = $('.text-container');
+var $toc = $('.toc');
+
+if ($toc.length && $triptych.children().length === 1) {
+    var $tocClone = $toc.clone();
+    $tocClone.addClass('toc-sticky');
+    $toc.hide();
+    $textContainer.removeClass('col-12').addClass('col-8');
+    var $tocContainer = $(document.createElement('div'));
+    $tocContainer.addClass('col-4');
+    $tocContainer.append($tocClone);
+    $triptych.append($tocContainer);
+    // document.documentElement.style.setProperty('--somevar', 'green');
+
+    $('.toc a').on('click', function () {
+        setTimeout(function() {
+            window.scrollTo({
+                top: document.documentElement.scrollTop - $articleHeader.outerHeight(),
+                behavior: "smooth"
+            });
+        }, 50);
+    });
+}
+
+function copyLinkToClipBoard(button) {
+    new ClipboardJS(button, {
+        text: () => location.href
+    });
 }

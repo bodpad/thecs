@@ -35,5 +35,7 @@ urlpatterns = [
     path('preview/', views.preview),
     path('admin/', admin.site.urls),
     path('ratings/', include('star_ratings.urls', namespace='ratings')),
-    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap')
+    path('404/', views.page_not_found_view),
+    path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),
+    path('<path:clean_url>/', views.page, name='page'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

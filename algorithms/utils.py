@@ -12,13 +12,15 @@ def markdown2html(markdown_text: str):
             'nl2br',
             'footnotes',
             'attr_list',
+            'def_list',
             'codehilite',
             'pymdownx.tabbed',
-            'pymdownx.tilde'
+            'pymdownx.tilde',
+            'pymdownx.betterem',
+            'pymdownx.mark'
         ],
         extension_configs={}
     )
-    value = value.replace('<table>', '<table class="table table-sm table-bordered">')
-    value = value.replace('<thead>', '<thead class="thead-dark">')
+
     value = value.replace('<img', '<img loading=lazy')
     return value

@@ -1,11 +1,13 @@
 import os
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect
 from django.views.decorators.clickjacking import xframe_options_exempt
 from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_http_methods
+from django.template.loader import render_to_string
 from .utils import markdown2html
-from .models import Algorithm
+from .models import Algorithm, Page
 from django.conf import settings
 
 
@@ -23,7 +25,7 @@ def index(request):
     for obj in data_types:
         obj.set_language(request.LANGUAGE_CODE)
 
-    introduction = Algorithm.objects.get(id=14)
+    introduction = Page.objects.get(id=2)
     introduction.set_language(request.LANGUAGE_CODE)
 
     glossary = Algorithm.objects.get(id=16)
@@ -77,3 +79,50 @@ def preview(request):
     else:
         return render(request, 'preview.html')
 
+
+def page__1__context():
+    table = []
+    leg = [
+        'NUL', 'SOH', 'STX', 'ETX', 'EOT', 'ENQ', 'ACK', 'BEL', 'BS', 'HT', 'LF', 'VT', 'FF', 'CR', 'SO', 'SI', 'DLE',
+        'DC1', 'DC2', 'DC3', 'DC4', 'NAK', 'SYN', 'ETB', 'CAN', 'EM', 'SUB', 'ESC', 'FS', 'GS', 'RS', 'US',
+        'SP', '!', '"', '#', '$', '%', '&', '\'', '(', ')', '*', '+', ',', '-', '.', '/', '0', '1', '2', '3', '4', '5',
+        '6', '7', '8', '9', ':', ';', '<', '=', '>', '?',
+        '@', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U',
+        'V', 'W', 'X', 'Y', 'Z', '[', '\\', ']', '^', '_',
+        '`', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+        'v', 'w', 'x', 'y', 'z', '{', '|', '}', '~', 'DEL'
+    ]
+    for i in range(128):
+        table.append([
+            str(i),
+            '{:08b}'.format(i),
+            '{:03o}'.format(i),
+            '{:02x}'.format(i).upper(),
+            leg[i]
+        ])
+    return table
+
+
+@require_http_methods(["GET"])
+def page(request, clean_url):
+    try:
+        p = Page.objects.get(clean_url=clean_url)
+    except Page.DoesNotExist:
+        raise Http404()
+
+    p.set_language(request.LANGUAGE_CODE)
+
+    template = [f'page--{p.id}.html', 'page.html']
+
+    context = {'object': p}
+    context_callback = f'page__{p.id}__context'
+    if globals().get(context_callback):
+        context['data'] = globals()[context_callback]()
+
+    response = render_to_string(template, context, request)
+    return HttpResponse(response)
+
+
+@require_http_methods(["GET"])
+def page_not_found_view(request):
+    return render(request, '404.html')

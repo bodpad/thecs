@@ -3,12 +3,14 @@
 /**
  * Reset
  */
-pre > code {
-  font-family: "Sans Mono", "Consolas", "Courier", monospace;
-}
 
 .breadcrumb {
   padding: 0.45rem 1rem;
+}
+
+mark {
+  background-color: yellow!important;
+  color: black!important;
 }
 
 // Fix icon in the group
@@ -22,6 +24,10 @@ text {
 
 pre {
   margin-bottom: 0;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
 }
 
 /**
@@ -285,14 +291,30 @@ a[href^="https://"]:not([href*="thecs.org"]):not([href*="localhost"]):after {
   content: " " url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAVklEQVR4Xn3PgQkAMQhDUXfqTu7kTtkpd5RA8AInfArtQ2iRXFWT2QedAfttj2FsPIOE1eCOlEuoWWjgzYaB/IkeGOrxXhqB+uA9Bfcm0lAZuh+YIeAD+cAqSz4kCMUAAAAASUVORK5CYII=);
 }
 
-.toc {
-  background-color: #e6f4ea;
-  border-radius: 8px;
-  padding: 2rem 4rem;
-  margin-bottom: 1rem;
-  ul {
+.toc-sticky {
+  padding: 2rem;
+  position: sticky;
+  background: #f6f6f6;
+  top: 80px;
+  border-radius: 4px;
+  & > ul {
     margin: 0;
     padding: 0;
+    list-style-type: none;
+  }
+  ul ul {
+    margin-top: 16px;
+  }
+  li {
+    margin-bottom: 15px;
+    line-height: 1.1rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  a {
+    font-size: .9rem;
+    color: #555;
   }
 }
 
@@ -316,5 +338,32 @@ a[href^="https://"]:not([href*="thecs.org"]):not([href*="localhost"]):after {
   }
   &-danger:before {
     background-image: url("data:image/svg+xml,%3Csvg width='1.4em' height='1.4em' viewBox='0 0 16 16' class='bi bi-exclamation-octagon-fill' fill='crimson' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' d='M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353L11.46.146zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z'/%3E%3C/svg%3E");
+  }
+}
+
+.stdout {
+  background: #333;
+  padding: 4px;
+  color: #fff;
+  position: relative;
+  line-height: 1.1;
+  font-size: 0.9rem;
+  min-height: 200px;
+  code {
+    white-space: pre;
+    color: #fff;
+  }
+  &:before {
+    content: attr(title-prefix) " Output " attr(title-postfix);
+    display: block;
+    padding: 5px;
+    background: #eee;
+    margin: -4px -4px 2px -4px;
+    color: #333;
+  }
+  &:after {
+    content: "Program ended with exit code: 0";
+    font-family: $font-family-monospace;
+    font-size: 87.5%;
   }
 }

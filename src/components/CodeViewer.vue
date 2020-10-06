@@ -30,10 +30,11 @@
       </a>
 
       <button
+          v-if="clipboardIsSupported"
           type="button"
           class="btn btn-secondary btn-sm ml-1"
           :disabled="!implementation.sourcecode"
-          v-clipboard:copy="implementation.sourcecode">
+          v-on:click="copyToClipBoard">
         <b-icon-clipboard></b-icon-clipboard>
       </button>
 
@@ -71,9 +72,8 @@ import Component from 'vue-class-component';
 import {BaseComponent} from '../utils/base-component';
 import hljs from 'highlight.js';
 import {BIconDownload, BIconClipboard} from 'bootstrap-vue';
-import VueClipboard from 'vue-clipboard2';
 
-Vue.use(VueClipboard)
+declare const ClipboardJS: any;
 
 Vue.component('BIconDownload', BIconDownload);
 Vue.component('BIconClipboard', BIconClipboard);
@@ -192,13 +192,15 @@ export default class CodeViewer extends BaseComponent {
     }
   }
 
-  created() {
+  created()
+  {
     this.implementations = JSON.parse(document.getElementById('algorithm-implementations-data').textContent);
     this.implementation = this.implementations[0];
     this.getImplementation(this.implementation);
   }
 
-  mounted() {
+  mounted()
+  {
     const codeStyle = localStorage.getItem('hljsTheme') ?
         localStorage.getItem('hljsTheme') :
         this.themes[0];
@@ -206,7 +208,22 @@ export default class CodeViewer extends BaseComponent {
     this.setCodeStyle(codeStyle);
   }
 
-  setCodeStyle(theme: string) {
+  copyToClipBoard(e: any)
+  {
+    const button = e.target.closest('button');
+    new ClipboardJS(button, {
+      container: this.$el,
+      text: () => this.implementation.sourcecode
+    });
+  }
+
+  get clipboardIsSupported(): boolean
+  {
+    return ClipboardJS.isSupported();
+  }
+
+  setCodeStyle(theme: string)
+  {
     this.selectedTheme = theme;
     localStorage.setItem('hljsTheme', theme);
 
@@ -228,7 +245,8 @@ export default class CodeViewer extends BaseComponent {
     }
   }
 
-  async getImplementation(implementation: Implementation) {
+  async getImplementation(implementation: Implementation)
+  {
     this.implementation = implementation;
     const resp = await this.$http.get(`${location.pathname}${implementation.extension}/`);
     Vue.set(this.implementation, 'sourcecode', resp.data);
