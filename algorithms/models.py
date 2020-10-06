@@ -25,7 +25,7 @@ class BaseArticle(models.Model):
 
     title_en = models.CharField(max_length=255)
     title_ru = models.CharField(max_length=255)
-    clean_url = models.CharField(max_length=255)
+    path = models.CharField(max_length=255)
     text_en = models.TextField(null=True, blank=True)
     text_ru = models.TextField(null=True, blank=True)
     description_en = models.CharField(max_length=255, null=True, blank=True)
@@ -41,7 +41,7 @@ class BaseArticle(models.Model):
         super(BaseArticle, self).save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return "/article/%s/" % self.clean_url
+        return "/article/%s/" % self.path
 
     def get_language(self):
         return self._language_code
@@ -76,7 +76,7 @@ class BaseArticle(models.Model):
 
 class Page(BaseArticle):
     def get_absolute_url(self):
-        return "/%s/" % self.clean_url
+        return "/%s/" % self.path
 
 
 class Algorithm(BaseArticle):
@@ -89,7 +89,7 @@ class Algorithm(BaseArticle):
     playground = models.CharField(max_length=255, choices=PLAYGROUND_CHOICE(), null=True, blank=True)
 
     def get_absolute_url(self):
-        return "/cs/%s/" % self.clean_url
+        return "/cs/%s/" % self.path
 
     @property
     def has_playground(self):
@@ -110,7 +110,7 @@ class Algorithm(BaseArticle):
             "ts": "TypeScript",
             "js": "JavaScript",
         }
-        pathname = os.path.join(settings.BASE_DIR, 'implementations', f'{self.clean_url}.*')
+        pathname = os.path.join(settings.BASE_DIR, 'implementations', f'{self.path}.*')
         files = glob.glob(pathname)
         if not files: return None
         output = []

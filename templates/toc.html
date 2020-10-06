@@ -15,7 +15,7 @@
         {% for item in data_structures %}
           <div class="row align-items-center">
             <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
-              <a href="{% url 'cs' item.clean_url %}">{{item.title_en}}</a>
+              <a href="{% url 'cs' item.path %}">{{item.title_en}}</a>
             </div>
             {% if not LANGUAGE_CODE == 'en' %}
               <div class="col-6 text-12 text-secondary">
@@ -30,7 +30,7 @@
         {% for item in data_types %}
           <div class="row align-items-center">
             <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
-              <a href="{% url 'cs' item.clean_url %}">{{item.title_en}}</a>
+              <a href="{% url 'cs' item.path %}">{{item.title_en}}</a>
             </div>
             {% if not LANGUAGE_CODE == 'en' %}
             <div class="col-6 text-12 text-secondary">
@@ -45,7 +45,7 @@
         {% for item in algorithms %}
           <div class="row align-items-center">
             <div class="col-{% if LANGUAGE_CODE == 'en' %}12{% else %}6{% endif %}">
-              <a href="{% url 'cs' item.clean_url %}">{{item.title_en}}</a>
+              <a href="{% url 'cs' item.path %}">{{item.title_en}}</a>
             </div>
             {% if not LANGUAGE_CODE == 'en' %}
             <div class="col-6 text-12 text-secondary">

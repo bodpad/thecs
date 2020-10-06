@@ -41,8 +41,8 @@ def index(request):
     return render(request, 'index.html', context)
 
 
-def cs(request, clean_url):
-    object = Algorithm.objects.get(clean_url=clean_url)
+def cs(request, path):
+    object = Algorithm.objects.get(path=path)
     object.set_language(request.LANGUAGE_CODE)
     context = {
         "object": object
@@ -58,9 +58,9 @@ def toc(request):
     return redirect('index')
 
 
-def implementation(request, clean_url, extension):
+def implementation(request, path, extension):
     try:
-        file = f"{clean_url}.{extension}"
+        file = f"{path}.{extension}"
         f = open(os.path.join(settings.BASE_DIR, 'implementations', file), 'rb')
         response = HttpResponse(f)
         response['content-disposition'] = f'attachment; filename="{file}"'
@@ -104,9 +104,9 @@ def page__1__context():
 
 
 @require_http_methods(["GET"])
-def page(request, clean_url):
+def page(request, path):
     try:
-        p = Page.objects.get(clean_url=clean_url)
+        p = Page.objects.get(path=path)
     except Page.DoesNotExist:
         raise Http404()
 

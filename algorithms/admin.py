@@ -4,7 +4,7 @@ from .models import Algorithm, Page
 
 @admin.register(Algorithm)
 class AlgorithmAdmin(admin.ModelAdmin):
-    list_display = ('title_en', 'title_ru', 'clean_url', 'tag_list', 'playground', 'published')
+    list_display = ('title_en', 'title_ru', 'path', 'tag_list', 'playground', 'published')
     list_filter = ('entity',)
 
     def tag_list(self, obj):
@@ -23,7 +23,7 @@ class AlgorithmAdmin(admin.ModelAdmin):
 
 @admin.register(Page)
 class PageAdmin(admin.ModelAdmin):
-    list_display = ('title_en', 'title_ru', 'clean_url', 'published')
+    list_display = ('title_en', 'title_ru', 'path', 'published')
 
 
 
